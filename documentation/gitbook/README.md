@@ -10,7 +10,7 @@ description: >-
 
 ## <mark style="color:red;">Historia do Kubernetes</mark>
 
-Começada em 2003 com o lançamento da ferramenta Google Borg Container Orchestration System, que é um gerenciador de cluster usado pelo Google.&#x20;
+Começada em 2003 com o lançamento da ferramenta Google Borg (Container Orchestration System), que é o Orchestrador de Serviços desenvolvido pela Google.&#x20;
 
 Necessitada de uma ferramenta mais robusta pois o Google Borg ainda hoje, implementa mais de 12 bilhões de aplicações por mês, surgindo assim o Kubernetes que foi introduzido em 2014 sendo uma ramificação do Borg, tornando - se a plataforma dominante a partir de 2019, hoje mantido pela Cloud Native Computing Foundation
 
