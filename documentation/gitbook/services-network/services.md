@@ -125,7 +125,7 @@ Expõe um serviço externo para ser acessado através do pod interno, por exempl
 
 #### <mark style="color:yellow;">Todos os recursos utilizados nesses exemplos, estarão disponibilizados no Github:</mark>
 
-{% embed url="https://github.com/danncastro/k8s-cka-exemples.git" %}
+{% @github-files/github-code-block %}
 
 ## <mark style="color:red;">ClusterIP</mark>&#x20;
 

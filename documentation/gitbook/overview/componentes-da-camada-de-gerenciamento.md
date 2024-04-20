@@ -24,6 +24,8 @@ Contudo, para simplificar, os scripts de configuração normalmente iniciam todo
 
 É o componente central que expõe a API do Kubernetes e serve como ponto de entrada para o cluster.
 
+> Toda ação que acontece dentro do Cluster, passa pela kube-apiserver, somente ela pode escrever as configurações do _"banco de dados"_ do Kubernetes(etcd)
+
 O servidor de **API** do Kubernetes valida e configura dados para os objetos presentes no cluster, que incluem `pods`, `serviços`, `controladores de replicação` e outros.
 
 O **API Server** atende às operações e fornece o **Frontend** para o estado compartilhado do cluster por meio do qual todos os outros componentes interagem.
@@ -47,6 +49,10 @@ Ele se destaca por ser o principal armazenamento de dados do Kubernetes, ele aju
 ## <mark style="color:red;">kube-schenduler</mark>&#x20;
 
 Faz o agendamento dos pods em nós apropriados com base em requisitos e restrições definidos, como recursos e afins.
+
+Ele recebe as requisições vindas do kube-apiserver, e gerência da melhor forma onde será instânciado a nova aplicação.&#x20;
+
+> Ele consulta o API Server para obter informações sobre os recursos do cluster e decide onde colocar os pods com base em políticas de agendamento.
 
 É um processo que atribui pods as nós (`nodes`). Ele determina quais são os posicionamentos válidos para cada pod na fila de agendamento de acordo com as restrições e os recursos disponíveis.&#x20;
 

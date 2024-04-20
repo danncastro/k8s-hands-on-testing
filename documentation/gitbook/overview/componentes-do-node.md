@@ -18,7 +18,11 @@ description: >-
 
 Um agente que é executado em cada [nó](https://kubernetes.io/pt-br/docs/concepts/architecture/nodes/) no cluster. Ele garante que os [contêineres](https://kubernetes.io/docs/concepts/containers/) estejam sendo executados em um [Pod](https://kubernetes.io/docs/concepts/workloads/pods/).
 
-> _Componente que executa em todas as máquinas do cluster e gerencia tarefas como a inicialização de pods e contêineres._
+> _Componente que executa em todas as máquinas do cluster e gerencia tarefas como a inicialização de pods e contêineres._ Ele é responsável por garantir que os contêineres estejam em execução nos nós, gerenciando os pods e fornecendo informações sobre a saúde dos nós de volta ao kube-apiserver.
+
+{% hint style="info" %}
+O kubelet só entra em cena quando o kube-scheduler já decidiu onde agendar um pod e precisa garantir que o pod esteja em execução no nó correspondente.
+{% endhint %}
 
 O kubelet utiliza um conjunto de `PodSpecs` que são fornecidos por vários mecanismos e garante que os contêineres descritos nesses `PodSpecs` estejam funcionando corretamente.&#x20;
 

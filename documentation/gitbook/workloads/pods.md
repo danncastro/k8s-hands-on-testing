@@ -45,9 +45,7 @@ Um pod é semelhante a um conjunto de contêineres com namespaces e volumes de s
 
 #### <mark style="color:yellow;">Todos os exemplos de pods estarão disponibilizados no Github:</mark>
 
-{% embed url="https://github.com/danncastro/k8s-cka-exemples.git" %}
-As nomenclaturas dos recursos são: recurso\_nome-metadata
-{% endembed %}
+[https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cka\_exemples/pods](https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cka\_exemples/pods)
 
 ### <mark style="color:red;">Criando Pods -  Imperative Form</mark>
 
