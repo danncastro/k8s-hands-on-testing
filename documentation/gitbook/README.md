@@ -1,10 +1,12 @@
 ---
 description: >-
   Kubernetes é uma ferramenta de orquestração de containers criado pelo google
-  em 2014. Deu certo
+  em 2014.
 ---
 
 # Kubernetes
+
+<figure><img src=".gitbook/assets/image (23).png" alt=""><figcaption><p>Fonte: https://kubernetes.io/pt-br/docs/tutorials/kubernetes-basics</p></figcaption></figure>
 
 ***
 
@@ -69,16 +71,9 @@ Também vemos alguns termos como `k3s` e `k0s` quando falamos de Kubernetes, est
 
 ### <mark style="color:red;">O que é um orquestrador de containers</mark>
 
-<figure><img src=".gitbook/assets/image (23).png" alt=""><figcaption><p>Fonte: https://kubernetes.io/pt-br/docs/tutorials/kubernetes-basics</p></figcaption></figure>
-
 Sistema de automatização, visa, automatizar todo o ciclo de vida dos  containers e da aplicação e estão focados em:
 
-* Implantação
-* Provisionamento
-* Networking
-* Dimensionamento
-* Disponibilidade
-* Gerenciamento do ciclo de vida dos containers
+<figure><img src=".gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -121,11 +116,10 @@ Sistema de automatização, visa, automatizar todo o ciclo de vida dos  containe
 
 #### <mark style="color:yellow;">Escalabilidade -> Services/Applications</mark>
 
-1. YAML/Json Manifest files
-2. Escala declarativa
-3. Cluster scale support
-4. Service-based decoupling for teams
-5.  Separation of Responsibilities Concept
+<figure><img src=".gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
+1. Service-based decoupling for teams
+2.  Separation of Responsibilities Concept
 
     1. Desenvolvedores (Dev)
     2. Administradores K8s (Ops)
