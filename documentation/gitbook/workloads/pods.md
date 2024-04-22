@@ -309,11 +309,14 @@ Você pode usar recursos de carga de trabalho para criar e gerenciar vários pod
 
 Por exemplo, se um nó falhar, um controlador perceberá que os pods naquele nó pararam de funcionar e criará um pod substituto. O agendador coloca o pod substituto em um nó íntegro.
 
+> _No caso das Pods, seu controlador é o ReplicaSet_
+
 Aqui estão alguns exemplos de recursos de carga de trabalho que gerenciam um ou mais pods:
 
 * [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
 * [StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)
 * [DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset)
+* [ReplicasSet](https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/)
 
 ***
 
