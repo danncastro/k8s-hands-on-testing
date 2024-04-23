@@ -1,10 +1,10 @@
 ---
 description: >-
-  O ambiente de gerenciamento, cuida dos nós de processamento workers e os pods
-  dentro de um cluster.
+  Os componentes da camada de gerenciamento tomam decisões globais sobre o
+  cluster, bem como detectam e respondem aos eventos do cluster.
 ---
 
-# Componentes da Camada de Gerenciamento
+# Camada de Gerenciamento
 
 {% embed url="https://kubernetes.io/pt-br/docs/concepts/overview/components/#componentes-da-camada-de-gerenciamento" %}
 
@@ -12,11 +12,7 @@ description: >-
 Em ambientes de produção, o ambiente de gerenciamento é geralmente executado em múltiplos computadores, provendo tolerância a falhas e alta disponibilidade.
 {% endhint %}
 
-Os componentes da camada de gerenciamento tomam decisões globais sobre o cluster, bem como detectam e respondem aos eventos do cluster.&#x20;
-
-> _Podem ser executados em qualquer máquina do cluster._&#x20;
-
-Contudo, para simplificar, os scripts de configuração normalmente iniciam todos os componentes da camada de gerenciamento na mesma máquina.
+> _Podem ser executados em qualquer máquina do cluster. Contudo, para simplificar, os scripts de configuração normalmente iniciam todos os componentes da camada de gerenciamento na mesma máquina._
 
 ***
 
@@ -52,6 +48,8 @@ Faz o agendamento dos pods em nós apropriados com base em requisitos e restriç
 
 Ele recebe as requisições vindas do kube-apiserver, e gerência da melhor forma onde será instânciado a nova aplicação.&#x20;
 
+<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
 > Ele consulta o API Server para obter informações sobre os recursos do cluster e decide onde colocar os pods com base em políticas de agendamento.
 
 É um processo que atribui pods as nós (`nodes`). Ele determina quais são os posicionamentos válidos para cada pod na fila de agendamento de acordo com as restrições e os recursos disponíveis.&#x20;
@@ -67,6 +65,8 @@ Responsável por gerenciar os controladores que regulam o estado desejado do sis
 No Kubernetes, um controlador é um loop que observa o estado compartilhado do cluster por meio do `kube-apiserver` e faz alterações tentando mover o estado atual para o estado desejado.
 
 > _Executa todas as operações de gerenciamento para manter a disponibilidade do cluster._
+
+<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 ***
 

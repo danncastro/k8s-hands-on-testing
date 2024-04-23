@@ -3,12 +3,12 @@
 * [Kubernetes](README.md)
   * [Sumário](kubernetes/sumario.md)
 
-## Overview
+## Componentes Kubernetes
 
-* [Componentes do Kubernetes](overview/componentes-do-kubernetes.md)
-* [Componentes da Camada de Gerenciamento](overview/componentes-da-camada-de-gerenciamento.md)
-* [Componentes do Node](overview/componentes-do-node.md)
-* [Componentes YAML](overview/componentes-yaml.md)
+* [Cluster Kubernetes](componentes-kubernetes/cluster-kubernetes.md)
+* [Camada de Gerenciamento](componentes-kubernetes/camada-de-gerenciamento.md)
+* [Camada de Nodes](componentes-kubernetes/camada-de-nodes.md)
+* [Arquivos YAML](componentes-kubernetes/arquivos-yaml.md)
 
 ## Cluster Local
 

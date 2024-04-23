@@ -4,11 +4,7 @@ description: >-
   execução e fornecendo o ambiente de execução do Kubernetes.
 ---
 
-# Componentes do Node
-
-## <mark style="color:red;">Glossário</mark>
-
-{% embed url="https://kubernetes.io/pt-br/docs/reference/glossary/?all=true#term-cluster" %}
+# Camada de Nodes
 
 ***
 
@@ -16,15 +12,13 @@ description: >-
 
 {% embed url="https://kubernetes.io/pt-br/docs/concepts/overview/components/#node-components" %}
 
-Um agente que é executado em cada [nó](https://kubernetes.io/pt-br/docs/concepts/architecture/nodes/) no cluster. Ele garante que os [contêineres](https://kubernetes.io/docs/concepts/containers/) estejam sendo executados em um [Pod](https://kubernetes.io/docs/concepts/workloads/pods/).
+Agente de execução em cada [nó](https://kubernetes.io/pt-br/docs/concepts/architecture/nodes/) do cluster. Ele é responsável por garantir que os contêineres estejam em execução nos nós, gerenciando os pods e fornecendo informações sobre a saúde dos nós de volta ao `kube-apiserver`.
 
-> _Componente que executa em todas as máquinas do cluster e gerencia tarefas como a inicialização de pods e contêineres._ Ele é responsável por garantir que os contêineres estejam em execução nos nós, gerenciando os pods e fornecendo informações sobre a saúde dos nós de volta ao kube-apiserver.
+> _Componente que executa em todas as máquinas do cluster e gerencia tarefas como a inicialização de pods e contêineres._  Em cada worker-node deverá existir um agente Kubelet em execução.&#x20;
 
 {% hint style="info" %}
 O kubelet só entra em cena quando o kube-scheduler já decidiu onde agendar um pod e precisa garantir que o pod esteja em execução no nó correspondente.
 {% endhint %}
-
-O kubelet utiliza um conjunto de `PodSpecs` que são fornecidos por vários mecanismos e garante que os contêineres descritos nesses `PodSpecs` estejam funcionando corretamente.&#x20;
 
 {% hint style="warning" %}
 O kubelet não gerencia contêineres que não foram criados pelo Kubernetes.
@@ -34,31 +28,22 @@ O kubelet não gerencia contêineres que não foram criados pelo Kubernetes.
 
 ***
 
-* Em cada worker-node deverá existir um agente Kubelet em execução.&#x20;
-
-***
-
 * O Kubelet é responsável por de fato gerenciar os pods, que foram direcionados pelo `controller` do cluster dentro dos nós, de forma que para isto o Kubelet pode **iniciar, parar e manter os contêineres e os pods em funcionamento** de acordo com o que foi instruído pelo controlador do cluster;
 
 ***
 
 ## <mark style="color:red;">kube-proxy</mark>&#x20;
 
-Mantém regras de rede no host e lida com o balanceamento de carga de serviços.
-
-kube-proxy é um _proxy_ de rede executado em cada [nó](https://kubernetes.io/pt-br/docs/concepts/architecture/nodes/) no _cluster_, implementando parte do conceito de [serviço](https://kubernetes.io/docs/concepts/services-networking/service/) do Kubernetes.
+kube-proxy é a implementação de um _proxy_ de rede executado em cada [nó](https://kubernetes.io/pt-br/docs/concepts/architecture/nodes/) no _cluster_, viabilizando parte do conceito de [serviço](https://kubernetes.io/docs/concepts/services-networking/service/) do Kubernetes atuando na comunicação de rede com os pods, dentro e fora do Cluster.
 
 * Este componente é responsável por efetuar roteamento de requisições para os pods corretos, como também por cuidar da parte de rede dos nós;
-
-[kube-proxy](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-proxy/) mantém regras de rede nos nós. Estas regras de rede permitem a comunicação de rede com seus _pods_ a partir de sessões de rede dentro ou fora de seu _cluster_.
-
-kube-proxy usa a camada de filtragem de pacotes do sistema operacional se houver uma e estiver disponível. Caso contrário, o kube-proxy encaminha o tráfego para ele mesmo.
+* [kube-proxy](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-proxy/) mantém regras de rede no host e lida com o balanceamento de carga de serviços.
 
 ***
 
 ## <mark style="color:red;">Container Runtime</mark>&#x20;
 
-O agente de execução (_runtime_) de contêiner é o software responsável por executar os contêineres. É o ambiente de execução de contêineres necessário para o funcionamento do k8s.&#x20;
+É o ambiente de execução de contêineres necessário para o funcionamento do k8s.&#x20;
 
 {% hint style="info" %}
 **Observação:** O Kubernetes não executa containers, quem faz esse trabalho é o "`Container runtime`"
@@ -106,7 +91,7 @@ Alguns exemplos de recursos:
 
 ***
 
-#### <mark style="color:yellow;">Kubernetes: Principais Comandos</mark> <a href="#firstheading" id="firstheading"></a>
+#### <mark style="color:blue;">Kubernetes: Principais Comandos</mark> <a href="#firstheading" id="firstheading"></a>
 
 {% embed url="https://ebasso.net/wiki/index.php?title=Kubernetes:_Principais_Comandos" %}
 

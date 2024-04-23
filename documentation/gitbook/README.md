@@ -22,7 +22,7 @@ Necessitada de uma ferramenta mais robusta pois o Google Borg ainda hoje, implem
 
 Sistema open source utilizado para implantação, automatização de `deployments`, escalonamento e gerenciamento de aplicativos em contêineres, também conhecido pelas abreviaturas `k8s` ou `kube`.
 
-> O nome _**k8s**_ é uma abreviação de **"Kubernetes"**, sendo `k` + `8 letras` + `s`.
+> _O nome **k8s** é uma abreviação de **"Kubernetes"**, sendo `k` + `8 letras` + `s`._
 
 Isso por que nos anos 80 os programadores eram "preguiçosos" e gostavam de abreviar as palavras baseando sempre em primeira letra, ultima letra e o numero de letras entre eles.
 
@@ -36,8 +36,6 @@ A palavra "Kubernetes", faz alusão a um navio cargueiro;
 
 <figure><img src=".gitbook/assets/image (28).png" alt=""><figcaption></figcaption></figure>
 
-***
-
 * Muitos dos contextos e termos do k8s incluindo o logotipo com 7 Malaguetas, uma foi uma homenagem á personagem da série Star Trek "projeto Seven of Nine", e Borg também é uma homenagem a série pois significa:  "Organismo cibernético de Star Trek."
 
 K8s ajuda a organizar e administrar aplicações em ambientes onde existem dezenas e até milhares de containers. As aplicações podem estar em diferentes ambientes de implementação:
@@ -47,9 +45,7 @@ K8s ajuda a organizar e administrar aplicações em ambientes onde existem dezen
 * Cloud Pública
 * Cloud Híbrida
 
-***
-
-#### <mark style="color:yellow;">Alguns Exemplos de termos abreviados:</mark>
+#### <mark style="color:blue;">Alguns Exemplos de termos abreviados:</mark>
 
 * Kubernetes `(k8s)`
 * Internationalization `(i18n)`
@@ -58,8 +54,6 @@ K8s ajuda a organizar e administrar aplicações em ambientes onde existem dezen
 * Localizability `(l12y)`
 
 Também vemos alguns termos como `k3s` e `k0s` quando falamos de Kubernetes, estes se referem a distribuições de Kubernetes.
-
-***
 
 * [K3s](https://k3s.io/) - Distribuição com foco em ter a metade do tamanho em consumo de memória. Kubernetes é uma palavra de 10 letras estilizada como k8s. Portanto, algo com a metade do tamanho do Kubernetes seria uma palavra de 5 letras estilizada como K3s.
 
@@ -71,73 +65,74 @@ Também vemos alguns termos como `k3s` e `k0s` quando falamos de Kubernetes, est
 
 ### <mark style="color:red;">O que é um orquestrador de containers</mark>
 
-Sistema de automatização, visa, automatizar todo o ciclo de vida dos  containers e da aplicação e estão focados em:
+São sistemas de automatização, e visam automatizar todo o ciclo de vida dos containers e da aplicação e estão focados em:
 
-<figure><img src=".gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+* Implantação
+* Provisionamento
+* Networking
+* Dimensionamento
+* Disponibilidade
+* Gerenciamento do ciclo de vida dos containers
 
-***
-
-### <mark style="color:red;">Quais necessidades de uma ferramenta de orquestração de containers?</mark>
+#### <mark style="color:blue;">Quais necessidades de uma ferramenta de orquestração de containers?</mark>
 
 * Migração de aplicações monolíticas para microsserviços;
 * Disponibilidade da aplicação _(diminuição do downtime)_
 * Escalabilidade e alta performance;
 * Recuperação de desastre _**(Backup/Restore)**_
 
-***
-
-#### _<mark style="color:yellow;">**Alguns Orquestradores além do Kubernetes**</mark>_
+#### _<mark style="color:blue;">**Alguns Orquestradores além do Kubernetes**</mark>_
 
 <figure><img src=".gitbook/assets/image (31).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
-## <mark style="color:red;">Características do K8s</mark>
+### <mark style="color:red;">Características do K8s</mark>
 
-#### <mark style="color:yellow;">Imutabilidade Kubernetes</mark>
+#### <mark style="color:blue;">Imutabilidade Kubernetes</mark>
 
-1. Princípios da infraestrutura imutável
-2. Substituir um objeto criado
-3. Incremento de segurança contra indisponibilidade
+* Princípios da infraestrutura imutável
+* Substituir um objeto criado
+* Incremento de segurança contra indisponibilidade
 
-***
+#### <mark style="color:blue;">Disponibilidade do K8s</mark>
 
-#### <mark style="color:yellow;">Disponibilidade do K8s</mark>
+* Configuração declarativa (Arquivos)
+  * Comandos imperativos (Ações no terminal)
+  * Configurações declarativas (Estado)
+* Self-Healing System
+* Autoscale Up/Down
+* DevOps Automation Tool
+* Fault Protection (Ações preventivas)
 
-1. Configuração declarativa (Arquivos)
-   1. Comandos imperativos (Ações no terminal)
-   2. Configurações declarativas (Estado)
-2. Self-Healing System
-3. Autoscale Up/Down
-4. DevOps Automation Tool
-5. Fault Protection (Ações preventivas)
+#### <mark style="color:blue;">Escalabilidade -> Services/Applications</mark>
 
-***
-
-#### <mark style="color:yellow;">Escalabilidade -> Services/Applications</mark>
-
-<figure><img src=".gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
-
-1. Service-based decoupling for teams
-2.  Separation of Responsibilities Concept
-
-    1. Desenvolvedores (Dev)
-    2. Administradores K8s (Ops)
+* YAML/JSON manifest files
+* Escala declarativa
+* Cluster Scale Support
+* Service-based decoupling for teams
+* Separation of Responsibilities Concept
+  * Desenvolvedores (Dev)
+  * Administradores K8s (Ops)
 
 
 
-    <figure><img src=".gitbook/assets/image (35).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (35).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
-#### <mark style="color:yellow;">Abstração de Infraestrutura</mark>
+#### <mark style="color:blue;">Abstração de Infraestrutura</mark>
 
 Possibilidades para criações de Clusters
 
-1. Cloud Abstraction
-2. Bare metal
-3. Virtual Machines
-4. Kind
-5. Raspberry Pi
+* Cloud Abstraction
+* Bare metal
+* Virtual Machines
+* Kind
+* Raspberry Pi
 
 ***
+
+### <mark style="color:red;">Glossário</mark>
+
+{% embed url="https://kubernetes.io/pt-br/docs/reference/glossary/?all=true#term-cluster" %}

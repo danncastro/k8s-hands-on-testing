@@ -8,6 +8,14 @@ description: >-
 
 {% embed url="https://kubernetes.io/docs/concepts/workloads/pods/" %}
 
+***
+
+## <mark style="color:red;">O que é um pod?</mark> <a href="#what-is-a-pod" id="what-is-a-pod"></a>
+
+{% hint style="info" %}
+**Observação:** você precisa instalar um [ambiente de execução de contêiner](https://kubernetes.io/docs/setup/production-environment/container-runtimes/) em cada nó do cluster para que os pods possam ser executados nele.
+{% endhint %}
+
 Pods são as menores unidades de computação implantáveis ​​que você pode criar e gerenciar no Kubernetes.
 
 <figure><img src="../.gitbook/assets/image (21).png" alt=""><figcaption></figcaption></figure>
@@ -31,26 +39,16 @@ Containers em um mesmo pod se comunicam através de localhost.
 
 ***
 
-## <mark style="color:red;">O que é um pod?</mark> <a href="#what-is-a-pod" id="what-is-a-pod"></a>
-
 {% hint style="info" %}
-**Observação:** você precisa instalar um [ambiente de execução de contêiner](https://kubernetes.io/docs/setup/production-environment/container-runtimes/) em cada nó do cluster para que os pods possam ser executados nele.
-{% endhint %}
-
-O contexto compartilhado de um pod é um conjunto de Namespaces do Linux, cgroups e potencialmente outras facetas de isolamento - as mesmas coisas que isolam um [recipiente](https://kubernetes.io/docs/concepts/containers/). Dentro do contexto de um pod, os aplicativos individuais podem ter outros sub-isolamentos aplicados.
-
-Um pod é semelhante a um conjunto de contêineres com namespaces e volumes de sistema de arquivos compartilhados.
-
-***
-
-#### <mark style="color:yellow;">Todos os exemplos de pods estarão disponibilizados no Github:</mark>
+#### Todos os exemplos de pods estarão disponibilizados no Github:
 
 [https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cka\_exemples/pods](https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cka\_exemples/pods)
+{% endhint %}
 
 ### <mark style="color:red;">Criando Pods -  Imperative Form</mark>
 
 {% tabs %}
-{% tab title="Pod" %}
+{% tab title="Create Pod" %}
 ```bash
 kubectl get po -owide
 ```
@@ -73,15 +71,61 @@ kubectl get po -owide
 
 NAME                   READY    STATUS       RESTARTS     AGE        IP                 NODE
 
-pod-apache          1/1            Running       0                   49s        10.46.0.1      k8s-worker-node2
+pod-apache          1/1            Running       0                      49s        10.46.0.1      k8s-worker-node2
 {% endtab %}
 
-{% tab title="Deleted" %}
+{% tab title="Deleted Pod" %}
 ```bash
 kubectl delete po pod-apache
 ```
 
 pod/pod-apache deleted
+
+***
+
+```bash
+kubectl get po -owide
+```
+
+No resources found in default namespace.
+{% endtab %}
+
+{% tab title="Create Pods" %}
+```bash
+kubectl run pod-apache2 --image httpd
+```
+
+pod/pod-apache2 created
+
+***
+
+```bash
+kubectl run pod-apache3 --image httpd
+```
+
+pod/pod-apache3 created
+
+***
+
+```bash
+kubectl get po -owide
+```
+
+NAME                      READY    STATUS       RESTARTS     AGE       &#x20;
+
+pod-apache2          1/1            Running       0                      49s       &#x20;
+
+pod-apache3          1/1            Running       0                      49s       &#x20;
+{% endtab %}
+
+{% tab title="Delete all Pods" %}
+```bash
+kubectl delete --all pods
+```
+
+pod/pod-apache2 deleted
+
+pod/pod-apache3 deleted
 
 ***
 
@@ -98,12 +142,12 @@ No resources found in default namespace.
 ### <mark style="color:red;">Criando Pods - Manifest Files</mark>
 
 {% tabs %}
-{% tab title="Pod" %}
+{% tab title="Create Pod" %}
 ```bash
-kubectl apply -f k8s-cka-exemples/pod_first-pod.yml
+kubectl create -f k8s-cka-exemples/first_pod_webserver.yml
 ```
 
-pod/first-pod created
+pod/first-pod-webserver created
 
 ***
 
@@ -111,17 +155,17 @@ pod/first-pod created
 kubectl get po -owide
 ```
 
-NAME                   READY     STATUS       RESTARTS      AGE     IP                  NODE
+NAME                             READY     STATUS       RESTARTS      AGE     IP                  NODE
 
-first-pod               1/1            Running       0                     12s       10.32.0.2      k8s-worker-node1
+first-pod-webserver     1/1             Running       0                        12s       10.32.0.2      k8s-worker-node1
 {% endtab %}
 
-{% tab title="Deleted" %}
+{% tab title="Deleted Pod" %}
 ```bash
-kubectl delete po first-pod
+kubectl delete po -f k8s-cka-exemples/first_pod_webserver.yml
 ```
 
-pod "pod-webserver" deleted
+pod "first-pod-webserver" deleted
 
 ***
 
@@ -133,9 +177,7 @@ No resources found in default namespace.
 {% endtab %}
 {% endtabs %}
 
-#### <mark style="color:yellow;">Recursos de carga de trabalho para gerenciar pods</mark> <a href="#workload-resources-for-managing-pods" id="workload-resources-for-managing-pods"></a>
-
-Normalmente você não precisa criar pods diretamente, mesmo pods singleton. Em vez disso, crie-os usando recursos de carga de trabalho, como [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) or [Job](https://kubernetes.io/docs/concepts/workloads/controllers/job/). Se seus pods precisarem monitorar o estado, considere o recurso [StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/).
+#### <mark style="color:blue;">Recursos de carga de trabalho para gerenciar pods</mark> <a href="#workload-resources-for-managing-pods" id="workload-resources-for-managing-pods"></a>
 
 Os pods em um cluster Kubernetes são usados ​​de duas maneiras principais:
 
@@ -158,23 +200,15 @@ Consulte [Pods e controladores](https://kubernetes.io/docs/concepts/workloads/po
 
 ## <mark style="color:red;">Pod Multi Contêineres</mark> <a href="#how-pods-manage-multiple-containers" id="how-pods-manage-multiple-containers"></a>
 
-Os pods são projetados para oferecer suporte a vários processos cooperativos (como contêineres) que formam uma unidade de serviço coesa. Os contêineres em um pod são automaticamente colocalizados e co-agendados na mesma máquina física ou virtual do cluster.
+Os contêineres em um pod são automaticamente co-localizados e co-agendados na mesma máquina física ou virtual do cluster. Os contêineres podem compartilhar recursos e dependências, comunicar-se entre si e coordenar quando e como serão encerrados.
 
-> Os contêineres podem compartilhar recursos e dependências, comunicar-se entre si e coordenar quando e como serão encerrados.
-
-Por exemplo, você pode ter um contêiner que atua como um servidor web para arquivos em um volume compartilhado e um contêiner "sidecar" separado que atualiza esses arquivos de uma fonte remota, como no diagrama a seguir:
-
-<figure><img src="../.gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
-
-Alguns pods têm [init containers](https://kubernetes.io/docs/reference/glossary/?all=true#term-init-container) assim como [app containers](https://kubernetes.io/docs/reference/glossary/?all=true#term-app-container). Por padrão, os contêineres de inicialização são executados e concluídos antes dos contêineres de aplicativos serem iniciados.
+{% embed url="https://kubernetes.io/docs/concepts/workloads/pods/#how-pods-manage-multiple-containers" %}
 
 > Habilitar o [feature gate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/) `SidecarContainers`  permite que você especifique contêineres de inicialização `restartPolicy: Always.` Definir a política de reinicialização `Always`  garante que os contêineres de inicialização onde você a definiu continuem em execução durante toda a vida útil do pod.
 
 {% hint style="info" %}
 Consulte [Contêineres Sidecar e restartPolicy](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/#sidecar-containers-and-restartpolicy) para obter mais detalhes.
 {% endhint %}
-
-Os pods fornecem nativamente dois tipos de recursos compartilhados para seus contêineres constituintes: [rede](https://kubernetes.io/docs/concepts/workloads/pods/#pod-networking) e [armazenamento](https://kubernetes.io/docs/concepts/workloads/pods/#pod-storage)
 
 O principal motivo pelo qual os pods podem ter vários contêineres é para oferecer suporte a aplicativos auxiliares que auxiliam um aplicativo primário. Exemplos típicos de aplicativos auxiliares são data pullers, data pushers, and proxies. Aplicativos auxiliares e primários geralmente precisam se comunicar uns com os outros.&#x20;
 

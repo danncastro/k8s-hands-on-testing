@@ -5,31 +5,42 @@ description: >-
   alinhamento.
 ---
 
-# Componentes YAML
+# Arquivos YAML
 
 ***
 
-YAML significa -> "**Y**AML **A**int't **M**arkup **L**anguage"
+YAML significa -> "**Y**AML **A**int't **M**arkup **L**anguage" (YAML Não é uma Linguagem de Marcação)
 
 <figure><img src="../.gitbook/assets/image (39).png" alt=""><figcaption></figcaption></figure>
 
-1. Case sensitive
-2. UTF-8 ou UTF-16
-3. **Não se deve utilizar o tab**
+* Case sensitive
+* UTF-8 ou UTF-16
+* **Não se deve utilizar o tab**
 
 > _É necessário utilizar espaços em branco porque os caracteres de tabulação não são permitidos. Não há símbolos de formato comuns, como chaves, colchetes, tags de fechamento ou aspas._
 
-4. Os arquivos YAML têm a extensão **.yml** ou **.yaml**
+* Os arquivos YAML têm a extensão **.yml** ou **.yaml**
 
 <figure><img src="../.gitbook/assets/image (40).png" alt=""><figcaption></figcaption></figure>
 
+* HR - Human Readable
+* Melhor compreensão do que XML e JSON
+
+<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
 ***
 
-## <mark style="color:red;">apiVersion</mark>&#x20;
+## <mark style="color:red;">YAML Kubernetes Exemple</mark>
+
+<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+
+***
+
+### <mark style="color:red;">apiVersion</mark>&#x20;
 
 {% embed url="https://kubernetes.io/docs/reference/using-api/#api-versioning" %}
 
-Qual a versão de API do objeto que será usado no Kubernetes para criar esse objeto. API era uma única aplicação centralizada que foi dividida em diversas partes, por exemplo:&#x20;
+Qual a versão de API do Kubernetes que será usado para criar esse recurso. API era uma única aplicação centralizada que foi dividida em diversas partes, por exemplo:&#x20;
 
 > _a **versão alfa, a versão beta e a versão estável.**_&#x20;
 
@@ -51,23 +62,21 @@ Por exemplo ao criar um pod, o pod está dentro da versão estável da API, logo
 
 ***
 
-## <mark style="color:red;">Kind</mark>&#x20;
+### <mark style="color:red;">Kind</mark>&#x20;
 
-Qual tipo de objeto pretende criar.  Tipo de recurso que será executado.&#x20;
+Qual tipo de componente será utilizado.   Tipo de recurso que está sendo criado.
 
 > _Ex: (Pod, Deployment, Service... etc.)_
 
 ***
 
-## <mark style="color:red;">Metadata</mark>&#x20;
+### <mark style="color:red;">Metadata</mark>&#x20;
 
 Dados que ajudam a identificar de forma única o objeto, incluindo uma string `nome`, `UID` e um `namespace`.&#x20;
 
 > _Dados de informações sobre o recurso_
 
-***
-
-### <mark style="color:red;">Labels</mark>
+#### <mark style="color:blue;">Labels</mark>
 
 _Labels_ são pares chave/valor anexados a [objetos](https://kubernetes.io/docs/concepts/overview/working-with-objects/#kubernetes-objects) como pods. Os _Labels_ destinam-se a ser usados ​​para especificar atributos de identificação de objetos que são significativos e relevantes para os usuários, mas não implicam diretamente em semântica para o sistema central.
 
@@ -87,9 +96,9 @@ _Labels_ são pares chave/valor anexados a [objetos](https://kubernetes.io/docs/
 
 ***
 
-## <mark style="color:red;">Spec</mark>&#x20;
+### <mark style="color:red;">Spec</mark>&#x20;
 
-Que estado deseja para o objeto. Especificações do que ira conter no container.  O formato preciso do objeto `spec` é diferente para cada objeto Kubernetes, e contém campos aninhados específicos para aquele objeto.&#x20;
+Especificações do que ira conter no container.  O formato preciso do objeto `spec` é diferente para cada objeto Kubernetes, e contém campos aninhados específicos para aquele objeto.&#x20;
 
 * A documentação de [referência da API do Kubernetes](https://kubernetes.io/docs/reference/kubernetes-api/) pode ajudar a encontrar o formato de especificação para todos os objetos que você pode criar usando Kubernetes.
 
