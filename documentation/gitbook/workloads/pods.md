@@ -144,7 +144,7 @@ No resources found in default namespace.
 {% tabs %}
 {% tab title="Create Pod" %}
 ```bash
-kubectl create -f k8s-cka-exemples/first_pod_webserver.yml
+kubectl create -f k8s-cka-exemples/pods/first_pod_webserver.yml
 ```
 
 pod/first-pod-webserver created
@@ -162,7 +162,7 @@ first-pod-webserver     1/1             Running       0                        1
 
 {% tab title="Deleted Pod" %}
 ```bash
-kubectl delete po -f k8s-cka-exemples/first_pod_webserver.yml
+kubectl delete po -f k8s-cka-exemples/pods/first_pod_webserver.yml
 ```
 
 pod "first-pod-webserver" deleted
@@ -233,7 +233,7 @@ Através desse volume, o container `debian-container` irá popular o arquivo `/p
 {% tabs %}
 {% tab title="Multi-container" %}
 ```bash
-kubectl apply -f k8s-cka-exemples/pod_multi-container.yml
+kubectl apply -f k8s-cka-exemples/pods/pods_multi_container.yml
 ```
 
 pod/multi-container created
@@ -246,9 +246,9 @@ Veja que agora temos dois containers criados em um pod de nome `multi-containers
 kubectl get po -owide
 ```
 
-NAME                   READY    STATUS       RESTARTS      AGE      IP                  NODE
+NAME                              READY    STATUS       RESTARTS      AGE     IP                  NODE
 
-multi-container    1/1           Running       0                     80s       10.38.0.3      k8s-worker-node1
+pod-multi-container     1/1             Running      0                        80s      10.38.0.3     k8s-worker-node1
 {% endtab %}
 
 {% tab title="Stats" %}
@@ -298,7 +298,7 @@ spec:
 Vamos conectar ao container nginx através de um shell e verificar se o nginx está sendo executado
 
 ```bash
-kubectl exec -it multi-container -c nginx-container -- /bin/bash
+kubectl exec -it pod-multi-container -c nginx-container -- /bin/bash
 ```
 
 ***
@@ -307,7 +307,7 @@ kubectl exec -it multi-container -c nginx-container -- /bin/bash
 
 ***
 
-2. Este container auxiliar muitas das vezes é chamado de _sidecar_, normalmente é um extrator ou fornecedor de dados, ou até mesmo um proxy.
+2. Este container auxiliar muitas das vezes é chamado de _`sidecar`_, normalmente é um extrator ou fornecedor de dados, ou até mesmo um proxy.
 
 root@multi-container:/# curl localhost
 
@@ -320,7 +320,7 @@ root@multi-container:/# curl localhost
 Podemos agora remover nossos containers
 
 ```bash
-kubectl delete -f k8s-cka-exemples/pod_multi-container.yml
+kubectl delete -f k8s-cka-exemples/pods/pods_multi_container.yml
 ```
 {% endtab %}
 {% endtabs %}
@@ -367,7 +367,7 @@ O exemplo abaixo é um manifesto para um Job simples com um `template` que inici
 {% tabs %}
 {% tab title="Pod Templates" %}
 ```bash
-kubectl apply -f k8s-cka-exemples/job_template-pod.yml
+kubectl apply -f k8s-cka-exemples/pods/job_template_pod.yml
 ```
 {% endtab %}
 {% endtabs %}
@@ -472,7 +472,7 @@ Os contêineres init não são compatíveis com `lifecycle`, `livenessProbe`, `r
 
 ***
 
-#### <mark style="color:yellow;">Comportamento detalhado</mark> <a href="#detailed-behavior" id="detailed-behavior"></a>
+#### <mark style="color:blue;">Comportamento detalhado</mark> <a href="#detailed-behavior" id="detailed-behavior"></a>
 
 Durante a inicialização do pod, o kubelet atrasa a execução dos contêineres init até que a rede e o armazenamento estejam prontos. Em seguida, o kubelet executa os contêineres init do pod na ordem em que aparecem nas especificações do pod
 
@@ -486,14 +486,14 @@ Um pod não pode existir `Ready`  até que todos os contêineres de inicializaç
 
 ***
 
-#### <mark style="color:yellow;">Pod Initialization</mark>
+#### <mark style="color:blue;">Pod Initialization</mark>
 
 Este exemplo demonstra como usar um contêiner de inicialização para inicializar um pod antes da execução de um contêiner de aplicativo.
 
 {% tabs %}
 {% tab title="Pod init" %}
 ```bash
-kubectl apply -f k8s-cka-exemples/pod_init-pod.yml
+kubectl apply -f k8s-cka-exemples/pods/init_pod.yml
 ```
 
 pod/init-pod created
@@ -543,7 +543,7 @@ init-pod             1/1                              Running                   
 
 {% tab title="Deleted" %}
 ```bash
-kubectl delete -f k8s-cka-exemples/pod_init-pod.yml
+kubectl delete -f k8s-cka-exemples/pods/init_pod.yml
 ```
 
 pod "pod-init" deleted
