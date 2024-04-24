@@ -15,6 +15,7 @@ spec:
       containers:
       - name: container-nginx
         image: nginx
+
   selector:
     matchLabels:
       env: production
