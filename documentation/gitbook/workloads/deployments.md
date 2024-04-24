@@ -1,20 +1,35 @@
 ---
 description: >-
-  Deployments no kubernetes são utilizados para fornecer atualizações
-  declarativas para Pods e ReplicaSets
+  Deployment é uma abstração que gerencia um conjunto de réplicas de um
+  aplicativo, garantindo que o número desejado de réplicas esteja sempre em
+  execução e gerenciando a atualização dessas réplicas.
 ---
 
 # Deployments
 
 > `ReplicaSets` no kubernetes funcionam como `Replicas` do Docker Swarm
 
-Nós descrevemos um estado desejado em um deployment, e o controlador de Deployment modifica o estado atual para que seja alcançado o estado desejado.
 
-#### <mark style="color:yellow;">Responsável pela implantação da aplicação</mark>
+
+{% embed url="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/" %}
+
+***
+
+## <mark style="color:red;">About Deployment</mark>
+
+Um ponto interessante de um `deployment` é que o `replicaset` sempre tentará atingir o estado desejado dos `pods`. Ou seja, mesmo que os pods sejam deletados, o `replicaset` se encarregará de garantir o deployment dos mesmos.
+
+Essa é uma das grandes "magias" do kubernetes, e é uma das maiores "pegadinhas" para aqueles que não conhecem o funcionamento do mesmo e tentam apagar os pods porem eles continuam reaparecendo.
+
+{% hint style="info" %}
+Para remover nossos pods precisamos remover o deployment.
+{% endhint %}
+
+#### <mark style="color:blue;">Responsável pela implantação da aplicação</mark>
 
 Por default o Kubernetes utiliza a estratégia Rolling Updates (Rolling Release), que executa uma atualização baseada em um percentual de indisponibilidade de pods, que por padrão é ter no máximo 25% de indisponibilidade do total de pods em execução.
 
-<figure><img src="../.gitbook/assets/image (41).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (41).png" alt=""><figcaption><p>Estrategia Rolling Updates</p></figcaption></figure>
 
 Uma outra forma de implantação é a estratégia Recreate Deployment, mas não é recomendada pois isso pode causar uma indisponibilidade total da aplicação. Porém em ambas as estratégias utilizadas a sempre a possibilidade da utilização do Rollback, que retorna a aplicação ao estado anterior.
 
@@ -25,10 +40,10 @@ Uma outra forma de implantação é a estratégia Recreate Deployment, mas não 
 {% tabs %}
 {% tab title="Deployment" %}
 ```bash
-kubectl apply -f k8s-cka-exemples/deploy_first-deploy.yml
+kubectl apply -f k8s-cka-exemples/deployment/frontend_deploy.yml
 ```
 
-deployment.apps/first-deploy created
+deployment.apps/frontend-deploy created
 
 ***
 
@@ -38,60 +53,60 @@ deployment.apps/first-deploy created
 kubectl get deploy
 ```
 
-NAME                          READY               UP-TO-DATE                 AVAILABLE                    AGE
+NAME                                   READY               UP-TO-DATE                 AVAILABLE                    AGE
 
-first-deploy                 2/2                     2                                    2                                     15s
+frontend-deploy                 2/2                      2                                        2                                        15s
 
 ```bash
 kubectl get rs -owide
 ```
 
-NAME                                                   DESIRED          CURRENT              READY               AGE     &#x20;
+NAME                                                         DESIRED          CURRENT              READY               AGE     &#x20;
 
-first-deploy-7895bc4bdd                   2                       2                             2                       40s      &#x20;
+frontend-deploy-7895bc4bdd             2                         2                                2                          40s      &#x20;
 
 <pre class="language-bash"><code class="lang-bash"><strong>kubectl get po
 </strong></code></pre>
 
-NAME                                                        READY              STATUS            RESTARTS           AGE     &#x20;
+NAME                                                                   READY              STATUS            RESTARTS           AGE     &#x20;
 
-first-deploy-7895bc4bdd-c6xsb            1/1                     Running            0                          70s       &#x20;
+frontend-deploy-7895bc4bdd-c6xsb            1/1                       Running           0                             70s       &#x20;
 
-first-deploy-7895bc4bdd-dgbtl              1/1                     Running            0                          70s
+frontend-deploy-7895bc4bdd-dgbtl              1/1                       Running           0                             70s
 {% endtab %}
 
 {% tab title="Rollout" %}
 ```bash
-kubectl rollout status deployment.apps/first-deploy
+kubectl rollout status deployment.apps/frontend-deploy
 ```
 
-deployment "first-deploy" sucessfullt rolled out
+deployment "frontend-deploy" sucessfullt rolled out
 {% endtab %}
 
 {% tab title="Decribe" %}
 ```bash
-kubectl describe deployment.apps/first-deploy
+kubectl describe deploy frontend-deploy
 ```
 
-Name:                            first-deploy&#x20;
+Name:                            frontend-deploy
 
 Namespace:                  default
 
-CreationTimestamp       Fri, 11 Sep 2023 21:20:35  -0300     // Data de criação do recurso
+CreationTimestamp       Fri, 11 Sep 2023 21:20:35  -0300     // Data de criação do Deployment
 
-Labels:                            app=frontend                                     // Label relacionada ao recurso
+Labels:                            app=frontend                                     // Label relacionada ao Deployment
 
 Annotations:                   deployment.kubernetes.io/revision: 1
 
 Selector:                         env=production                                   // Label relacionada ao pod
 
-Replicas:                         4  desired  |  4 updated  |  4 total  |  4 available  |  0 unavai
+Replicas:                         2  desired  |  2 updated  |  2 total  |  2 available  |  0 unavai
 
 <mark style="color:orange;">StrategyType:                 RollingUpdate</mark>
 
 MinReadySeconds:        0
 
-RollingUpdateStrategy   25% max  unavailable, 25% max surge  // Max surge garante os 25%
+<mark style="color:orange;">RollingUpdateStrategy   25% max unavailable, 25% max surge  // max surge Garante a disponibilidade de 25% subindo temporariamente 1 pod a mais.</mark>
 
 Pod Template:
 
@@ -125,7 +140,7 @@ Conditions:
 
 OldReplicaSets:                   \<none>
 
-NewReplicaSets:                 first-deploy-7895bc4bdd-c6xsb (2/2 replicas created)
+NewReplicaSets:                 frontend-deploy-7895bc4bdd-c6xsb (2/2 replicas created)
 
 Events:
 
@@ -136,10 +151,10 @@ Type                   Reason                        Age                    From
 
 {% tab title="Deleted" %}
 ```
-kubectl delete -f deploy_first-deploy.yml
+kubectl delete -f k8s-cka-exemples/deployment/frontend_deploy.yml
 ```
 
-deployment.apps/first-deploy deleted
+deployment.apps/frontend-deploy deleted
 {% endtab %}
 {% endtabs %}
 
@@ -150,26 +165,37 @@ deployment.apps/first-deploy deleted
 {% tabs %}
 {% tab title="Create" %}
 ```bash
-kubectl create -f deployment.yml
+kubectl apply -f k8s-cka-exemples/deployment/frontend_deploy.yml
 ```
 
-deployment.apps/deployment created
+deployment.apps/frontend-deploy created
+
+***
+
+<pre class="language-bash"><code class="lang-bash"><strong>kubectl get po
+</strong></code></pre>
+
+NAME                                                                   READY              STATUS            RESTARTS           AGE     &#x20;
+
+frontend-deploy-7895bc4bdd-9hlr2            1/1                       Running           0                             70s       &#x20;
+
+frontend-deploy-7895bc4bdd-nscpm         1/1                       Running           0                             70s
 {% endtab %}
 
 {% tab title="Rollout" %}
 ```bash
-kubectl rollout status deployment.apps/deployment
+kubectl rollout status deployment.apps/frontend-deploy
 ```
 
-deployment "deployment" sucessfullt rolled out
+deployment "frontend-deploy" sucessfullt rolled out
 {% endtab %}
 
 {% tab title="History" %}
 ```bash
-kubectl rollout history deployment.apps/deployment
+kubectl rollout history deployment.apps/frontend-deploy
 ```
 
-deployment.apps/deployment
+deployment.apps/frontend-deploy
 
 REVISION       CHANGE-CAUSE
 
@@ -182,14 +208,144 @@ Alteraremos o número de replicas no manifesto para 4
 ***
 
 ```bash
-vim deployment.yml
+vim k8s-cka-exemples/deployment/frontend_deploy.yml
 ```
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment
+  name: frontend-deploy
+  labels:
+    app: frontend
+
+spec:
+  template:
+    metadata:
+      name: pod-nginx
+      labels:
+        env: production
+    spec:
+      containers:
+      - name: container-nginx
+        image: nginx
+  selector:
+    matchLabels:
+      env: production
+  replicas: 4
+```
+
+***
+
+```
+kubectl apply -f k8s-cka-exemples/deployment/frontend_deploy.yml
+```
+
+deployment.apps/frontend-deploy configured
+{% endtab %}
+
+{% tab title="History" %}
+Note que apenas alterar o número de replicas não altera o valor de revisão, isso acontece apenas quando a mudanças significativas, exemplo a versão da imagem do container.
+
+***
+
+```bash
+kubectl rollout history deployment.apps/frontend-deploy
+```
+
+deployment.apps/frontend-deploy
+
+REVISION       CHANGE-CAUSE
+
+1                      \<none>
+{% endtab %}
+{% endtabs %}
+
+{% tabs %}
+{% tab title="Manifest" %}
+Alteraremos a versão da imagem do container
+
+***
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deploy
+  labels:
+    app: frontend
+
+spec:
+  template:
+    metadata:
+      name: pod-nginx
+      labels:
+        env: production
+    spec:
+      containers:
+      - name: container-nginx
+        image: nginx:1.18.0
+  selector:
+    matchLabels:
+      env: production
+  replicas: 4
+```
+{% endtab %}
+
+{% tab title="Apply" %}
+```bash
+kubectl apply -f k8s-cka-exemples/deployment/frontend_deploy.yml
+```
+
+ddeployment.apps/frontend-deploy configured
+
+***
+
+Podemos verificar tudo que foi criado pelo nosso deployment através do comando:
+
+```bash
+$ kubectl get all -l app=frontend
+```
+{% endtab %}
+
+{% tab title="Rollout" %}
+```bash
+kubectl rollout status deployment.apps/frontend-deploy
+```
+
+deployment "frontend-deploy" sucessfullt rolled out
+{% endtab %}
+
+{% tab title="History" %}
+Podemos ver que uma nova versão de revisão foi criada devido a alteração feita na imagem
+
+***
+
+```bash
+kubectl rollout history deployment.apps/frontend-deploy
+```
+
+deployment.apps/frontend-deploy
+
+REVISION       CHANGE-CAUSE
+
+1                      \<none>
+
+2                      \<none>
+{% endtab %}
+{% endtabs %}
+
+{% tabs %}
+{% tab title="Manifest" %}
+Voltaremos a imagem a versão anterior
+
+***
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deploy
   labels:
     app: frontend
 
@@ -210,132 +366,12 @@ spec:
 ```
 {% endtab %}
 
-{% tab title="History" %}
-Note que apenas alterar o número de replicas não altera o valor de revisão, isso acontece apenas quando a mudanças significativas, exemplo a versão da imagem do container.
-
-***
-
-```bash
-kubectl rollout history deployment.apps/deployment
-```
-
-deployment.apps/deployment
-
-REVISION       CHANGE-CAUSE
-
-1                      \<none>
-{% endtab %}
-{% endtabs %}
-
-{% tabs %}
-{% tab title="Manifest" %}
-Alteraremos a versão da imagem do container
-
-***
-
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: deployment
-  labels:
-    app: frontend
-
-spec:
-  template:
-    metadata:
-      name: pod-nginx
-      labels:
-        env: production
-    spec:
-      containers:
-      - name: container-nginx
-        image: nginx:1.18.0
-  selector:
-    matchLabels:
-      env: production
-  replicas: 2
-```
-{% endtab %}
-
 {% tab title="Apply" %}
-<pre class="language-bash"><code class="lang-bash"><strong>kubectl apply -f deployment.yml
-</strong></code></pre>
-
-deployment.apps/deployment configured
-
-***
-
-Podemos verificar tudo que foi criado pelo nosso deployment através do comando:
-
 ```bash
-$ kubectl get all -l app=frontend
-```
-{% endtab %}
-
-{% tab title="Rollout" %}
-```bash
-kubectl rollout status deployment.apps/deployment
+kubectl apply -f k8s-cka-exemples/deployment/frontend_deploy.yml
 ```
 
-deployment "deployment" sucessfullt rolled out
-{% endtab %}
-
-{% tab title="History" %}
-Podemos ver que uma nova versão de revisão foi criada devido a alteração feita na imagem
-
-***
-
-```bash
-kubectl rollout history deployment.apps/deployment
-```
-
-deployment.apps/deployment
-
-REVISION       CHANGE-CAUSE
-
-1                      \<none>
-
-2                      \<none>
-{% endtab %}
-{% endtabs %}
-
-{% tabs %}
-{% tab title="Manifest" %}
-Voltaremos a imagem a versão anterior
-
-***
-
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: deployment
-  labels:
-    app: frontend
-
-spec:
-  template:
-    metadata:
-      name: pod-nginx
-      labels:
-        env: production
-    spec:
-      containers:
-      - name: container-nginx
-        image: nginx
-  selector:
-    matchLabels:
-      env: production
-  replicas: 2
-```
-{% endtab %}
-
-{% tab title="Apply" %}
-<pre class="language-bash"><code class="lang-bash"><strong>kubectl apply -f deployment.yml
-</strong></code></pre>
-
-deployment.apps/deployment configured
+deployment.apps/frontend-deploy configured
 {% endtab %}
 
 {% tab title="History" %}
@@ -344,10 +380,10 @@ Note que a versão 1 de revisão sumiu, isso acontece por que o Kubernetes enten
 ***
 
 ```bash
-kubectl rollout history deployment.apps/deployment
+kubectl rollout history deployment.apps/frontend-deploy
 ```
 
-deployment.apps/deployment
+deployment.apps/frontend-deploy
 
 REVISION       CHANGE-CAUSE
 
@@ -369,7 +405,7 @@ vim deployment.yml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment
+  name: frontend-deploy
   labels:
     app: frontend
 
@@ -386,27 +422,28 @@ spec:
   selector:
     matchLabels:
       env: production
-  replicas: 2
+  replicas: 4
 ```
 {% endtab %}
 
 {% tab title="Apply" %}
-<pre class="language-bash"><code class="lang-bash"><strong>kubectl apply -f deployment.yml
-</strong></code></pre>
+```bash
+kubectl apply -f k8s-cka-exemples/deployment/frontend_deploy.yml
+```
 
-deployment.apps/deployment configured
+deployment.apps/frontend-deploy configured
 {% endtab %}
 
-{% tab title="Historyr" %}
+{% tab title="History" %}
 1. Note que uma nova versão de revisão foi novamente criada seguindo a última revisão
 
 ***
 
 ```bash
-kubectl rollout history deployment.apps/deployment
+kubectl rollout history deployment.apps/frontend-deploy
 ```
 
-deployment.apps/deployment
+deployment.apps/frontend-deploy
 
 REVISION       CHANGE-CAUSE
 
@@ -421,10 +458,10 @@ REVISION       CHANGE-CAUSE
 2. É possível também analisar uma versão de revisão especifica
 
 ```bash
-kubectl rollout history deployment.apps/deployment --revision=2
+kubectl rollout history deployment.apps/frontend-deploy --revision=2
 ```
 
-deployment.apps/deployment with revision #2
+deployment.apps/frontend-deploy with revision #2
 
 Pod Template:
 
@@ -459,14 +496,14 @@ Pod Template:
 {% tabs %}
 {% tab title="Manifest" %}
 ```bash
-vim deployment.yml
+vim k8s-cka-exemples/deployment/frontend_deploy.yml
 ```
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment
+  name: frontend-deploy
   labels:
     app: frontend
 
@@ -479,27 +516,27 @@ spec:
     spec:
       containers:
       - name: container-nginx
-        image: nginx:1.20.2
+        image: nginx:1.21.4
   selector:
     matchLabels:
       env: production
-  replicas: 2
+  replicas: 4
 ```
 {% endtab %}
 
 {% tab title="Apply" %}
-<pre class="language-bash"><code class="lang-bash"><strong>kubectl apply -f deployment.yml
+<pre class="language-bash"><code class="lang-bash"><strong>kubectl apply -f k8s-cka-exemples/deployment/frontend_deploy.yml --record
 </strong></code></pre>
 
-deployment.apps/deployment configured
+deployment.apps/frontend-deploy configured
 {% endtab %}
 
 {% tab title="History" %}
 ```bash
-kubectl rollout history deployment.apps/deployment
+kubectl rollout history deployment.apps/frontend-deploy
 ```
 
-deployment.apps/deployment
+deployment.apps/frontend-deploy
 
 REVISION       CHANGE-CAUSE
 
@@ -509,15 +546,15 @@ REVISION       CHANGE-CAUSE
 
 4                      \<none>
 
-5                      \<none>
+5                      kubectl apply -f --filename=frontend\_deploy.yml --record=true
 {% endtab %}
 
 {% tab title="Rollback" %}
 ```bash
-kubectl rollout undo deployment.apps/frontend
+kubectl rollout undo deployment.apps/frontend-deploy
 ```
 
-deployment.apps/deployment rolled back
+deployment.apps/frontend-deploy rolled back
 {% endtab %}
 
 {% tab title="History" %}
@@ -526,10 +563,10 @@ Note que a versão 4 sumiu, isso por que o Rollback foi feito na versão 5 para 
 ***
 
 ```bash
-kubectl rollout history deployment.apps/deployment
+kubectl rollout history deployment.apps/frontend-deploy
 ```
 
-deployment.apps/deployment
+deployment.apps/frontend-deploy
 
 REVISION       CHANGE-CAUSE
 
@@ -537,7 +574,7 @@ REVISION       CHANGE-CAUSE
 
 3                      \<none>
 
-5                      \<none>
+5                      kubectl apply -f --filename=frontend\_deploy.yml --record=true
 
 <mark style="color:orange;">6                      \<none></mark>
 {% endtab %}
@@ -548,15 +585,15 @@ Podemos também fazer Rollback para versões especificas, e do mesmo modo a vers
 ***
 
 ```bash
-kubectl rollout undo deployment.apps/frontend --to-revision=2
+kubectl rollout undo deployment.apps/frontend-deploy --to-revision=2
 ```
 
-deployment.apps/deployment rolled back
+deployment.apps/frontend-deploy rolled back
 
 ***
 
 ```bash
-kubectl rollout history deployment.apps/deployment 
+kubectl rollout history deployment.apps/frontend-deploy
 ```
 
 deployment.apps/deployment
@@ -565,7 +602,7 @@ REVISION       CHANGE-CAUSE
 
 3                      \<none>
 
-5                      \<none>
+5                      kubectl apply -f --filename=frontend\_deploy.yml --record=true
 
 6                      \<none>
 
@@ -574,10 +611,10 @@ REVISION       CHANGE-CAUSE
 ***
 
 ```bash
-kubectl rollout history deployment.apps/deployment --revision=7
+kubectl rollout history deployment.apps/frontend-deploy --revision=7
 ```
 
-deployment.apps/deployment with revision #7
+deployment.apps/frontend-deploy with revision #7
 
 Pod Template:
 
@@ -609,23 +646,23 @@ Pod Template:
 
 {% tabs %}
 {% tab title="Deleted" %}
-```
-kubectl delete -f deployment.yml
+```bash
+kubectl delete -f k8s-cka-exemples/deployment/frontend_deploy.yml
 ```
 
-deployment.apps/deployment deleted
+deployment.apps/frontend-deploy deleted
 {% endtab %}
 
 {% tab title="Manifest" %}
 ```bash
-vim deployment.yml
+vim k8s-cka-exemples/deployment/frontend_deploy.yml
 ```
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment
+  name: frontend-deploy
   labels:
     app: frontend
 
@@ -638,36 +675,34 @@ spec:
     spec:
       containers:
       - name: container-nginx
-        image: nginx:1.20.2
+        image: nginx:1.21.4
   selector:
     matchLabels:
       env: production
-  replicas: 5
+  replicas: 4
 ```
 {% endtab %}
 
 {% tab title="Apply" %}
-<pre class="language-bash"><code class="lang-bash"><strong>kubectl apply -f deployment.yml
+<pre class="language-bash"><code class="lang-bash"><strong>kubectl apply -f k8s-cka-exemples/deployment/frontend_deploy.yml
 </strong></code></pre>
 
-deployment.apps/deployment configured
+deployment.apps/frontend-deploy configured
 
 ***
 
 <pre class="language-bash"><code class="lang-bash"><strong>kubectl get po
 </strong></code></pre>
 
-NAME                                                        READY              STATUS            RESTARTS           AGE     &#x20;
+NAME                                                                 READY             STATUS            RESTARTS        AGE     &#x20;
 
-deployment-7895bc4bdd-vsfte            1/1                     Running            0                          70s       &#x20;
+frontend-deploy-7895bc4bdd-vsfte            1/1                     Running            0                          70s       &#x20;
 
-deployment-7895bc4bdd-1k3fl             1/1                     Running            0                          70s&#x20;
+frontend-deploy-7895bc4bdd-1k3fl             1/1                     Running            0                          70s&#x20;
 
-deployment-7895bc4bdd-x8e2f           1/1                     Running            0                          70s&#x20;
+frontend-deploy-7895bc4bdd-x8e2f           1/1                     Running            0                          70s&#x20;
 
-deployment-7895bc4bdd-p2fjh            1/1                     Running            0                          70s&#x20;
-
-deployment-7895bc4bdd-ff2fo             1/1                     Running            0                          70s&#x20;
+frontend-deploy-7895bc4bdd-p2fjh            1/1                     Running            0                          70s&#x20;
 {% endtab %}
 
 {% tab title="Manifest" %}
@@ -676,14 +711,14 @@ Vamos alterar a versão da imagem para gerar uma nova revisão
 ***
 
 ```bash
-vim deployment.yml
+vim k8s-cka-exemples/deployment/frontend_deploy.yml
 ```
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment
+  name: frontend-deploy
   labels:
     app: frontend
 
@@ -696,29 +731,30 @@ spec:
     spec:
       containers:
       - name: container-nginx
-        image: nginx:1.18.2
+        image: nginx:1.16.1
   selector:
     matchLabels:
       env: production
-  replicas: 5
+  replicas: 4
 ```
 {% endtab %}
 
 {% tab title="Pause" %}
-<pre class="language-bash"><code class="lang-bash"><strong>kubectl apply -f deployment.yml
-</strong></code></pre>
-
-deployment.apps/deployment configured
-
 > Deixe um terminal aberto com o comando `watch kubectl get pod` e outro com o comando de `pause` já preparados, pois como estamos utilizando um contexto de testes, existem poucas pods em execução, então a alteração das versões pode ocorrer de forma instantânea, sendo assim já dê o pause assim que executar o apply
+
+```bash
+kubectl apply -f k8s-cka-exemples/deployment/frontend_deploy.yml
+```
+
+deployment.apps/frontend-deploy configured
 
 ***
 
 ```bash
-kubectl rollout pause deployment.apps/frontend
+kubectl rollout pause deployment.apps/frontend-deploy
 ```
 
-deployment.apps/deployment paused
+deployment.apps/frontend-deploy paused
 {% endtab %}
 
 {% tab title="Output" %}
@@ -729,17 +765,17 @@ Podemos ver que apenas 2 pods sofreram atualizações
 <pre class="language-bash"><code class="lang-bash"><strong>kubectl get po
 </strong></code></pre>
 
-NAME                                                        READY              STATUS            RESTARTS        AGE     &#x20;
+NAME                                                                READY              STATUS            RESTARTS        AGE     &#x20;
 
-deployment-7895bc4bdd-vsfte            1/1                     Running            0                         2m20s       &#x20;
+frontend-deploy-7895bc4bdd-vsfte            1/1                     Running            0                         2m20s       &#x20;
 
-deployment-7895bc4bdd-1k3fl             1/1                     Running            0                        2m20s&#x20;
+frontend-deploy-7895bc4bdd-1k3fl             1/1                     Running            0                        2m20s&#x20;
 
-deployment-7895bc4bdd-x8e2f           1/1                     Running            0                         2m20s&#x20;
+frontend-deploy-7895bc4bdd-x8e2f           1/1                     Running            0                         2m20s&#x20;
 
-<mark style="color:orange;">deployment-7895bc4bdd-mkrjf            1/1                     Running            0                          20s</mark>&#x20;
+<mark style="color:orange;">frontend-deploy-7895bc4bdd-mkrjf            1/1                     Running            0                          20s</mark>&#x20;
 
-<mark style="color:orange;">deployment-7895bc4bdd-pdi2f            1/1                     Running            0                          20s</mark>&#x20;
+<mark style="color:orange;">frontend-deploy-7895bc4bdd-pdi2f            1/1                     Running            0                          20s</mark>&#x20;
 {% endtab %}
 {% endtabs %}
 
@@ -754,10 +790,10 @@ Após fazer as validações e ter certeza de que a aplicação está pronta para
 ***
 
 ```bash
-kubectl rollout pause deployment.apps/frontend
+kubectl rollout resume deployment.apps/frontend-deploy
 ```
 
-deployment.apps/deployment resumed
+deployment.apps/frontend-deploy resumed
 {% endtab %}
 
 {% tab title="Output" %}
@@ -768,17 +804,17 @@ Agora todas as pods tiveram suas versões atualizadas
 <pre class="language-bash"><code class="lang-bash"><strong>kubectl get po
 </strong></code></pre>
 
-NAME                                                        READY              STATUS            RESTARTS        AGE     &#x20;
+NAME                                                                 READY              STATUS            RESTARTS        AGE     &#x20;
 
-<mark style="color:orange;">deployment-7895bc4bdd-m3ff3           1/1                     Running            0                         10s</mark>       &#x20;
+<mark style="color:orange;">frontend-deploy-7895bc4bdd-m3ff3           1/1                     Running            0                         10s</mark>       &#x20;
 
-<mark style="color:orange;">deployment-7895bc4bdd-xtffg              1/1                     Running            0                        10s</mark>&#x20;
+<mark style="color:orange;">frontend-deploy-7895bc4bdd-xtffg              1/1                     Running            0                        10s</mark>&#x20;
 
-<mark style="color:orange;">deployment-7895bc4bdd-2kk2f            1/1                     Running            0                         10s</mark>&#x20;
+<mark style="color:orange;">frontend-deploy-7895bc4bdd-2kk2f            1/1                     Running            0                         10s</mark>&#x20;
 
-deployment-7895bc4bdd-mkrjf             1/1                     Running            0                         1m10s&#x20;
+frontend-deploy-7895bc4bdd-mkrjf             1/1                     Running            0                         1m10s&#x20;
 
-deployment-7895bc4bdd-pdi2f             1/1                     Running            0                         1m10s
+frontend-deploy-7895bc4bdd-pdi2f             1/1                     Running            0                         1m10s
 {% endtab %}
 {% endtabs %}
 
@@ -793,14 +829,14 @@ Vamos escalar mais 2 pods no arquivo de manifesto ou o que chamamos de **scale u
 ***
 
 ```bash
-vim deployment.yml
+vim k8s-cka-exemples/deployment/frontend_deploy.yml
 ```
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment
+  name: frontend-deploy
   labels:
     app: frontend
 
@@ -813,7 +849,7 @@ spec:
     spec:
       containers:
       - name: container-nginx
-        image: nginx:1.20.2
+        image: nginx:1.16.1
   selector:
     matchLabels:
       env: production
@@ -822,31 +858,31 @@ spec:
 {% endtab %}
 
 {% tab title="Apply" %}
-<pre class="language-bash"><code class="lang-bash"><strong>kubectl apply -f deployment.yml
+<pre class="language-bash"><code class="lang-bash"><strong>kubectl apply -f k8s-cka-exemples/deployment/frontend_deploy.yml
 </strong></code></pre>
 
-deployment.apps/deployment configured
+deployment.apps/frontend-deploy configured
 {% endtab %}
 
 {% tab title="Output" %}
 <pre class="language-bash"><code class="lang-bash"><strong>kubectl get po
 </strong></code></pre>
 
-NAME                                                        READY              STATUS            RESTARTS        AGE     &#x20;
+NAME                                                                 READY              STATUS            RESTARTS        AGE     &#x20;
 
-deployment-7895bc4bdd-m3ff3           1/1                     Running            0                        2m25s       &#x20;
+frontend-deploy-7895bc4bdd-m3ff3           1/1                     Running            0                        2m25s       &#x20;
 
-deployment-7895bc4bdd-xtffg              1/1                     Running            0                       2m25s&#x20;
+frontend-deploy-7895bc4bdd-xtffg              1/1                     Running            0                       2m25s&#x20;
 
-deployment-7895bc4bdd-2kk2f            1/1                     Running            0                        2m25s&#x20;
+frontend-deploy-7895bc4bdd-2kk2f            1/1                     Running            0                        2m25s&#x20;
 
-deployment-7895bc4bdd-mkrjf             1/1                     Running            0                        2m25s&#x20;
+frontend-deploy-7895bc4bdd-mkrjf             1/1                     Running            0                        2m25s&#x20;
 
-deployment-7895bc4bdd-pdi2f             1/1                     Running            0                        2m25s
+frontend-deploy-7895bc4bdd-pdi2f             1/1                     Running            0                        2m25s
 
-deployment-7895bc4bdd-ffvaw            1/1                     Running            0                          20s
+frontend-deploy-7895bc4bdd-ffvaw            1/1                     Running            0                          20s
 
-deployment-7895bc4bdd-mmf2s          1/1                     Running            0                          20s
+frontend-deploy-7895bc4bdd-mmf2s          1/1                     Running            0                          20s
 {% endtab %}
 
 {% tab title="Scale down" %}
@@ -855,21 +891,21 @@ Faremos a redução de pods mas dessa vez diretamente pelo terminal de forma imp
 ***
 
 ```bash
-kubectl scale deployment.apps/deployment --replicas=2
+kubectl scale deployment.apps/frontend-deploy --replicas=2
 ```
 
-deployment.apps/deployment scaled
+deployment.apps/frontend-deploy scaled
 {% endtab %}
 
 {% tab title="Output" %}
 <pre class="language-bash"><code class="lang-bash"><strong>kubectl get po
 </strong></code></pre>
 
-NAME                                                        READY              STATUS            RESTARTS        AGE     &#x20;
+NAME                                                                  READY              STATUS            RESTARTS        AGE     &#x20;
 
-deployment-7895bc4bdd-m3ff3           1/1                     Running            0                        2m25s       &#x20;
+frontend-deploy-7895bc4bdd-m3ff3           1/1                     Running            0                        2m25s       &#x20;
 
-deployment-7895bc4bdd-xtffg              1/1                     Running            0                       2m25s&#x20;
+frontend-deploy-7895bc4bdd-xtffg              1/1                     Running            0                       2m25s&#x20;
 {% endtab %}
 {% endtabs %}
 
@@ -885,7 +921,7 @@ Vamos descrever as pods em execução e ver que o Strategy Type padrão estará 
 
 ***
 
-<pre class="language-bash"><code class="lang-bash"><strong>kubectl describe po deployment-7895bc4bdd-m3ff3 | grep StrategyType
+<pre class="language-bash"><code class="lang-bash"><strong>kubectl describe deployment.apps/frontend-deploy | grep StrategyType
 </strong></code></pre>
 
 &#x20;StrategyType:               RollingUpdate
@@ -897,14 +933,14 @@ Vamos novamente alterar a versão da imagem para gerar um novo valor de revisão
 ***
 
 ```bash
-vim deployment.yml
+vim k8s-cka-exemples/deployment/frontend_deploy.yml
 ```
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment
+  name: frontend-deploy
   labels:
     app: frontend
 
@@ -917,7 +953,7 @@ spec:
     spec:
       containers:
       - name: container-nginx
-        image: nginx:1.18.4
+        image: nginx:1.19.3
   selector:
     matchLabels:
       env: production
@@ -929,10 +965,10 @@ spec:
 
 {% tab title="Apply" %}
 ```bash
-kubectl apply -f deployment.yml
+kubectl apply -f k8s-cka-exemples/deployment/frontend_deploy.yml
 ```
 
-deployment.apps/deployment configured
+deployment.apps/frontend-deploy configured
 
 ***
 
@@ -942,9 +978,9 @@ watch kubectl get po
 
 NAME                                                        READY              STATUS            RESTARTS        AGE     &#x20;
 
-deployment-7895bc4bdd-m3ff3           1/1                     Terminating      0                        2m25s       &#x20;
+frontend-deploy-7895bc4bdd-m3ff3           1/1                     Terminating      0                        2m25s       &#x20;
 
-deployment-7895bc4bdd-xtffg              1/1                     Terminating     0                         2m25s
+frontend-deploy-7895bc4bdd-xtffg              1/1                     Terminating     0                         2m25s
 {% endtab %}
 
 {% tab title="Output" %}
@@ -952,8 +988,9 @@ Vamos descrever as pods em execução novamente e ver que o Strategy Type foi al
 
 ***
 
-<pre class="language-bash"><code class="lang-bash"><strong>kubectl describe po deployment-7895bc4bdd-m3ff3 | grep StrategyType
-</strong></code></pre>
+```bash
+kubectl describe deployment.apps/frontend-deploy | grep StrategyType
+```
 
 &#x20;StrategyType:               Recreate
 {% endtab %}
@@ -961,15 +998,15 @@ Vamos descrever as pods em execução novamente e ver que o Strategy Type foi al
 
 ***
 
-#### <mark style="color:yellow;">Deletando os recursos criados</mark>
+### <mark style="color:red;">Deletando os recursos criados</mark>
 
 {% tabs %}
 {% tab title="Deleted" %}
 ```bash
-kubectl delete -f deployment.yml
+kubectl delete -f k8s-cka-exemples/deployment/frontend_deploy.yml
 ```
 
-deployment.apps/deployment  deleted
+deployment.apps/frontend-deploy  deleted
 {% endtab %}
 
 {% tab title="Output" %}
@@ -990,13 +1027,3 @@ No resources found in default namespace.
 {% endtabs %}
 
 ***
-
-#### <mark style="color:yellow;">About Deployment</mark>
-
-Um ponto interessante de um `deployment` é que o `replicaset` sempre tentará atingir o estado desejado dos `pods`. Ou seja, mesmo que os pods sejam deletados, o `replicaset` se encarregará de garantir o deployment dos mesmos.
-
-Essa é uma das grandes "magias" do kubernetes, e é uma das maiores "pegadinhas" para aqueles que não conhecem o funcionamento do mesmo e tentam apagar os pods porem eles continuam reaparecendo.
-
-{% hint style="info" %}
-Para remover nossos pods precisamos remover o deployment.
-{% endhint %}
