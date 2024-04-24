@@ -1,7 +1,8 @@
 apiVersion: v1
 kind: Pod
+
 metadata:
-  name: first-pod
+  name: first-pod-webserver
   labels:
     app: nginx-app
     tier: frontend
