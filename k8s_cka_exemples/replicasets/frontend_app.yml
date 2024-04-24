@@ -10,7 +10,7 @@ spec:
     metadata: 
       name: webserver-pod
       labels:
-        apps: app
+        apps: webserver-app
         tier: frontend
     spec:  #Definições dos containeres que serão executados na Pod
       containers:
@@ -19,5 +19,5 @@ spec:
         
   selector: #Referencia as labels da Pod que será replicado
     matchLabels:
-      apps: app
+      apps: webserver-app
   replicas: 3
