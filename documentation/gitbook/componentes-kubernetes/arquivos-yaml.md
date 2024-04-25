@@ -26,13 +26,13 @@ YAML significa -> "**Y**AML **A**int't **M**arkup **L**anguage" (YAML Não é um
 * HR - Human Readable
 * Melhor compreensão do que XML e JSON
 
-<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
 ## <mark style="color:red;">YAML Kubernetes Exemple</mark>
 
-<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
 
 ***
 

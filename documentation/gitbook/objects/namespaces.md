@@ -10,6 +10,8 @@ description: >-
 
 ***
 
+## <mark style="color:red;">Overview</mark>
+
 <figure><img src="../.gitbook/assets/image (46).png" alt=""><figcaption></figcaption></figure>
 
 Nomes de recursos precisam ser únicos dentro de um namespace, porém podem se repetir em diferentes namespaces.
@@ -146,9 +148,7 @@ kube-system                                                                  Act
 ### <mark style="color:red;">Utilizando a Namespace criada</mark>
 
 {% hint style="info" %}
-**Todos exemplos de Namespaces estão disponibilizados no Github:**
-
-[https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cka\_exemples/namespaces](https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cka\_exemples/namespaces)
+**Todos os recursos utilizados nesses exemplos, estarão disponibilizados no Github:**  [https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cka\_exemples/namespaces](https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cka\_exemples/namespaces)
 {% endhint %}
 
 {% tabs %}
@@ -412,3 +412,5 @@ Aplicando `redis.yml` de forma simples, o pod já seria inserido no namespace `b
 ```bash
 kubectl apply -f k8s-cka-exemples/networking/pod-to-pod-communication/redis.yml
 ```
+
+***

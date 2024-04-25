@@ -35,6 +35,10 @@ Uma outra forma de implantação é a estratégia Recreate Deployment, mas não 
 
 ***
 
+{% hint style="info" %}
+**Todos os recursos utilizados nesses exemplos, estarão disponibilizados no Github:** [https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cka\_exemples/deployments](https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cka\_exemples/deployments)
+{% endhint %}
+
 ## <mark style="color:red;">Criando Deployments</mark>
 
 {% tabs %}

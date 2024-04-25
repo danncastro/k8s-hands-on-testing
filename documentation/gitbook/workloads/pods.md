@@ -40,7 +40,7 @@ Containers em um mesmo pod se comunicam através de localhost.
 ***
 
 {% hint style="info" %}
-#### Todos os exemplos de pods estarão disponibilizados no Github:
+#### Todos os recursos utilizados nesses exemplos, estarão disponibilizados no Github:
 
 [https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cka\_exemples/pods](https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cka\_exemples/pods)
 {% endhint %}
@@ -470,8 +470,6 @@ Os contêineres init não são compatíveis com `lifecycle`, `livenessProbe`, `r
 
 > Cada contêiner init deve ser bem-sucedido antes que o próximo possa ser executado.
 
-***
-
 #### <mark style="color:blue;">Comportamento detalhado</mark> <a href="#detailed-behavior" id="detailed-behavior"></a>
 
 Durante a inicialização do pod, o kubelet atrasa a execução dos contêineres init até que a rede e o armazenamento estejam prontos. Em seguida, o kubelet executa os contêineres init do pod na ordem em que aparecem nas especificações do pod
@@ -483,8 +481,6 @@ Se um contêiner falhar ao iniciar devido ao tempo de execução ou sair com fal
 * No entanto, se o pod `restartPolicy` estiver definido como Always, os contêineres de inicialização usarão `restartPolicy OnFailure.`
 
 Um pod não pode existir `Ready`  até que todos os contêineres de inicialização sejam bem-sucedidos.
-
-***
 
 #### <mark style="color:blue;">Pod Initialization</mark>
 

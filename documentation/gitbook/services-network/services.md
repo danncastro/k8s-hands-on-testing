@@ -7,23 +7,27 @@ description: >-
 
 # Services
 
+{% embed url="https://kubernetes.io/docs/concepts/services-networking/service/" %}
+
+***
+
 ## <mark style="color:red;">K8s Services</mark>
 
 Os services, são um tipo de recursos do Kubernetes que expõe os aplicativos para fora do Cluster, as aplicações se tornam acessíveis de fora do cluster utilizando certos tipos de serviços do Kubernetes.
 
-<figure><img src="../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 Proveem um DNS exposto aos pods que executam no cluster. Ou seja esse serviço de DNS é responsável por resolver todos os nomes para que se cheguem até as Pods
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (14).png" alt=""><figcaption></figcaption></figure>
 
 > _O DNS do Cluster é um servidor DNS Real. Faz parte de toda infraestrutura de rede virtualizada de um cluster Kubernetes._
 
 Os serviços podem ser consumidos de duas formas, pelo próprio cluster, que é quando as aplicações internas acessam esses serviços ou External, acessando pela internet de fora do cluster, chegando até as aplicações através dos serviços, como mostrado abaixo:
 
-<figure><img src="../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (15).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -123,42 +127,40 @@ Expõe um serviço externo para ser acessado através do pod interno, por exempl
 
 ***
 
-#### <mark style="color:yellow;">Todos os recursos utilizados nesses exemplos, estarão disponibilizados no Github:</mark>
+{% hint style="info" %}
+#### Todos os recursos utilizados nesses exemplos, estarão disponibilizados no Github:
 
-{% @github-files/github-code-block %}
+[https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cka\_exemples/services](https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cka\_exemples/services)
+{% endhint %}
 
 ## <mark style="color:red;">ClusterIP</mark>&#x20;
 
 Serviço padrão do Kubernetes, utilizado para comunicação interna do cluster. Faz a comunicação entre diferentes pods dentro de um mesmo cluster. Torna os serviços acessíveis apenas dentro do cluster.
 
-<figure><img src="../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
 
 * Não é possível chamar os serviço de fora do cluster sem a utilização de um Proxy.
 * Mantem os serviços apenas internos ao cluster
 
-***
+#### <mark style="color:blue;">Ports envolvidas na comunicação com Serviços</mark>
 
-#### <mark style="color:yellow;">Port</mark>
-
-<figure><img src="../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
 
 Utilizado para acessar os recursos do Kubernetes, através dessas portas que os serviços são disponibilizados.
 
-***
+#### <mark style="color:blue;">TargetPort</mark>
 
-#### <mark style="color:yellow;">TargetPort</mark>
-
-<figure><img src="../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (13) (1).png" alt=""><figcaption></figcaption></figure>
 
 Informa em qual porta foi disponibilizado a aplicação dentro do container em um Pod.
 
-<figure><img src="../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
+* Caso o valor de targetPort seja omitido, ele automaticamente assumirá o mesmo valor do atributo port.
 
-***
+<figure><img src="../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
 
-#### <mark style="color:yellow;">Características</mark>
+#### <mark style="color:blue;">Características</mark>
 
-<figure><img src="../.gitbook/assets/image (15).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 Pods não possuem IPs estáticos
@@ -405,13 +407,13 @@ kubernetes                   ClusterIP            10.96.0.1                 \<no
 
 Permitem a comunicação externa ao cluster, disponibilizando uma porta ao qual é possível enviar requisições ao node, direcionada a alguma aplicação rodando nas Pods
 
-<figure><img src="../.gitbook/assets/image (4) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Quando configuramos um serviço para `NodePort`, o kubernetes aloca uma porta de um range (por padrão 30000-32767). &#x20;
 
 * Cada nó faz um proxy para aquela porta no serviço.
 
-<figure><img src="../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Quando falamos de `NodePort` temos 3 parâmetros importantes:
 
@@ -425,7 +427,7 @@ Quando falamos de `NodePort` temos 3 parâmetros importantes:
 
 * <mark style="color:yellow;">nodePort</mark> - Porta na qual o serviço será acessível através dos IP's dos nodes de forma externa ao Cluster.
 
-<figure><img src="../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -545,7 +547,7 @@ curl http://192.168.3.52:30008
 
 ***
 
-<figure><img src="../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Deleted" %}
@@ -581,7 +583,7 @@ kubernetes                   ClusterIP            10.96.0.1                 \<no
 
 O LoadBalancer é muito similar ao NodePort, que permite a comunicação entre uma maquina do mundo externo aos nossos pods. As diferenças são que os LoadBalancers normalmente ficam alocados em um Cloud provider, e que ele automaticamente distribuí as cargas de acesso entre nós do cluster.
 
-<figure><img src="../.gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -697,7 +699,7 @@ curl http://192.168.3.50:30008
 
 ***
 
-<figure><img src="../.gitbook/assets/image (3) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Deleted" %}

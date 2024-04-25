@@ -24,7 +24,7 @@ Uma das desvantagens da utilização de ReplicasSet, é que ele não faz a alter
 ## <mark style="color:red;">Criando ReplicaSets</mark>
 
 {% hint style="info" %}
-**Todos os exemplos de replicasets estarão disponibilizados no Github:**\
+**Todos os recursos utilizados nesses exemplos, estarão disponibilizados no Github:**\
 [https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cka\_exemples/replicasets](https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cka\_exemples/replicasets)
 {% endhint %}
 

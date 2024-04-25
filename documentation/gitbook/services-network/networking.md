@@ -29,9 +29,7 @@
 <figure><img src="../.gitbook/assets/image (53).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-**Todos os exemplos de pods networking estarão disponibilizados no Github:**
-
-[https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cka\_exemples/networking/](https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cka\_exemples/networking/)
+**Todos os recursos utilizados nesses exemplos, estarão disponibilizados no Github:** [https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cka\_exemples/networking/](https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cka\_exemples/networking/)
 {% endhint %}
 
 {% tabs %}
