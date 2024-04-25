@@ -106,7 +106,7 @@ Replicas:                         2  desired  |  2 updated  |  2 total  |  2 ava
 
 MinReadySeconds:        0
 
-<mark style="color:orange;">RollingUpdateStrategy   25% max unavailable, 25% max surge  // max surge Garante a disponibilidade de 25% subindo temporariamente 1 pod a mais.</mark>
+<mark style="color:orange;">RollingUpdateStrategy   25% max unavailable, 25% max surge</mark>
 
 Pod Template:
 
@@ -157,6 +157,12 @@ kubectl delete -f k8s-cka-exemples/deployment/frontend_deploy.yml
 deployment.apps/frontend-deploy deleted
 {% endtab %}
 {% endtabs %}
+
+#### <mark style="color:blue;">RollingUpdateStrategy</mark>
+
+**Max Unavailable (Máximo Indisponível)**: Isso define o número máximo de pods do aplicativo que podem estar indisponíveis durante a atualização. Por exemplo, se você definir `max unavailable` como 1, isso significa que durante a atualização, apenas um pod do aplicativo pode ser removido de cada vez. Os outros continuam funcionando normalmente, garantindo que o aplicativo permaneça disponível, mesmo durante a atualização.
+
+**Max Surge (Máximo de Excesso)**: Este é o número máximo de pods extras que podem ser criados além do número original durante a atualização. Por exemplo, se você definir `max surge` como 1 em um aplicativo com 5 pods, durante a atualização, o Kubernetes pode temporariamente criar um sexto pod antes de remover os antigos. Isso ajuda a garantir que haja capacidade suficiente para lidar com qualquer aumento repentino na carga de trabalho durante a atualização.
 
 ***
 
