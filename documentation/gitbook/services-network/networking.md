@@ -1,10 +1,12 @@
 # Networking
 
+{% embed url="https://kubernetes.io/docs/concepts/cluster-administration/networking/" %}
+
 <figure><img src="../.gitbook/assets/image (49).png" alt=""><figcaption><p>Inter Node Pod Network Communication</p></figcaption></figure>
 
 ***
 
-### <mark style="color:red;">Container to Container Communication</mark>
+## <mark style="color:red;">Container to Container Communication</mark>
 
 <figure><img src="../.gitbook/assets/image (50).png" alt=""><figcaption><p>Container to container communication</p></figcaption></figure>
 
@@ -14,11 +16,11 @@
 
 ***
 
-### <mark style="color:red;">Pod to Pod Communication</mark>
+## <mark style="color:red;">Pod to Pod Communication</mark>
 
 <figure><img src="../.gitbook/assets/image (51).png" alt=""><figcaption><p>Pod to Pod Communication</p></figcaption></figure>
 
-<mark style="color:yellow;">Intra Node Pod Network Communication</mark>
+### <mark style="color:red;">Intra Node Pod Network Communication</mark>
 
 * Comunicação de pods rodando em um Single Node
 * Neste caso todos os endereços IPS das pods serão diferentes e atribuídos a partir da rede local, pois compartilham o mesmo Host e a comunicação entre os pods ocorrem dentro do mesmo Worker Node
@@ -26,12 +28,16 @@
 
 <figure><img src="../.gitbook/assets/image (53).png" alt=""><figcaption></figcaption></figure>
 
-{% @github-files/github-code-block %}
+{% hint style="info" %}
+**Todos os exemplos de pods networking estarão disponibilizados no Github:**
+
+[https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cka\_exemples/networking/](https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cka\_exemples/networking/)
+{% endhint %}
 
 {% tabs %}
 {% tab title="Create" %}
 ```bash
-kubectl create -f k8s-cka-exemples/pod-to-pod-communication/tomcat.yml
+kubectl create -f k8s-cka-exemples/networking/pod-to-pod-communication/tomcat.yml
 ```
 
 pod/tomcat-pod created
@@ -39,7 +45,7 @@ pod/tomcat-pod created
 ***
 
 ```bash
-kubectl create -f k8s-cka-exemples/pod-to-pod-communication/redis.yml
+kubectl create -f k8s-cka-exemples/networking/pod-to-pod-communication/redis.yml
 ```
 
 pod/redis-pod created  &#x20;
@@ -150,12 +156,11 @@ No resources found in default namespace.
 
 ***
 
-#### <mark style="color:yellow;">Inter Node Pod Network Communication</mark>
+### <mark style="color:red;">Inter Node Pod Network Communication</mark>
 
 <figure><img src="../.gitbook/assets/image (52).png" alt=""><figcaption></figcaption></figure>
 
-* Comunicação de pods rodando em Multi Nodes
-* Estabelece comunicação entre os Workers Nodes
+* Comunicação de pods rodando em Multi Nodes, estabelecendo comunicação entre os Workers Nodes
 * A comunicação entre as pods neste caso acontece a partir de um plugin de rede do Kubernetes, que irá criar as tabelas de rotas necessárias, para que um contêineres possa se comunicar com outros contêineres dentro de pods diferentes em workers nodes diferentes independente do local ao qual esteja instanciado o cluster, podendo ser local ou em nuvem.
 
 ***

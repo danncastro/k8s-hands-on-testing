@@ -54,24 +54,24 @@ kube-system                                                                  Act
 {% endtab %}
 {% endtabs %}
 
-<mark style="color:yellow;">default -</mark> O namespace padrão para objetos sem namespace
+<mark style="color:blue;">default -</mark> O namespace padrão para objetos sem namespace
 
 ***
 
-<mark style="color:yellow;">kube-node-lease</mark> - O Kubernetes usa essa Namespace para fazer verificações dentro de um processo avançado como por exemplo, busca por falhas.&#x20;
+<mark style="color:blue;">kube-node-lease</mark> - O Kubernetes usa essa Namespace para fazer verificações dentro de um processo avançado como por exemplo, busca por falhas.&#x20;
 
 * Este namespace contém os objetos de [Lease](https://kubernetes.io/docs/reference/kubernetes-api/cluster-resources/lease-v1/) associados com cada node. Node leases permitem que o kubelet envie [heartbeats](https://kubernetes.io/docs/concepts/architecture/nodes/#heartbeats) para que a camada de gerenciamento detecte falhas nos nodes.
 
 ***
 
-<mark style="color:yellow;">kube-public</mark>  - Este namespace é criado automaticamente e é legível por todos os usuários (incluindo usuários não autenticados).&#x20;
+<mark style="color:blue;">kube-public</mark>  - Este namespace é criado automaticamente e é legível por todos os usuários (incluindo usuários não autenticados).&#x20;
 
 * Este namespace é reservado principalmente para uso do cluster, no caso de alguns recursos que precisem ser visíveis e legíveis publicamente por todo o cluster.&#x20;
 * O aspecto público deste namespace é apenas uma convenção, não um requisito.
 
 ***
 
-<mark style="color:yellow;">kube-system</mark> - O namespace para objetos criados pelo sistema Kubernetes.
+<mark style="color:blue;">kube-system</mark> - O namespace para objetos criados pelo sistema Kubernetes.
 
 {% tabs %}
 {% tab title="Pods" %}
@@ -81,25 +81,25 @@ Podemos validar as pods que são executadas por está Namespace ao subir um clus
 kubectl get po -n kube-system
 ```
 
-NAME                                                                         READY       STATUS         RESTARTS     AGE
+NAME                                                                               READY       STATUS         RESTARTS     AGE
 
-coredns-5dd5756b68-2jnbs                                     1/1             Running         0                     87m
+coredns-5dd5756b68-2jnbs                                        1/1             Running         0                     87m
 
-coredns-5dd5756b68-bn9s4                                    1/1            Running         0                     87m
+coredns-5dd5756b68-bn9s4                                       1/1            Running         0                     87m
 
-etcd-k8s-controller-node1                                         1/1            Running         0                     87m
+etcd-k8s-controller-node1                                             1/1            Running         0                     87m
 
-kube-apiserver-k8s-controller-node1                       1/1            Running         0                     87m
+kube-apiserver-k8s-controller-node1                          1/1            Running         0                     87m
 
-kube-controller-manager-k8s-controller-node1      1/1            Running          0                    87m
+kube-controller-manager-k8s-controller-node1       1/1            Running          0                    87m
 
-kube-proxy-dp9xg                                                      1/1            Running         0                     87m
+kube-proxy-dp9xg                                                           1/1            Running         0                     87m
 
-kube-proxy-mw8wb                                                   1/1            Running          0                    87m
+kube-proxy-mw8wb                                                        1/1            Running          0                    87m
 
-kube-proxy-w9cxb                                                     1/1            Running          0                    87m
+kube-proxy-w9cxb                                                           1/1            Running          0                   87m             &#x20;
 
-kube-scheduler-k8s-controller-node1                      1/1            Running          0                    87m
+kube-scheduler-k8s-controller-node1                         1/1            Running          0                    87m              &#x20;
 
 weave-net-4p48j                                                        1/1            Running          1 (85m ago)  87m
 
@@ -145,14 +145,16 @@ kube-system                                                                  Act
 
 ### <mark style="color:red;">Utilizando a Namespace criada</mark>
 
-Neste exemplo utilizaremos a pod que está localizada no projeto abaixo
+{% hint style="info" %}
+**Todos exemplos de Namespaces estão disponibilizados no Github:**
 
-{% embed url="https://github.com/danncastro/k8s-cka-exemples/blob/main/pod-to-pod-communication/tomcat.yml" %}
+[https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cka\_exemples/namespaces](https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cka\_exemples/namespaces)
+{% endhint %}
 
 {% tabs %}
 {% tab title="Apply" %}
 ```bash
-kubectl apply -f tomcat.yml --namespace=frontend
+kubectl apply -f k8s-cka-exemples/networking/pod-to-pod-communication/tomcat.yml --namespace=frontend
 ```
 
 pod/tomcat-pod created
@@ -299,10 +301,8 @@ kube-system                                                                  Act
 
 {% tabs %}
 {% tab title="Namespace" %}
-{% embed url="https://github.com/danncastro/k8s-cka-exemples/blob/main/namespaces-manifest-files/backend-namespace.yml" %}
-
 ```bash
-kubectl apply -f k8s-cka-exemples/namespaces-manifest-files/backend-namespace.yml
+kubectl apply -f k8s-cka-exemples/namespaces/backend-ns.yml
 ```
 
 namespace/backend-ns created
@@ -335,10 +335,8 @@ No resources found in backend-ns namespace.
 {% endtab %}
 
 {% tab title="Pod" %}
-{% embed url="https://github.com/danncastro/k8s-cka-exemples/blob/main/pod-to-pod-communication/redis.yml" %}
-
 ```bash
-kubectl apply -f k8s-cka-exemples/pod-to-pod-communication/redis.yml
+kubectl apply -f k8s-cka-exemples/networking/pod-to-pod-communication/redis.yml --namespace=backend-ns
 ```
 
 pod/redis-pod created
@@ -409,8 +407,8 @@ Outra opção seria definir o campo namespace no arquivo YAML do redis-pod, veja
 12     image: redis
 </code></pre>
 
-Aplicando `redis-pod.yaml` de forma simples, o pod já seria inserido no namespace backend-ns, assim:
+Aplicando `redis.yml` de forma simples, o pod já seria inserido no namespace `backend-ns`, assim:
 
 ```bash
-kubectl apply -f redis-pod.yaml
+kubectl apply -f k8s-cka-exemples/networking/pod-to-pod-communication/redis.yml
 ```
