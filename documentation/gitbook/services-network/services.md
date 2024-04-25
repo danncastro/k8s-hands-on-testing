@@ -407,27 +407,27 @@ kubernetes                   ClusterIP            10.96.0.1                 \<no
 
 Permitem a comunicação externa ao cluster, disponibilizando uma porta ao qual é possível enviar requisições ao node, direcionada a alguma aplicação rodando nas Pods
 
-<figure><img src="../.gitbook/assets/image (4) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (54).png" alt=""><figcaption></figcaption></figure>
 
 Quando configuramos um serviço para `NodePort`, o kubernetes aloca uma porta de um range (por padrão 30000-32767). &#x20;
 
 * Cada nó faz um proxy para aquela porta no serviço.
 
-<figure><img src="../.gitbook/assets/image (5) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (55).png" alt=""><figcaption></figcaption></figure>
 
 Quando falamos de `NodePort` temos 3 parâmetros importantes:
 
-* <mark style="color:yellow;">port</mark> - Expõe o serviço kubernetes na `port` para o cluster, ou seja, utilizada para a comunicação com a Pod
+* <mark style="color:blue;">port</mark> - Expõe o serviço kubernetes na `port` para o cluster, ou seja, utilizada para a comunicação com a Pod
 
 ***
 
-* <mark style="color:yellow;">targetPort</mark> - Porta na qual o serviço enviará requests para o pod
+* <mark style="color:blue;">targetPort</mark> - Porta na qual o serviço enviará requests para o pod
 
 ***
 
-* <mark style="color:yellow;">nodePort</mark> - Porta na qual o serviço será acessível através dos IP's dos nodes de forma externa ao Cluster.
+* <mark style="color:blue;">nodePort</mark> - Porta na qual o serviço será acessível através dos IP's dos nodes de forma externa ao Cluster.
 
-<figure><img src="../.gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (56).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -583,7 +583,7 @@ kubernetes                   ClusterIP            10.96.0.1                 \<no
 
 O LoadBalancer é muito similar ao NodePort, que permite a comunicação entre uma maquina do mundo externo aos nossos pods. As diferenças são que os LoadBalancers normalmente ficam alocados em um Cloud provider, e que ele automaticamente distribuí as cargas de acesso entre nós do cluster.
 
-<figure><img src="../.gitbook/assets/image (2) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (57).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
