@@ -36,6 +36,7 @@ spec:
       - name: nki-mysql-persistent-storage
         persistentVolumeClaim:
           claimName: nki-mysql-server
-      selector:
-        matchLabels:
-          env: nki-cluster-local
+
+  selector:
+    matchLabels:
+      env: nki-cluster-local
