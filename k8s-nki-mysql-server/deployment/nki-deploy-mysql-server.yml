@@ -4,7 +4,7 @@ metadata:
   name: nki-mysql-server-deploy
   namespace: nki-k8s-monitoring
   labels:
-    k8s-app: nki-mysql-server-deploy
+    k8s-app: nki-mysql-server
 
 spec:
   template:
@@ -20,12 +20,12 @@ spec:
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: nki-mysql-server
+              name: nki-mysql-server-secret
               key: MYSQL_ROOT_PASSWORD
         - name: MYSQL_ROOT_USER
           valueFrom:
             secretKeyRef:
-              name: nki-mysql-server
+              name: nki-mysql-server-secret
               key: MYSQL_ROOT_USER
         ports:
         - containerPort: 3306
@@ -35,7 +35,7 @@ spec:
       volumes:
       - name: nki-mysql-persistent-storage
         persistentVolumeClaim:
-          claimName: nki-mysql-server
+          claimName: nki-mysql-server-pvc
 
   selector:
     matchLabels:
