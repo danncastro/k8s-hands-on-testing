@@ -438,13 +438,13 @@ Quando falamos de `NodePort` temos 3 parâmetros importantes:
 Vamos utilizar o manifesto de pod anterior removendo apenas o container do tomcat.
 
 ```bash
-kubectl apply -f kubernetes_projects/k8s-cka-exemples/pods/pod_web-server.yml
+kubectl apply -f kubernetes_projects/k8s_cka_exemples/pods/pod_web_server.yml
 ```
 
 pod/web-server-pod created
 
 ```bash
-kubectl apply -f kubernetes_projects/k8s-cka-exemples/services/service_front-node-port.yml
+kubectl apply -f  kubernetes_projects/k8s_cka_exemples/services/service_front-node-port.yml
 ```
 
 service/frontend-node-port created
