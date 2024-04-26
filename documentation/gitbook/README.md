@@ -6,7 +6,7 @@ description: >-
 
 # Kubernetes
 
-<figure><img src=".gitbook/assets/image (23).png" alt=""><figcaption><p>Fonte: https://kubernetes.io/pt-br/docs/tutorials/kubernetes-basics</p></figcaption></figure>
+<figure><img src=".gitbook/assets/image (48).png" alt=""><figcaption><p>Fonte: https://kubernetes.io/pt-br/docs/tutorials/kubernetes-basics</p></figcaption></figure>
 
 ***
 
@@ -34,7 +34,7 @@ A palavra "Kubernetes", faz alusão a um navio cargueiro;
 
 * Kubernetes -> "Kuvernetes" (em Grego) -> "Timoneiro" (Aquele que conduz o navio).
 
-<figure><img src=".gitbook/assets/image (28).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (53).png" alt=""><figcaption></figcaption></figure>
 
 * Muitos dos contextos e termos do k8s incluindo o logotipo com 7 Malaguetas, uma foi uma homenagem á personagem da série Star Trek "projeto Seven of Nine", e Borg também é uma homenagem a série pois significa:  "Organismo cibernético de Star Trek."
 
@@ -83,7 +83,7 @@ São sistemas de automatização, e visam automatizar todo o ciclo de vida dos c
 
 #### _<mark style="color:blue;">**Alguns Orquestradores além do Kubernetes**</mark>_
 
-<figure><img src=".gitbook/assets/image (31).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (56).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -117,7 +117,7 @@ São sistemas de automatização, e visam automatizar todo o ciclo de vida dos c
 
 
 
-<figure><img src=".gitbook/assets/image (35).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (60).png" alt=""><figcaption></figcaption></figure>
 
 ***
 

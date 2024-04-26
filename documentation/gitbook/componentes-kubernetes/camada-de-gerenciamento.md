@@ -26,7 +26,7 @@ O servidor de **API** do Kubernetes valida e configura dados para os objetos pre
 
 O **API Server** atende às operações e fornece o **Frontend** para o estado compartilhado do cluster por meio do qual todos os outros componentes interagem.
 
-<figure><img src="../.gitbook/assets/image (27).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (52).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -48,7 +48,7 @@ Faz o agendamento dos pods em nós apropriados com base em requisitos e restriç
 
 Ele recebe as requisições vindas do kube-apiserver, e gerência da melhor forma onde será instânciado a nova aplicação.&#x20;
 
-<figure><img src="../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
 
 > Ele consulta o API Server para obter informações sobre os recursos do cluster e decide onde colocar os pods com base em políticas de agendamento.
 

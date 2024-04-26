@@ -18,18 +18,18 @@ description: >-
 
 Pods são as menores unidades de computação implantáveis ​​que você pode criar e gerenciar no Kubernetes.
 
-<figure><img src="../.gitbook/assets/image (21).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (46).png" alt=""><figcaption></figcaption></figure>
 
 Um **Pod Kubernetes** é um grupo de um ou mais [containers](https://kubernetes.io/docs/concepts/containers/), **(como Docker)** que inclui armazenamento compartilhado (`volumes`), endereços IP e informações sobre como executa-lo, sendo a menor unidade de uma aplicação Kubernetes.&#x20;
 
 > Os pods são compostos por um container nos casos de uso mais comuns ou por vários containers fortemente acoplados em cenários mais avançados.
 
-<figure><img src="../.gitbook/assets/image (37).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (62).png" alt=""><figcaption></figcaption></figure>
 
 * Os containers são agrupados nesses pods para que os recursos sejam compartilhados de modo mais inteligente, recebem endereços IP's únicos e compartilham o mesmo Namespaces, incluindo endereços IP.&#x20;
 * Pods também contem redes compartilhadas e recursos de armazenamento entre os containers mas não podem compartilhar a mesma porta de acesso dentro de um mesmo pod.
 
-<figure><img src="../.gitbook/assets/image (22).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (47).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 Containers em um mesmo pod se comunicam através de localhost.

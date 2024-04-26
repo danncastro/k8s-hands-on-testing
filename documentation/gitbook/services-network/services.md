@@ -140,7 +140,7 @@ Utilizado para acessar os recursos do Kubernetes, através dessas portas que os 
 
 #### <mark style="color:blue;">TargetPort</mark>
 
-<figure><img src="../.gitbook/assets/image (13) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (38).png" alt=""><figcaption></figcaption></figure>
 
 Informa em qual porta foi disponibilizado a aplicação dentro do container em um Pod.
 
@@ -397,13 +397,13 @@ kubernetes                   ClusterIP            10.96.0.1                 \<no
 
 Permitem a comunicação externa ao cluster, disponibilizando uma porta ao qual é possível enviar requisições ao node, direcionada a alguma aplicação rodando nas Pods
 
-<figure><img src="../.gitbook/assets/image (54).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (79).png" alt=""><figcaption></figcaption></figure>
 
 Quando configuramos um serviço para `NodePort`, o kubernetes aloca uma porta de um range (por padrão 30000-32767). &#x20;
 
 * Cada nó faz um proxy para aquela porta no serviço.
 
-<figure><img src="../.gitbook/assets/image (55).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (80).png" alt=""><figcaption></figcaption></figure>
 
 Quando falamos de `NodePort` temos 3 parâmetros importantes:
 
@@ -417,7 +417,7 @@ Quando falamos de `NodePort` temos 3 parâmetros importantes:
 
 * <mark style="color:blue;">nodePort</mark> - Porta na qual o serviço será acessível através dos IP's dos nodes de forma externa ao Cluster.
 
-<figure><img src="../.gitbook/assets/image (56).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (81).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -555,7 +555,7 @@ curl http://192.168.0.51:30008
 
 ***
 
-<figure><img src="../.gitbook/assets/image (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (26).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Deleted" %}
@@ -593,7 +593,7 @@ O LoadBalancer é muito similar ao NodePort, que permite a comunicação entre u
 
 > Caso seja necessario a utilização do serviço do tipo LoadBalancer, será utilizado o Recurso Cloud Controller Manager (C-C-M)
 
-<figure><img src="../.gitbook/assets/image (57).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (82).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -709,7 +709,7 @@ curl http://192.168.3.50:30008
 
 ***
 
-<figure><img src="../.gitbook/assets/image (3) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (28).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Deleted" %}
@@ -755,13 +755,13 @@ externalName: mongo-service.database.svc.cluster.local
 
 <table><thead><tr><th width="207" align="center">Nome do serviço</th><th align="center">Namespace </th><th width="181" align="center">Tipo de Resources</th><th align="center">Cluster default </th></tr></thead><tbody><tr><td align="center"><code>mongo-service</code></td><td align="center"><code>database</code></td><td align="center"><code>svc</code></td><td align="center"><code>cluster.local</code></td></tr></tbody></table>
 
-<figure><img src="../.gitbook/assets/image (58).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (83).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (59).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (84).png" alt=""><figcaption></figcaption></figure>
 
 * Caso precise modificar esse banco de dados, só é preciso alterar o serviço do externalName, sem que precise alterar diretamente a estrutura da aplicação.
 
-<figure><img src="../.gitbook/assets/image (60).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (85).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -775,6 +775,6 @@ kubectl apply -f kubernetes_projects/k8s_cka_exemples/services/service_front_ext
 {% endtab %}
 {% endtabs %}
 
-<figure><img src="../.gitbook/assets/image (61).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (86).png" alt=""><figcaption></figcaption></figure>
 
 ***

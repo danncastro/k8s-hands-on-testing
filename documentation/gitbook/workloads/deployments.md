@@ -29,7 +29,7 @@ Para remover nossos pods precisamos remover o deployment.
 
 Por default o Kubernetes utiliza a estratégia Rolling Updates (Rolling Release), que executa uma atualização baseada em um percentual de indisponibilidade de pods, que por padrão é ter no máximo 25% de indisponibilidade do total de pods em execução.
 
-<figure><img src="../.gitbook/assets/image (41).png" alt=""><figcaption><p>Estrategia Rolling Updates</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (66).png" alt=""><figcaption><p>Estrategia Rolling Updates</p></figcaption></figure>
 
 Uma outra forma de implantação é a estratégia Recreate Deployment, mas não é recomendada pois isso pode causar uma indisponibilidade total da aplicação. Porém em ambas as estratégias utilizadas a sempre a possibilidade da utilização do Rollback, que retorna a aplicação ao estado anterior.
 

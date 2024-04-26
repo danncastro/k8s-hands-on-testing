@@ -12,7 +12,7 @@ Você pode usar o Dashboard para implantar aplicativos em contêineres em um clu
 
 O Dashboard também fornece informações sobre o estado dos recursos do Kubernetes em seu cluster e sobre quaisquer erros que possam ter ocorrido
 
-<figure><img src="../.gitbook/assets/image (42).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (67).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -182,11 +182,11 @@ base64 -d
 
 1. Agora copie o token e cole-o no campo `Enter token` da tela de login.
 
-<figure><img src="../.gitbook/assets/image (43).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (68).png" alt=""><figcaption></figcaption></figure>
 
 2. Clique no botão `Sign in` e pronto. Agora você está logado como administrador.
 
-<figure><img src="../.gitbook/assets/image (44).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (69).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 A UI _só_ pode ser acessada na máquina onde o comando é executado.
