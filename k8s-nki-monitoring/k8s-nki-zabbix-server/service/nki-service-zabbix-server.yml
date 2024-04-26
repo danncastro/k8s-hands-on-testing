@@ -9,10 +9,10 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - name: mysql-port
-      port: 3306
-      targetPort: 3306
-      nodePort: 30006
+    - name: zabbix-server
+      port: 10051
+      targetPort: 10051
+      nodePort: 30051
 
   selector:
     zabbix-app: nki-zabbix-server
