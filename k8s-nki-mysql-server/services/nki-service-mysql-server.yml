@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nki-mysql-server-service
+  namespace: nki-k8s-monitoring
+  labels:
+    k8s-app: nki-zabbix-server
+
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3306
+  selector:
+    k8s-app: nki-mysql-server

@@ -20,9 +20,6 @@ spec:
         - name: DB_SERVER_HOST
           value: nki-mysql-server-deploy 
 
-        - name: MYSQL_DATABASE_ZABBIX
-          value: zabbix-server
-
         - name: MYSQL_USER_ZABBIX
           valueFrom:
             secretKeyRef:
