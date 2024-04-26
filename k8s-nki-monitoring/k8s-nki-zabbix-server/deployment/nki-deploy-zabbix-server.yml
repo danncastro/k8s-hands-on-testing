@@ -4,7 +4,7 @@ metadata:
   name: nki-zabbix-server-deploy
   namespace: nki-k8s-monitoring
   labels:
-    k8s-app: nki-zabbix-server
+    k8s-app: nki-zabbix-server-deploy
 
 spec:
   template:
@@ -18,21 +18,31 @@ spec:
         image: zabbix/zabbix-server-mysql:latest
         env:
         - name: DB_SERVER_HOST
-          value: nki-mysql-server-deploy 
+          value: nki-mysql-server-deploy
 
-        - name: MYSQL_USER_ZABBIX
+        - name: MYSQL_DATABASE_ZABBIX
+          value: "zabbix_server"
+
+        - name: MYSQL_USER
           valueFrom:
             secretKeyRef:
-              name: nki-zabbix-mysql-server-secret
-              key: MYSQL_USER_ZABBIX
+              name: nki-mysql-server-secret
+              key: MYSQL_ROOT_USER
 
-        - name: MYSQL_PASSWORD_ZABBIX
+        - name: MYSQL_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: nki-zabbix-mysql-server-secret
-              key: MYSQL_PASSWORD_ZABBIX
+              name: nki-mysql-server-secret
+              key: MYSQL_ROOT_PASSWORD
         ports:
         - containerPort: 10051
+        volumeMounts:
+        - name: nki-mysql-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: nki-mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: nki-mysql-server-pvc
 
   selector:
     matchLabels:
