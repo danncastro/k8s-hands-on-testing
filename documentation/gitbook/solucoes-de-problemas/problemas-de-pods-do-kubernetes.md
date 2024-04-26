@@ -5,9 +5,7 @@ description: >-
   pouco mais.
 ---
 
-# Solucionando Problemas de Pods do Kubernetes
-
-***
+# Problemas de Pods do Kubernetes
 
 {% hint style="info" %}
 A primeira etapa para diagnosticar problemas de pod é executar
@@ -127,11 +125,11 @@ Aqui está um exemplo de saída do comando `kubectl describe pod`
 
 ***
 
-<mark style="color:yellow;">Name</mark> - Abaixo desta linha estão os dados básicos sobre o pod, como o nó em que está sendo executado, seus rótulos e o status atual.
+<mark style="color:blue;">Name</mark> - Abaixo desta linha estão os dados básicos sobre o pod, como o nó em que está sendo executado, seus rótulos e o status atual.
 
 ***
 
-<mark style="color:yellow;">Status</mark> - Este é o estado atual do pod, que pode ser:
+<mark style="color:blue;">Status</mark> - Este é o estado atual do pod, que pode ser:
 
 | Status       |
 | ------------ |
@@ -143,11 +141,11 @@ Aqui está um exemplo de saída do comando `kubectl describe pod`
 
 ***
 
-<mark style="color:yellow;">Containers</mark> - Abaixo desta linha estão os dados sobre contêineres em execução na pod (apenas um neste exemplo, chamado nginx)
+<mark style="color:blue;">Containers</mark> - Abaixo desta linha estão os dados sobre contêineres em execução na pod (apenas um neste exemplo, chamado nginx)
 
 ***
 
-<mark style="color:yellow;">Containers: State</mark> - Indica o status do contêiner, que pode ser:
+<mark style="color:blue;">Containers: State</mark> - Indica o status do contêiner, que pode ser:
 
 | State      |
 | ---------- |
@@ -157,11 +155,11 @@ Aqui está um exemplo de saída do comando `kubectl describe pod`
 
 ***
 
-<mark style="color:yellow;">Volumes</mark> - Volumes de armazenamento, `Secrets` ou `Configmaps` montados por contêineres no pod.
+<mark style="color:blue;">Volumes</mark> - Volumes de armazenamento, `Secrets` ou `Configmaps` montados por contêineres no pod.
 
 ***
 
-<mark style="color:yellow;">Events</mark> - Eventos recentes que ocorrem no pod, como imagens extraídas, contêineres criados e contêineres iniciados.
+<mark style="color:blue;">Events</mark> - Eventos recentes que ocorrem no pod, como imagens extraídas, contêineres criados e contêineres iniciados.
 
 {% hint style="info" %}
 Continue a depuração com base no estado do pod.
@@ -177,11 +175,11 @@ Se o status de um pod for Pendente por um tempo, isso pode significar que ele n�
 
 Tente identificar as mensagens que indicam por que o pod não pôde ser agendado. Por exemplo:
 
-* <mark style="color:yellow;">Recursos insuficientes no cluster</mark> - O cluster pode ter recursos insuficientes de CPU ou memória. Isso significa que você precisará excluir alguns pods, adicionar recursos em seus nós ou adicionar mais nós.
+* <mark style="color:blue;">Recursos insuficientes no cluster</mark> - O cluster pode ter recursos insuficientes de CPU ou memória. Isso significa que você precisará excluir alguns pods, adicionar recursos em seus nós ou adicionar mais nós.
 
 ***
 
-* <mark style="color:yellow;">Requisitos de recursos</mark> - O pod pode ser difícil de agendar devido a requisitos de recursos específicos. Veja se você pode liberar alguns dos requisitos para tornar o pod elegível para agendamento em nós adicionais.
+* <mark style="color:blue;">Requisitos de recursos</mark> - O pod pode ser difícil de agendar devido a requisitos de recursos específicos. Veja se você pode liberar alguns dos requisitos para tornar o pod elegível para agendamento em nós adicionais.
 
 ***
 
@@ -191,15 +189,15 @@ Se o status de um pod for Aguardando, isso significa que ele está agendado em u
 
 Na maioria das vezes, isso ocorre devido a um erro ao buscar a imagem. Em caso afirmativo, verifique o seguinte:
 
-* <mark style="color:yellow;">`Nome da imagem`</mark>  - Certifique-se de que o nome da imagem no manifesto do pod esteja correto
+* <mark style="color:blue;">**`Nome da imagem`**</mark>  - Certifique-se de que o nome da imagem no manifesto do pod esteja correto
 
 ***
 
-* <mark style="color:yellow;">`Imagem disponível`</mark> - Garantir que a imagem esteja realmente disponível no repositório
+* <mark style="color:blue;">**`Imagem disponível`**</mark> - Garantir que a imagem esteja realmente disponível no repositório
 
 ***
 
-* <mark style="color:yellow;">`Teste manualmente`</mark> - Execute um comando docker pull na máquina local, garantindo que você tenha as permissões apropriadas, para ver se consegue recuperar a imagem
+* <mark style="color:blue;">**`Teste manualmente`**</mark> - Execute um comando docker pull na máquina local, garantindo que você tenha as permissões apropriadas, para ver se consegue recuperar a imagem
 
 ***
 
@@ -212,8 +210,6 @@ Se um pod não estiver sendo executado conforme o esperado, pode haver duas caus
 Verificando se há um erro na descrição do seu pod:&#x20;
 
 É comum introduzir erros na descrição de um pod, por exemplo, aninhando seções incorretamente ou digitando um comando incorretamente.
-
-***
 
 1. Tente excluir o pod e recriá-lo:&#x20;
 
@@ -229,8 +225,6 @@ kubectl apply --validate -f mypod1.yaml
 
 Verificando uma incompatibilidade entre o manifesto do pod local e o `API Server` pode acontecer que o manifesto do pod, conforme registrado pelo `Kubernetes API Server`, não seja igual ao seu manifesto local, daí o comportamento inesperado.&#x20;
 
-***
-
 1. Execute este comando para recuperar o manifesto do pod do servidor API e salve-o como um arquivo YAML local:
 
 ```bash
@@ -241,15 +235,15 @@ Agora você terá um arquivo local chamado `apiserver-[pod-name].yaml`, abra-o e
 
 Existem três casos possíveis:
 
-* <mark style="color:yellow;">Local YAML tem as mesmas linhas que API Server YAML e mais</mark> - Isso indica uma incompatibilidade. Exclua o pod e execute-o novamente com o manifesto do pod local (supondo que seja o correto).
+* <mark style="color:blue;">Local YAML tem as mesmas linhas que API Server YAML e mais</mark> - Isso indica uma incompatibilidade. Exclua o pod e execute-o novamente com o manifesto do pod local (supondo que seja o correto).
 
 ***
 
-* <mark style="color:yellow;">O API Server YAML tem as mesmas linhas que o YAML local e mais</mark> - Isso é normal, porque o API Server pode adicionar mais linhas ao manifesto do pod ao longo do tempo. O problema está em outro lugar.
+* <mark style="color:blue;">O API Server YAML tem as mesmas linhas que o YAML local e mais</mark> - Isso é normal, porque o API Server pode adicionar mais linhas ao manifesto do pod ao longo do tempo. O problema está em outro lugar.
 
 ***
 
-* <mark style="color:yellow;">Ambos os arquivos YAML são idênticos</mark> - Novamente, isso é normal e significa que o problema está em outro lugar.
+* Ambos os arquivos YAML são idênticos - Novamente, isso é normal e significa que o problema está em outro lugar.
 
 ***
 
@@ -262,9 +256,7 @@ Se você não conseguiu diagnosticar o problema do seu pod usando os métodos ac
 * Depurando com um contêiner de depuração efêmero
 * Executando um pod de depuração no nó
 
-***
-
-#### <mark style="color:yellow;">Examinando logs de pod</mark>&#x20;
+#### <mark style="color:blue;">Examinando logs de Pods</mark>
 
 Você pode recuperar logs de um contêiner com defeito usando este comando:
 
@@ -278,9 +270,7 @@ kubectl logs [nome do pod] [nome do contêiner]
 kubectl logs --previous [nome do pod] [nome do contêiner]
 ```
 
-***
-
-#### <mark style="color:yellow;">Depurando com Container Exec</mark>&#x20;
+#### <mark style="color:blue;">Depurando com Container Exec</mark>&#x20;
 
 Muitas imagens de contêiner contêm utilitários de depuração, isso vale para todas as imagens derivadas de imagens de base do Linux e do Windows. Isso permite que você execute comandos em um shell dentro do contêiner com defeito, como segue:
 
@@ -294,13 +284,9 @@ kubectl exec [nome do pod] -c [nome do contêiner] -- [seu-comandos-shell]
 A solução, suportada no _**Kubernetes v.1.18**_ e posterior, é executar um `containerEfêmero`.
 {% endhint %}
 
-***
-
 * Este é um container que roda junto com seu container de produção e espelha sua atividade, permitindo que você execute comandos de shell nele, como se estivesse executando-os no container real, e mesmo depois de travar.
 
-***
-
-#### <mark style="color:yellow;">Crie um contêiner efêmero usando:</mark>
+#### <mark style="color:blue;">Crie um contêiner efêmero usando:</mark>
 
 ```bash
 kubectl debug -it [pod-name] --image=[image-name] --target=[pod-name]
@@ -318,9 +304,7 @@ kubectl debug -it [pod-name] --image=[image-name] --target=[pod-name]
 
 Agora você pode executar _kubectl exec_ em seu novo contêiner efêmero e usá-lo para depurar seu contêiner de produção.
 
-***
-
-#### <mark style="color:yellow;">Executando um pod de depuração no nó</mark>&#x20;
+#### <mark style="color:blue;">Executando um Pod de depuração no nó</mark>
 
 Se nenhuma dessas abordagens funcionar, você pode criar um pod especial no nó, executando no Namespace do host com privilégios de host. Este método não é recomendado em ambientes de produção por motivos de segurança.
 
@@ -329,8 +313,6 @@ Se nenhuma dessas abordagens funcionar, você pode criar um pod especial no nó,
 ```bash
 kubectl debug node/[node-name] -it --image=[image-name]
 ```
-
-***
 
 * Depois de executar o comando debug, o kubectl mostrará uma mensagem com seu novo pod de depuração&#x20;
 

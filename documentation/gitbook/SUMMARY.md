@@ -47,9 +47,9 @@
 
 ## Soluções de problemas
 
-* [Solução dos Problemas de Erros Comuns](solucoes-de-problemas/solucao-dos-problemas-de-erros-comuns.md)
-* [Solucionando Problemas de Pods do Kubernetes](solucoes-de-problemas/solucionando-problemas-de-pods-do-kubernetes.md)
-* [Solucionando Problemas de Clusters do Kubernetes](solucoes-de-problemas/solucionando-problemas-de-clusters-do-kubernetes.md)
+* [Erros Comuns](solucoes-de-problemas/erros-comuns.md)
+* [Problemas de Pods do Kubernetes](solucoes-de-problemas/problemas-de-pods-do-kubernetes.md)
+* [Problemas de Clusters do Kubernetes](solucoes-de-problemas/problemas-de-clusters-do-kubernetes.md)
 
 ## Laboratórios
 
