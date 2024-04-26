@@ -601,8 +601,6 @@ kubernetes                   ClusterIP            10.96.0.1                 \<no
 
 O LoadBalancer é muito similar ao NodePort, que permite a comunicação entre uma maquina do mundo externo aos nossos pods. As diferenças são que os LoadBalancers normalmente ficam alocados em um Cloud provider, e que ele automaticamente distribuí as cargas de acesso entre nós do cluster.
 
-
-
 > Caso seja necessario a utilização do serviço do tipo LoadBalancer, será utilizado o Recurso Cloud Controller Manager (C-C-M)
 
 <figure><img src="../.gitbook/assets/image (57).png" alt=""><figcaption></figcaption></figure>
@@ -618,13 +616,13 @@ Neste exemplo criaremos um serviço do tipo LoadBalancer expondo um ip externo a
 Vamos utilizar o manifesto de pod anterior removendo apenas o container do tomcat.
 
 ```bash
-kubectl apply -f k8s-cka-exemples/pods/pod_web-server-pod.yml
+kubectl apply -f kubernetes_projects/k8s_cka_exemples/pods/pod_web-server-pod.yml
 ```
 
 pod/web-server-pod created
 
 ```bash
-kubectl apply -f k8s-cka-exemples/pods/service_front_loadbalancer.yml
+kubectl apply -f kubernetes_projects/k8s_cka_exemples/services/service_front_loadbalancer.yml
 ```
 
 service/front-loadbalancer created
