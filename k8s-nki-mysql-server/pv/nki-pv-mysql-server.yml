@@ -6,12 +6,12 @@ metadata:
   labels:
     k8s-app: nki-mysql-server-pv
 
-spce:
+spec:
   capacity:
     storage: 5Gi
   volumeMode: Filesystem
   accessModes:
   - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retail
+  persistentVolumeReclaimPolicy: Retain
   hostPath:
     path: /var/lib/mysql/data
