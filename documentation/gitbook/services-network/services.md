@@ -117,16 +117,6 @@ SELECT * FROM mensagens
 
 ***
 
-## <mark style="color:red;">External Name</mark>&#x20;
-
-Expõe um serviço externo para ser acessado através do pod interno, por exemplo um banco de dados.
-
-> &#x20;externalName: mongo-service.database.svc.cluster.local
-
-<table><thead><tr><th width="207" align="center">Nome do serviço</th><th align="center">Namespace </th><th width="181" align="center">Tipo de Resources</th><th align="center">Cluster default </th></tr></thead><tbody><tr><td align="center"><code>mongo-service</code></td><td align="center"><code>database</code></td><td align="center"><code>svc</code></td><td align="center"><code>cluster.local</code></td></tr></tbody></table>
-
-***
-
 {% hint style="info" %}
 #### Todos os recursos utilizados nesses exemplos, estarão disponibilizados no Github:
 
@@ -748,3 +738,43 @@ NAME                            TYPE                  CLUSTER-IP          EXTERN
 kubernetes                   ClusterIP            10.96.0.1                 \<none>               443/TCP      38s
 {% endtab %}
 {% endtabs %}
+
+***
+
+## <mark style="color:red;">External Name</mark>&#x20;
+
+É um tipo de serviço especial que atua como um alias para um host externo. Ele não direciona o tráfego para um pod interno, como outros tipos de serviços, mas sim redireciona para um nome de host externo.
+
+Digamos que tenhamos um serviço ou recurso fora do cluster do Kubernetes, como um banco de dados hospedado em algum lugar na internet. Podemos querer acessar esse banco de dados de dentro do cluster Kubernetes. Para fazer isso, podemos criar um serviço `externalName` que mapeia o nome do serviço do Kubernetes para o nome de host externo do banco de dados.
+
+> Expõe um serviço externo para ser acessado através do pod interno, por exemplo um banco de dados.
+
+```yaml
+externalName: mongo-service.database.svc.cluster.local
+```
+
+<table><thead><tr><th width="207" align="center">Nome do serviço</th><th align="center">Namespace </th><th width="181" align="center">Tipo de Resources</th><th align="center">Cluster default </th></tr></thead><tbody><tr><td align="center"><code>mongo-service</code></td><td align="center"><code>database</code></td><td align="center"><code>svc</code></td><td align="center"><code>cluster.local</code></td></tr></tbody></table>
+
+<figure><img src="../.gitbook/assets/image (58).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/image (59).png" alt=""><figcaption></figcaption></figure>
+
+* Caso precise modificar esse banco de dados, só é preciso alterar o serviço do externalName, sem que precise alterar diretamente a estrutura da aplicação.
+
+<figure><img src="../.gitbook/assets/image (60).png" alt=""><figcaption></figcaption></figure>
+
+***
+
+### <mark style="color:red;">Criando serviço do tipo externalName</mark>
+
+{% tabs %}
+{% tab title="ExternalName" %}
+```
+kubectl apply -f kubernetes_projects/k8s_cka_exemples/services/service_front_external-name.yml
+```
+{% endtab %}
+{% endtabs %}
+
+<figure><img src="../.gitbook/assets/image (61).png" alt=""><figcaption></figcaption></figure>
+
+***
