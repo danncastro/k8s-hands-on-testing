@@ -12,6 +12,6 @@ spce:
   volumeMode: Filesystem
   accessModes:
   - ReadWriteOnce
-  PersistentVolumeReclaimPolicy: Retail
+  persistentVolumeReclaimPolicy: Retail
   hostPath:
   - /var/lib/mysql/data
