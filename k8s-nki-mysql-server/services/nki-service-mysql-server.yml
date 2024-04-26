@@ -4,7 +4,7 @@ metadata:
   name: nki-mysql-server-service
   namespace: nki-k8s-monitoring
   labels:
-    env: nki-cluster-local
+    k8s-app: nki-mysql-server-service
 
 spec:
   type: ClusterIP
