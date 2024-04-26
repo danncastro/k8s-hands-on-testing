@@ -444,7 +444,7 @@ kubectl apply -f k8s-cka-exemples/pods/pod_web-server-pod.yml
 pod/web-server-pod created
 
 ```bash
-kubectl apply -f k8s-cka-exemples/pods/service_front-nodeport.yml
+kubectl apply -f k8s-cka-exemples/services/service_front-node-port.yml
 ```
 
 service/frontend-node-port created
@@ -537,10 +537,28 @@ k8s-worker-node1         Ready          \<none>               11d             v1
 
 ***
 
-2. Usaremos o nó k8s-worker-node2 como exemplo, mas poderíamos acessar com qualquer um dos IPS dos nós
+2. Podemos resumir o comando assima da seguinte forma:
+
+```
+kubectl get nodes -o yaml | grep address
+```
+
+<mark style="color:red;">address</mark>es:
+
+\-- <mark style="color:red;">address</mark>: 192.168.0.50
+
+\-- <mark style="color:red;">address</mark>: k8s-controller-node1
+
+\-- <mark style="color:red;">address</mark>: 192.168.0.51
+
+\-- <mark style="color:red;">address</mark>: k8s-worker-node1
+
+***
+
+3. Usaremos o nó k8s-worker-node2 como exemplo, mas poderíamos acessar com qualquer um dos IPS dos nós
 
 ```bash
-curl http://192.168.3.52:30008
+curl http://192.168.0.51:30008
 ```
 
 \<html>\<body>\<h1>It works!\</h1>\</body>\</html>
