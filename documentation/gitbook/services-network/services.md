@@ -601,6 +601,10 @@ kubernetes                   ClusterIP            10.96.0.1                 \<no
 
 O LoadBalancer é muito similar ao NodePort, que permite a comunicação entre uma maquina do mundo externo aos nossos pods. As diferenças são que os LoadBalancers normalmente ficam alocados em um Cloud provider, e que ele automaticamente distribuí as cargas de acesso entre nós do cluster.
 
+
+
+> Caso seja necessario a utilização do serviço do tipo LoadBalancer, será utilizado o Recurso Cloud Controller Manager (C-C-M)
+
 <figure><img src="../.gitbook/assets/image (57).png" alt=""><figcaption></figcaption></figure>
 
 ***
