@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: nki-mysql-server
+  name: nki-mysql-server-pv
   namespace: nki-k8s-monitoring
   labels:
     k8s-app: nki-mysql-server-pv

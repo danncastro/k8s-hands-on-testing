@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nki-mysql-server
+  name: nki-mysql-server-deploy
   namespace: nki-k8s-monitoring
   labels:
     k8s-app: nki-mysql-server-deploy
