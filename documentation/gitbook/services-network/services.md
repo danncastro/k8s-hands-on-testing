@@ -320,7 +320,7 @@ targetPort: 8080
 ***
 
 ```bash
-kubectl apply -f k8s-cka-exemples/pods/service_front-cluster-ip.yml
+kubectl apply -f kubernetes_projects/k8s_cka_exemples/services/service_front-cluster-ip.yml
 ```
 
 service/front-cluster-ip configured
