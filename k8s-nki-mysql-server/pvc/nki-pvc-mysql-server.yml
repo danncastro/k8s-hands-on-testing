@@ -4,7 +4,7 @@ metadata:
   name: nki-mysql-server
   namespace: nki-k8s-monitoring
   labels:
-    k8s-app: nki-mysql-server
+    k8s-app: nki-mysql-server-pvc
 
 spec:
   accessModes:
@@ -12,3 +12,4 @@ spec:
   resources:
     requests:
       storage: 5Gi
+  volumeName: nki-mysql-server

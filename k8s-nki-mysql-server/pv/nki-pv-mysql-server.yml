@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: persistentVolume
+metadata:
+  name: nki-mysql-server
+  namespace: nki-k8s-monitoring
+  labels:
+    k8s-app: nki-mysql-server-pv
+
+spce:
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+  PersistentVolumeReclaimPolicy: Retail
+  hostPath:
+  - /var/lib/mysql/data
