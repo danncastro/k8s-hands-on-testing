@@ -3,7 +3,7 @@ kind: PersistentVolume
 metadata:
   name: nki-mysql-server-pv
   labels:
-    k8s-app: nki-mysql-server
+    k8s-app: nki-mysql-server-pv
 
 spec:
   capacity:
