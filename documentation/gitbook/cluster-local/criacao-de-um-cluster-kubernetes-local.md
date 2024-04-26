@@ -482,6 +482,34 @@ kubectl get nodes
 Note que após listar os nodes o cluster mostra na aba STATUS`NotReady`, isso acontece por que falta o plug-in de redes, que nos auxiliará no gerenciamento de IPs do Cluster
 {% endhint %}
 {% endtab %}
+
+{% tab title="bash-completion" %}
+Vamos instalar o bash-completion para melhor desempenho
+
+```bash
+sudo apt-get install bash-completion
+```
+
+Vamos adicionar a configuração de automação no bash do shell atual
+
+```bash
+source <(kubectl completion bash)
+```
+
+Para adicionar permanentemente no shell bash
+
+```bash
+echo "source <(kubectl completion bash)" >> ~/.bashrc
+```
+
+Para adicionar permanentemente no shell zsh
+
+```bash
+echo "source <(kubectl completion bash)" >> ~/.zshrc
+```
+
+***
+{% endtab %}
 {% endtabs %}
 
 ***
