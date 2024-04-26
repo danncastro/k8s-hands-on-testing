@@ -508,6 +508,13 @@ Para adicionar permanentemente no shell zsh
 echo "source <(kubectl completion bash)" >> ~/.zshrc
 ```
 
+Recarregue as configurações do terminal
+
+```bash
+logout
+source ~/.bashrc
+```
+
 ***
 {% endtab %}
 {% endtabs %}
