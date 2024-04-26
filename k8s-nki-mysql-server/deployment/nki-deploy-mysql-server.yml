@@ -22,11 +22,27 @@ spec:
             secretKeyRef:
               name: nki-mysql-server-secret
               key: MYSQL_ROOT_PASSWORD
+
         - name: MYSQL_ROOT_USER
           valueFrom:
             secretKeyRef:
               name: nki-mysql-server-secret
               key: MYSQL_ROOT_USER
+
+        - name: MYSQL_DATABASE_ZABBIX
+          value: zabbix-server
+        - name: MYSQL_USER_ZABBIX
+          valueFrom:
+            secretKeyRef:
+              name: nki-zabbix-mysql-server-secret
+              key: MYSQL_USER_ZABBIX
+
+        - name: MYSQL_PASSWORD_ZABBIX
+          valueFrom:
+            secretKeyRef:
+              name: nki-zabbix-mysql-server-secret
+              key: MYSQL_PASSWORD_ZABBIX
+
         ports:
         - containerPort: 3306
         volumeMounts:
