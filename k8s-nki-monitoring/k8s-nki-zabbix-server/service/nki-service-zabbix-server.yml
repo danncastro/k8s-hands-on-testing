@@ -9,7 +9,7 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - name: zabbix-server
+    - name: nki-zabbix-server
       port: 10051
       targetPort: 10051
       nodePort: 30051
