@@ -42,9 +42,9 @@ Gitbook Vagrant
 
 {% hint style="info" %}
 Abaixo está o ambiente utilizado na criação do cluster utilizando 3 vms vagrant
-{% endhint %}
 
-{% embed url="https://github.com/danncastro/k8s-cluster-local" %}
+[https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cluster\_local](https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cluster\_local)
+{% endhint %}
 
 ***
 
@@ -82,7 +82,7 @@ sudo vi /etc/fstab
 Documentação Oficial Container Runtimes Kubernetes
 {% endembed %}
 
-#### <mark style="color:yellow;">Instalar e configurar pré-requisitos</mark> <a href="#install-and-configure-prerequisites" id="install-and-configure-prerequisites"></a>
+#### <mark style="color:blue;">Instalar e configurar pré-requisitos</mark> <a href="#install-and-configure-prerequisites" id="install-and-configure-prerequisites"></a>
 
 Encaminhando o IPv4 e permitindo que o iptables veja o tráfego em ponte. Execute as instruções abaixo mencionadas:
 
@@ -150,7 +150,7 @@ lsmod | grep overlay
 
 ***
 
-#### <mark style="color:yellow;">Instalação  do containerd.io</mark>
+#### <mark style="color:blue;">Instalação  do containerd.io</mark>
 
 Para instalar o containerd em seu sistema, siga as instruções de [introdução ao containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md), utilizaremos a opção 2 `apt-get` ou `dnv do Github`
 
@@ -218,16 +218,14 @@ Outro ponto é que o pacote `containerd.io` também contém `runc`, mas não con
 {% endhint %}
 
 > Utilizaremos a opção 1 neste mesmo Github para instalar manualmente os binários de plug-ins CNI
-
-{% @github-files/github-code-block %}
 {% endtab %}
 
 {% tab title="Plug-in CNI" %}
 1. Baixe dentro da instancia provisionada a versão mais atual do plug-in CNI, que nesse exemplo é a `v1.3.0`
 
 ```bash
-cd /tmp
-wget https://github.com/containernetworking/plugins/releases/download/v1.3.0/cni-plugins-linux-amd64-v1.3.0.tgz
+    cd /tmp
+    wget https://github.com/containernetworking/plugins/releases/download/v1.3.0/cni-plugins-linux-amd64-v1.3.0.tgz
 ```
 
 ***
@@ -256,7 +254,7 @@ systemctl status containerd
 
 ***
 
-#### <mark style="color:yellow;">Configurando o driver cgroup systemd</mark>
+#### <mark style="color:blue;">Configurando o driver cgroup systemd</mark>
 
 Para usar o driver cgroup `systemd` defina `runc` com  `/etc/containerd/config.toml`&#x20;
 
@@ -327,7 +325,7 @@ Após executar os passos de instalação do containerd vamos efetuar a instalaç
 
 ## <mark style="color:red;">Instalando kubeadm, kubelet e kubectl</mark> <a href="#installing-kubeadm-kubelet-and-kubectl" id="installing-kubeadm-kubelet-and-kubectl"></a>
 
-#### <mark style="color:yellow;">Repositórios de pacotes do Kubernetes</mark> <a href="#dpkg-k8s-package-repo" id="dpkg-k8s-package-repo"></a>
+#### <mark style="color:blue;">Repositórios de pacotes do Kubernetes</mark> <a href="#dpkg-k8s-package-repo" id="dpkg-k8s-package-repo"></a>
 
 > Estas instruções são para o Kubernetes 1.28
 
@@ -421,7 +419,7 @@ sudo kubeadm init --kubernetes-version=1.28.0
 
 {% tab title="Reset nó" %}
 ```bash
-kubeadm reset
+sudo kubeadm reset
 ```
 
 > Ao executar o comando acima as configurações são resetadas e o cluster é desfeito
@@ -430,7 +428,7 @@ kubeadm reset
 
 ***
 
-#### <mark style="color:yellow;">Pós inicialização</mark>
+#### <mark style="color:blue;">Pós inicialização</mark>
 
 {% tabs %}
 {% tab title="Configuração Cluster" %}
@@ -488,7 +486,7 @@ Note que após listar os nodes o cluster mostra na aba STATUS`NotReady`, isso ac
 
 ***
 
-#### <mark style="color:yellow;">**Adicione um nó Worker ao cluster Kubernetes**</mark>
+#### <mark style="color:blue;">**Adicione um nó Worker ao cluster Kubernetes**</mark>
 
 {% tabs %}
 {% tab title="Workers" %}
@@ -530,7 +528,7 @@ kubeadm join 192.168.3.50:6443 --token s1ch4f.j6dn4nrm27oyxjr9 \
 
 ***
 
-#### <mark style="color:yellow;">Installing  plug-in de redes</mark>
+#### <mark style="color:blue;">Installing  plug-in de redes</mark>
 
 {% hint style="info" %}
 Ao listar os Nodes notasse que estão no status `“NotReady”`. Para corrigir isso, você precisa instalar CNI (Container Network Interface) ou complementos de rede, como `Calico`, `Flannel` e `weave-net`.

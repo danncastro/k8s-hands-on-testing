@@ -47,7 +47,7 @@ No resources found in default namespace.
 ***
 
 ```bash
-kubectl apply -f k8s-cka-exemples/replicasets/frontend_app.yml
+kubectl apply -f kubernetes_projects/k8s_cka_exemples/replicasets/frontend_app.yml
 ```
 
 replicaset.apps/frontend-rs created
@@ -119,7 +119,7 @@ frontend-rs-dgbtl           1/1            Running    0                  4m24s  
 ```
 
 ```bash
-kubectl apply -f k8s-cka-exemples/replicasets/frontend_app.yml
+kubectl apply -f kubernetes_projects/k8s_cka_exemples/replicasets/frontend_app.yml
 ```
 
 replicaset.apps/frontend-rs configured
@@ -165,7 +165,7 @@ frontend-rs        5          5          5        20m        container-nginx    
 ***
 
 ```bash
-kubectl apply -f k8s-cka-exemples/replicasets/frontend_app.yml
+kubectl apply -f kubernetes_projects/k8s_cka_exemples/replicasets/frontend_app.yml
 ```
 
 replicaset.apps/frontend-rs configured
@@ -225,7 +225,7 @@ No resources found in default namespace.
 {% tabs %}
 {% tab title="ReplicaSet" %}
 ```bash
-kubectl apply -f k8s-cka-exemples/replicasets/frontend_app.yml
+kubectl apply -f kubernetes_projects/k8s_cka_exemples/replicasets/frontend_app.yml
 ```
 
 replicaset.apps/frontend-rs created

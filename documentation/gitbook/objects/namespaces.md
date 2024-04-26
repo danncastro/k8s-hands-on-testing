@@ -154,7 +154,7 @@ kube-system                                                                  Act
 {% tabs %}
 {% tab title="Apply" %}
 ```bash
-kubectl apply -f k8s-cka-exemples/networking/pod-to-pod-communication/tomcat.yml --namespace=frontend
+kubectl apply -f kubernetes_projects/k8s_cka_exemples/networking/pod-to-pod-communication/tomcat.yml --namespace=frontend
 ```
 
 pod/tomcat-pod created
@@ -302,7 +302,7 @@ kube-system                                                                  Act
 {% tabs %}
 {% tab title="Namespace" %}
 ```bash
-kubectl apply -f k8s-cka-exemples/namespaces/backend-ns.yml
+kubectl apply -f kubernetes_projects/k8s_cka_exemples/namespaces/backend-ns.yml
 ```
 
 namespace/backend-ns created
@@ -336,7 +336,7 @@ No resources found in backend-ns namespace.
 
 {% tab title="Pod" %}
 ```bash
-kubectl apply -f k8s-cka-exemples/networking/pod-to-pod-communication/redis.yml --namespace=backend-ns
+kubectl apply -f kubernetes_projects/k8s_cka_exemples/networking/pod-to-pod-communication/redis.yml --namespace=backend-ns
 ```
 
 pod/redis-pod created
@@ -410,7 +410,7 @@ Outra opção seria definir o campo namespace no arquivo YAML do redis-pod, veja
 Aplicando `redis.yml` de forma simples, o pod já seria inserido no namespace `backend-ns`, assim:
 
 ```bash
-kubectl apply -f k8s-cka-exemples/networking/pod-to-pod-communication/redis.yml
+kubectl apply -f kubernetes_projects/k8s_cka_exemples/networking/pod-to-pod-communication/redis.yml
 ```
 
 ***

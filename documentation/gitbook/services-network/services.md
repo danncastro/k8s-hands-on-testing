@@ -180,7 +180,7 @@ Ou seja quando um pod e reinicializado ou até mesmo deletado, ele pode retornar
 1. Essa é a Pod que usaremos para testar a conectividade do serviço, nela temos instalado um servidor web Apache que responde na porta 80 e um serviço Tomcat que responde na porta 8080.
 
 ```bash
-kubectl apply -f k8s-cka-exemples/pod_web-server-pod.yml
+kubectl apply -f kubernetes_projects/k8s_cka_exemples/pods/pod_web_server.yml
 ```
 
 pod/web-server-pod created
@@ -202,7 +202,7 @@ web-server-pod          1/1                 Running                           0 
 1. Crie o serviço do tipo ClusterIP.
 
 ```bash
-kubectl apply -f k8s-cka-exemples/service_front-cluster-ip.yml
+kubectl apply -f kubernetes_projects/k8s_cka_exemples/services/service_front-cluster-ip.yml
 ```
 
 service/front-cluster-ip created
@@ -320,7 +320,7 @@ targetPort: 8080
 ***
 
 ```bash
-kubectl apply -f k8s-cka-exemples/service_front-cluster-ip.yml
+kubectl apply -f k8s-cka-exemples/pods/service_front-cluster-ip.yml
 ```
 
 service/front-cluster-ip configured
@@ -438,13 +438,13 @@ Quando falamos de `NodePort` temos 3 parâmetros importantes:
 Vamos utilizar o manifesto de pod anterior removendo apenas o container do tomcat.
 
 ```bash
-kubectl apply -f k8s-cka-exemples/pod_web-server-pod.yml
+kubectl apply -f k8s-cka-exemples/pods/pod_web-server-pod.yml
 ```
 
 pod/web-server-pod created
 
 ```bash
-kubectl apply -f k8s-cka-exemples/service_front-nodeport.yml
+kubectl apply -f k8s-cka-exemples/pods/service_front-nodeport.yml
 ```
 
 service/frontend-node-port created
@@ -596,13 +596,13 @@ Neste exemplo criaremos um serviço do tipo LoadBalancer expondo um ip externo a
 Vamos utilizar o manifesto de pod anterior removendo apenas o container do tomcat.
 
 ```bash
-kubectl apply -f k8s-cka-exemples/pod_web-server-pod.yml
+kubectl apply -f k8s-cka-exemples/pods/pod_web-server-pod.yml
 ```
 
 pod/web-server-pod created
 
 ```bash
-kubectl apply -f k8s-cka-exemples/service_front_loadbalancer.yml
+kubectl apply -f k8s-cka-exemples/pods/service_front_loadbalancer.yml
 ```
 
 service/front-loadbalancer created

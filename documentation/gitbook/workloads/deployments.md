@@ -44,7 +44,7 @@ Uma outra forma de implantação é a estratégia Recreate Deployment, mas não 
 {% tabs %}
 {% tab title="Deployment" %}
 ```bash
-kubectl apply -f k8s-cka-exemples/deployment/frontend_deploy.yml
+kubectl apply -f kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
 ```
 
 deployment.apps/frontend-deploy created
@@ -155,7 +155,7 @@ Type                   Reason                        Age                    From
 
 {% tab title="Deleted" %}
 ```
-kubectl delete -f k8s-cka-exemples/deployment/frontend_deploy.yml
+kubectl delete -f kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
 ```
 
 deployment.apps/frontend-deploy deleted
@@ -175,7 +175,7 @@ deployment.apps/frontend-deploy deleted
 {% tabs %}
 {% tab title="Create" %}
 ```bash
-kubectl apply -f k8s-cka-exemples/deployment/frontend_deploy.yml
+kubectl apply -f kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
 ```
 
 deployment.apps/frontend-deploy created
@@ -218,7 +218,7 @@ Alteraremos o número de replicas no manifesto para 4
 ***
 
 ```bash
-vim k8s-cka-exemples/deployment/frontend_deploy.yml
+vim kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
 ```
 
 ```yaml
@@ -304,7 +304,7 @@ spec:
 
 {% tab title="Apply" %}
 ```bash
-kubectl apply -f k8s-cka-exemples/deployment/frontend_deploy.yml
+kubectl apply -f kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
 ```
 
 ddeployment.apps/frontend-deploy configured
@@ -378,7 +378,7 @@ spec:
 
 {% tab title="Apply" %}
 ```bash
-kubectl apply -f k8s-cka-exemples/deployment/frontend_deploy.yml
+kubectl apply -f kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
 ```
 
 deployment.apps/frontend-deploy configured
@@ -408,7 +408,7 @@ Alteraremos novamente a versão da imagem
 ***
 
 ```bash
-vim deployment.yml
+vim kubernetes_projects/k8s_cka_exemples/deployments/frontend_deploy.yml
 ```
 
 ```yaml
@@ -438,7 +438,7 @@ spec:
 
 {% tab title="Apply" %}
 ```bash
-kubectl apply -f k8s-cka-exemples/deployment/frontend_deploy.yml
+kubectl apply -f kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
 ```
 
 deployment.apps/frontend-deploy configured
@@ -506,7 +506,7 @@ Pod Template:
 {% tabs %}
 {% tab title="Manifest" %}
 ```bash
-vim k8s-cka-exemples/deployment/frontend_deploy.yml
+vim kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
 ```
 
 ```yaml
@@ -535,7 +535,7 @@ spec:
 {% endtab %}
 
 {% tab title="Apply" %}
-<pre class="language-bash"><code class="lang-bash"><strong>kubectl apply -f k8s-cka-exemples/deployment/frontend_deploy.yml --record
+<pre class="language-bash"><code class="lang-bash"><strong>kubectl apply -f kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml --record
 </strong></code></pre>
 
 deployment.apps/frontend-deploy configured
@@ -657,7 +657,7 @@ Pod Template:
 {% tabs %}
 {% tab title="Deleted" %}
 ```bash
-kubectl delete -f k8s-cka-exemples/deployment/frontend_deploy.yml
+kubectl delete -f kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
 ```
 
 deployment.apps/frontend-deploy deleted
@@ -665,7 +665,7 @@ deployment.apps/frontend-deploy deleted
 
 {% tab title="Manifest" %}
 ```bash
-vim k8s-cka-exemples/deployment/frontend_deploy.yml
+vim kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
 ```
 
 ```yaml
@@ -694,7 +694,7 @@ spec:
 {% endtab %}
 
 {% tab title="Apply" %}
-<pre class="language-bash"><code class="lang-bash"><strong>kubectl apply -f k8s-cka-exemples/deployment/frontend_deploy.yml
+<pre class="language-bash"><code class="lang-bash"><strong>kubectl apply -f kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
 </strong></code></pre>
 
 deployment.apps/frontend-deploy configured
@@ -721,7 +721,7 @@ Vamos alterar a versão da imagem para gerar uma nova revisão
 ***
 
 ```bash
-vim k8s-cka-exemples/deployment/frontend_deploy.yml
+vim kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
 ```
 
 ```yaml
@@ -753,7 +753,7 @@ spec:
 > Deixe um terminal aberto com o comando `watch kubectl get pod` e outro com o comando de `pause` já preparados, pois como estamos utilizando um contexto de testes, existem poucas pods em execução, então a alteração das versões pode ocorrer de forma instantânea, sendo assim já dê o pause assim que executar o apply
 
 ```bash
-kubectl apply -f k8s-cka-exemples/deployment/frontend_deploy.yml
+kubectl apply -f kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
 ```
 
 deployment.apps/frontend-deploy configured
@@ -839,7 +839,7 @@ Vamos escalar mais 2 pods no arquivo de manifesto ou o que chamamos de **scale u
 ***
 
 ```bash
-vim k8s-cka-exemples/deployment/frontend_deploy.yml
+vim kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
 ```
 
 ```yaml
@@ -868,7 +868,7 @@ spec:
 {% endtab %}
 
 {% tab title="Apply" %}
-<pre class="language-bash"><code class="lang-bash"><strong>kubectl apply -f k8s-cka-exemples/deployment/frontend_deploy.yml
+<pre class="language-bash"><code class="lang-bash"><strong>kubectl apply -f kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
 </strong></code></pre>
 
 deployment.apps/frontend-deploy configured
@@ -943,7 +943,7 @@ Vamos novamente alterar a versão da imagem para gerar um novo valor de revisão
 ***
 
 ```bash
-vim k8s-cka-exemples/deployment/frontend_deploy.yml
+vim kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
 ```
 
 ```yaml
@@ -975,7 +975,7 @@ spec:
 
 {% tab title="Apply" %}
 ```bash
-kubectl apply -f k8s-cka-exemples/deployment/frontend_deploy.yml
+kubectl apply -f kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
 ```
 
 deployment.apps/frontend-deploy configured
@@ -1013,7 +1013,7 @@ kubectl describe deployment.apps/frontend-deploy | grep StrategyType
 {% tabs %}
 {% tab title="Deleted" %}
 ```bash
-kubectl delete -f k8s-cka-exemples/deployment/frontend_deploy.yml
+kubectl delete -f kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
 ```
 
 deployment.apps/frontend-deploy  deleted

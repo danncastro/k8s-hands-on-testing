@@ -144,7 +144,7 @@ No resources found in default namespace.
 {% tabs %}
 {% tab title="Create Pod" %}
 ```bash
-kubectl create -f k8s-cka-exemples/pods/first_pod_webserver.yml
+kubectl apply -f kubernetes_projects/k8s_cka_exemples/pods/first_pod_webserver.yml
 ```
 
 pod/first-pod-webserver created
@@ -162,7 +162,7 @@ first-pod-webserver     1/1             Running       0                        1
 
 {% tab title="Deleted Pod" %}
 ```bash
-kubectl delete po -f k8s-cka-exemples/pods/first_pod_webserver.yml
+kubectl delete po -f kubernetes_projects/k8s_cka_exemples/pods/first_pod_webserver.yml
 ```
 
 pod "first-pod-webserver" deleted
@@ -233,7 +233,7 @@ Através desse volume, o container `debian-container` irá popular o arquivo `/p
 {% tabs %}
 {% tab title="Multi-container" %}
 ```bash
-kubectl apply -f k8s-cka-exemples/pods/pods_multi_container.yml
+kubectl apply -f kubernetes_projects/k8s_cka_exemples/pods/pods_multi_container.yml
 ```
 
 pod/multi-container created
@@ -367,7 +367,7 @@ O exemplo abaixo é um manifesto para um Job simples com um `template` que inici
 {% tabs %}
 {% tab title="Pod Templates" %}
 ```bash
-kubectl apply -f k8s-cka-exemples/pods/job_template_pod.yml
+kubectl apply -f kubernetes_projects/k8s_cka_exemples/pods/job_template_pod.yml
 ```
 {% endtab %}
 {% endtabs %}
@@ -489,7 +489,7 @@ Este exemplo demonstra como usar um contêiner de inicialização para inicializ
 {% tabs %}
 {% tab title="Pod init" %}
 ```bash
-kubectl apply -f k8s-cka-exemples/pods/init_pod.yml
+kubectl apply -f kubernetes_projects/k8s_cka_exemples/pods/init_pod.yml
 ```
 
 pod/init-pod created

@@ -35,7 +35,7 @@
 {% tabs %}
 {% tab title="Create" %}
 ```bash
-kubectl create -f k8s-cka-exemples/networking/pod-to-pod-communication/tomcat.yml
+kubectl create -f k8s-cka-exemples/pods/pod-to-pod-communication/tomcat.yml
 ```
 
 pod/tomcat-pod created
@@ -43,7 +43,7 @@ pod/tomcat-pod created
 ***
 
 ```bash
-kubectl create -f k8s-cka-exemples/networking/pod-to-pod-communication/redis.yml
+kubectl create -f k8s-cka-exemples/pods/pod-to-pod-communication/redis.yml
 ```
 
 pod/redis-pod created  &#x20;
