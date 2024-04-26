@@ -11,4 +11,4 @@ spec:
   ports:
     - port: 3306
   selector:
-    k8s-app: nki-mysql-server-deploy
+    env: nki-cluster-local
