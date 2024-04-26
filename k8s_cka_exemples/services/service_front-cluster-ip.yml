@@ -8,7 +8,9 @@ spec:
   selector:
     type: pod-web-server
   ports:
-  - name: http
+  - name: http-apache
     port: 80
     targetPort: 80
-    #targetPort: 8080
+  - name: http-tomcat
+    port: 8080
+    targetPort: 8080
