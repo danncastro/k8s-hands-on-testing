@@ -21,7 +21,7 @@ spec:
           value: nki-mysql-server-deploy
 
         - name: MYSQL_DATABASE_ZABBIX
-          value: "zabbix_server"
+          value: zabbix_server
 
         - name: MYSQL_USER
           valueFrom:
