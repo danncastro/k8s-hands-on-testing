@@ -36,3 +36,7 @@ spec:
               key: MYSQL_PASSWORD_ZABBIX
         ports:
         - containerPort: 10051
+
+  selector:
+    matchLabels:
+      env: nki-cluster-local
