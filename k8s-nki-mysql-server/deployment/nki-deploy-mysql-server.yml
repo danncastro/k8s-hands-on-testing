@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nki-mysql-server
+  labels:
+    k8s-app: nki-mysql-server
+
+spec:
+  template:
+    metadata:
+      name: nki-mysql-server
+      labels:
+        env: nki-cluster-local
+    spec:
+      containers:
+      - name: nki-mysql-server
+        image: mysql:8.0
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: nki-mysql-server
+              key: MYSQL_ROOT_PASSWORD
+        - name: MYSQL_ROOT_USER
+          valueFrom:
+            secretKeyRef:
+              name: nki-mysql-server
+              key: MYSQL_ROOT_USER
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - name: nki-mysql-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: nki-mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: nki-mysql-server
+
+selector:
+  matchLabels:
+    env: nki-cluster-local
+replicas: 1
