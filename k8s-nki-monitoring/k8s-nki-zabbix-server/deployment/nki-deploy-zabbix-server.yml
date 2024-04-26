@@ -4,14 +4,14 @@ metadata:
   name: nki-zabbix-server-deploy
   namespace: nki-k8s-monitoring
   labels:
-    k8s-app: nki-zabbix-server-deploy
+    k8s-app: nki-zabbix-server
 
 spec:
   template:
     metadata:
       name: nki-zabbix-server
       labels:
-        env: nki-cluster-local
+        zabbix-app: nki-zabbix-server
     spec:
       containers:
       - name: nki-zabbix-server
@@ -46,4 +46,4 @@ spec:
 
   selector:
     matchLabels:
-      env: nki-cluster-local
+      zabbix-app: nki-zabbix-server

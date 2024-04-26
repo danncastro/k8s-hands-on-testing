@@ -4,7 +4,7 @@ metadata:
   name: nki-mysql-server-pvc
   namespace: nki-k8s-monitoring
   labels:
-    k8s-app: nki-mysql-server-pvc
+    k8s-app: nki-mysql-server
 
 spec:
   accessModes:

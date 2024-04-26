@@ -4,14 +4,14 @@ metadata:
   name: nki-mysql-server-deploy
   namespace: nki-k8s-monitoring
   labels:
-    k8s-app: nki-mysql-server-deploy
+    k8s-app: nki-mysql-server
 
 spec:
   template:
     metadata:
       name: nki-mysql-server
       labels:
-        env: nki-cluster-local
+        mysql-app: nki-mysql-server
     spec:
       containers:
       - name: nki-mysql-server
@@ -41,4 +41,4 @@ spec:
 
   selector:
     matchLabels:
-      env: nki-cluster-local
+      mysql-app: nki-mysql-server
