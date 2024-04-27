@@ -40,7 +40,7 @@ spec:
       volumes:
       - name: nki-mysql-persistent-storage
         persistentVolumeClaim:
-          claimName: nki-mysql-server-pvc
+          claimName: nki-mysql-pvc
 
   selector:
     matchLabels:
