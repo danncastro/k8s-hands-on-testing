@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nki-mysql-service
+  namespace: nki-monitoring
+  labels:
+    k8s-app: nki-mysql
+
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3306
+
+  selector:
+    mysql-app: nki-mysql

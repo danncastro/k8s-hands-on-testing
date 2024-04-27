@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: nki-mysql-server-pvc
-  namespace: nki-k8s-monitoring
+  name: nki-mysql-pvc
+  namespace: nki-monitoring
   labels:
-    k8s-app: nki-mysql-server
+    k8s-app: nki-mysql
 
 spec:
   accessModes:
@@ -12,4 +12,4 @@ spec:
   resources:
     requests:
       storage: 5Gi
-  volumeName: nki-mysql-server-pv
+  volumeName: nki-mysql-pv

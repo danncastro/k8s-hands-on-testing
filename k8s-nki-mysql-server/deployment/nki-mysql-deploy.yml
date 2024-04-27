@@ -1,33 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nki-mysql-server-deploy
-  namespace: nki-k8s-monitoring
+  name: nki-mysql-deploy
+  namespace: nki-monitoring
   labels:
-    k8s-app: nki-mysql-server
+    k8s-app: nki-mysql
 
 spec:
   template:
     metadata:
-      name: nki-mysql-server
+      name: nki-mysql
       labels:
-        mysql-app: nki-mysql-server
+        mysql-app: nki-mysql
 
     spec:
       containers:
-      - name: nki-mysql-server
+      - name: nki-mysql
         image: mysql:8.0
         env:
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: nki-mysql-server-secret
+              name: nki-mysql-secret
               key: MYSQL_ROOT_PASSWORD
 
         - name: MYSQL_ROOT_USER
           valueFrom:
             secretKeyRef:
-              name: nki-mysql-server-secret
+              name: nki-mysql-secret
               key: MYSQL_ROOT_USER
 
         ports:
@@ -35,7 +35,7 @@ spec:
 
         volumeMounts:
         - name: nki-mysql-persistent-storage
-          mountPath: /var/lib/mysql
+          mountPath: /var/lib/mysql/data_persistent
 
       volumes:
       - name: nki-mysql-persistent-storage
@@ -44,4 +44,4 @@ spec:
 
   selector:
     matchLabels:
-      mysql-app: nki-mysql-server
+      mysql-app: nki-mysql
