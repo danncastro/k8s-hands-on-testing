@@ -49,7 +49,7 @@ spec:
       volumes:
       - name: nki-zabbix-server-persistent-data
         persistentVolumeClaim:
-          claimName: nki-zabbix-server-pvc
+          claimName: nki-mysql-pvc
 
   replicas: 1
   selector:
