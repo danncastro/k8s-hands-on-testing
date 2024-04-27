@@ -34,7 +34,7 @@ spec:
         - containerPort: 3306
 
         volumeMounts:
-        - name: nki-mysql-persistent-storage
+        - name: nki-mysql-persistent-data
           mountPath: /var/lib/mysql/data_persistent
 
       volumes:
