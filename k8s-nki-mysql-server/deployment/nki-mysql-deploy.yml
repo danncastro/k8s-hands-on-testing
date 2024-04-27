@@ -38,7 +38,7 @@ spec:
           mountPath: /var/lib/mysql/data_persistent
 
       volumes:
-      - name: nki-mysql-persistent-storage
+      - name: nki-mysql-persistent-data
         persistentVolumeClaim:
           claimName: nki-mysql-pvc
 
