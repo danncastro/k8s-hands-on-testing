@@ -30,13 +30,13 @@ spec:
         - name: MYSQL_USER_ZABBIX
           valueFrom:
             secretKeyRef:
-              name: nki-zabbix-secret
+              name: nki-zabbix-server-secret
               key: MYSQL_USER_ZABBIX
 
         - name: MYSQL_PASSWORD_ZABBIX
           valueFrom:
             secretKeyRef:
-              name: nki-zabbix-secret
+              name: nki-zabbix-server-secret
               key: MYSQL_PASSWORD_ZABBIX
 
         ports:
