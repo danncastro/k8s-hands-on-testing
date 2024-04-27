@@ -37,26 +37,10 @@ spec:
         - name: nki-mysql-persistent-storage
           mountPath: /var/lib/mysql
 
-        - name: nki-init-database-zabbix
-          mountPath: /docker-entrypoint-initdb.d
-          readOnly: true
-
-        - name: nki-zabbix-mysql-secret-volume
-          mountPath: /etc/zabbix
-          readOnly: true
-
       volumes:
       - name: nki-mysql-persistent-storage
         persistentVolumeClaim:
           claimName: nki-mysql-server-pvc
-
-      - name: nki-zabbix-mysql-secret-volume
-        secret:
-          secretName: nki-zabbix-mysql-server-secret
-
-      - name: nki-init-database-zabbix
-        configMap:
-          name: nki-mysql-init-configmap-zabbix
 
   selector:
     matchLabels:
