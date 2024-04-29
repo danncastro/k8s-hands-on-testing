@@ -41,6 +41,7 @@
 
 ## Configuration
 
+* [Resource Management](configuration/resource-management.md)
 * [RBAC](configuration/rbac.md)
 * [Secrets](configuration/secrets.md)
 * [Configmap](configuration/configmap.md)
