@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata: #Especificações referentes ao ReplicaSet
-  name: replicaset-webserver
+  name: pods-replicaset
   labels: 
     app: frontend
     
