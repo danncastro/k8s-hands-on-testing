@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: request-resources-pod
+
+spec:
+  containers:
+  - name: apache-container
+    image: httpd
+
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "128Mi"
