@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata: #Especificações referentes ao ReplicaSet
-  name: frontend-rs
+  name: replicaset-webserver
   labels: 
     app: frontend
     
 spec: 
   template: #Definições referentes ao Pod
     metadata: 
-      name: webserver-pod
+      name: pod-webserver
       labels:
-        apps: webserver-app
+        apps: app-webserver
         tier: frontend
     spec:  #Definições dos containeres que serão executados na Pod
       containers:
@@ -19,5 +19,5 @@ spec:
         
   selector: #Referencia as labels da Pod que será replicado
     matchLabels:
-      apps: webserver-app
+      apps: app-webserver
   replicas: 3
