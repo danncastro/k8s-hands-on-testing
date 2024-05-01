@@ -144,7 +144,7 @@ No resources found in default namespace.
 {% tabs %}
 {% tab title="Create Pod" %}
 ```bash
-kubectl apply -f kubernetes_projects/k8s_cka_exemples/pods/first_pod_webserver.yml
+kubectl apply -f nki-kubernetes-projects/k8s_cka_exemples/pods/first_pod_webserver.yml
 ```
 
 pod/first-pod-webserver created
