@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Pod
 
 metadata:
-  name: webserver-pod
+  name: pod-webserver
   labels:
     app: nginx-app
     tier: frontend
