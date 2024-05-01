@@ -20,7 +20,7 @@ São referentes ao minimo de recursos necessários para o funcionamento da aplic
 
 <mark style="color:blue;">**Requisitado por Container:**</mark>&#x20;
 
-Os recursos de Kubernetes são requisitados para Containers e não para Pods, os recursos solicitados pelas Pods são uma somatória de todos os recursos requisitados por todos nos containers dentro da Pod.
+Os recursos de Kubernetes são requisitados para Containers e não para Pods, os recursos solicitados pelas Pods são uma somatória de todos os recursos requisitados por todos os containers dentro da Pod.
 
 * Então digamos que a Pod tenha apenas um container, isso significa que o total de recursos que a Pod precisará é basicamente para atender esse unico container.&#x20;
 * Agora caso a Pod tenha mais de um ou diversos outros Containers dentro dela, será feito uma somatória de todos os recursos minimos necessarios para que a aplicação possa funcionar.
