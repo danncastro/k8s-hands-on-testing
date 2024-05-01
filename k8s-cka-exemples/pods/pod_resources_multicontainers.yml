@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: limits-resources
+  name: resources-multicontainers
 
 spec:
   containers:
@@ -19,7 +19,7 @@ spec:
     image: redis
     resources:
       requests:
-        cpu: "250"
+        cpu: "250m"
         memory: "64Mi"
       limits:
         cpu: "500m"
