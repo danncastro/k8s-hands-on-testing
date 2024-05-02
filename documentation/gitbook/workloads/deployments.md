@@ -29,14 +29,14 @@ Para remover nossos pods precisamos remover o deployment.
 
 Por default o Kubernetes utiliza a estratégia Rolling Updates (Rolling Release), que executa uma atualização baseada em um percentual de indisponibilidade de pods, que por padrão é ter no máximo 25% de indisponibilidade do total de pods em execução.
 
-<figure><img src="../.gitbook/assets/image (66).png" alt=""><figcaption><p>Estrategia Rolling Updates</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (66) (1).png" alt=""><figcaption><p>Estrategia Rolling Updates</p></figcaption></figure>
 
 Uma outra forma de implantação é a estratégia Recreate Deployment, mas não é recomendada pois isso pode causar uma indisponibilidade total da aplicação. Porém em ambas as estratégias utilizadas a sempre a possibilidade da utilização do Rollback, que retorna a aplicação ao estado anterior.
 
 ***
 
 {% hint style="info" %}
-**Todos os recursos utilizados nesses exemplos, estarão disponibilizados no Github:** [https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cka\_exemples/deployments](https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cka\_exemples/deployments)
+**Todos os recursos utilizados nesses exemplos, estarão disponibilizados no Github:**  [https://github.com/danncastro/nki-kubernetes-projects/tree/main/k8s-cka-exemples/deployments](https://github.com/danncastro/nki-kubernetes-projects/tree/main/k8s-cka-exemples/deployments)
 {% endhint %}
 
 ## <mark style="color:red;">Criando Deployments</mark>
@@ -44,10 +44,10 @@ Uma outra forma de implantação é a estratégia Recreate Deployment, mas não 
 {% tabs %}
 {% tab title="Deployment" %}
 ```bash
-kubectl apply -f kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
+kubectl apply -f nki-kubernetes-projects/k8s-cka-exemples/deployments/deployment-webserver.yml
 ```
 
-deployment.apps/frontend-deploy created
+deployment.apps/deployment-webserver created
 
 ***
 
@@ -57,108 +57,48 @@ deployment.apps/frontend-deploy created
 kubectl get deploy
 ```
 
-NAME                                   READY               UP-TO-DATE                 AVAILABLE                    AGE
+<figure><img src="../.gitbook/assets/image (57).png" alt=""><figcaption></figcaption></figure>
 
-frontend-deploy                 2/2                      2                                        2                                        15s
+***
 
 ```bash
-kubectl get rs -owide
+kubectl get rs
 ```
 
-NAME                                                         DESIRED          CURRENT              READY               AGE     &#x20;
+<figure><img src="../.gitbook/assets/image (58).png" alt=""><figcaption></figcaption></figure>
 
-frontend-deploy-7895bc4bdd             2                         2                                2                          40s      &#x20;
+***
 
-<pre class="language-bash"><code class="lang-bash"><strong>kubectl get po
+<pre class="language-bash"><code class="lang-bash"><strong>kubectl get po -owide
 </strong></code></pre>
 
-NAME                                                                   READY              STATUS            RESTARTS           AGE     &#x20;
-
-frontend-deploy-7895bc4bdd-c6xsb            1/1                       Running           0                             70s       &#x20;
-
-frontend-deploy-7895bc4bdd-dgbtl              1/1                       Running           0                             70s
+<figure><img src="../.gitbook/assets/image (60).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Rollout" %}
 ```bash
-kubectl rollout status deployment.apps/frontend-deploy
+kubectl rollout status deployment.apps/deployment-webserver
 ```
 
-deployment "frontend-deploy" sucessfullt rolled out
+deployment "deployment-webserver" successfully rolled out
 {% endtab %}
 
 {% tab title="Decribe" %}
 ```bash
-kubectl describe deploy frontend-deploy
+kubectl describe deploy deployment-webserver
 ```
 
-Name:                            frontend-deploy
+<figure><img src="../.gitbook/assets/image (61).png" alt=""><figcaption></figcaption></figure>
 
-Namespace:                  default
-
-CreationTimestamp       Fri, 11 Sep 2023 21:20:35  -0300     // Data de criação do Deployment
-
-Labels:                            app=frontend                                     // Label relacionada ao Deployment
-
-Annotations:                   deployment.kubernetes.io/revision: 1
-
-Selector:                         env=production                                   // Label relacionada ao pod
-
-Replicas:                         2  desired  |  2 updated  |  2 total  |  2 available  |  0 unavai
-
-<mark style="color:orange;">StrategyType:                 RollingUpdate</mark>
-
-MinReadySeconds:        0
-
-<mark style="color:orange;">RollingUpdateStrategy   25% max unavailable, 25% max surge</mark>
-
-Pod Template:
-
-&#x20;    Labels:                        env=production
-
-&#x20;    Containers:
-
-&#x20;      container-nginx:
-
-&#x20;         Image:                    nginx
-
-&#x20;         Port:                       \<none>
-
-&#x20;         HostPort:               \<none>
-
-&#x20;         Environment:         \<none>
-
-&#x20;         Mounts:                  \<none>
-
-&#x20;    Volumes:                     \<none>
-
-Conditions:
-
-&#x20;    Type                              Status                                 Reason
-
-&#x20;     \-----                               -----                                    -----
-
-&#x20;    Available                         True                                    MinimumReplicasAvailable
-
-&#x20;    Progressing                    True                                    NewReplicaSetAvailable &#x20;
-
-OldReplicaSets:                   \<none>
-
-NewReplicaSets:                 frontend-deploy-7895bc4bdd-c6xsb (2/2 replicas created)
-
-Events:
-
-Type                   Reason                        Age                    From                             Message
-
-\-----                     -----                          -----                    -----                                -----
+<figure><img src="../.gitbook/assets/image (62).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Deleted" %}
 ```
-kubectl delete -f kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
+kubectl delete -f nki-kubernetes-projects/k8s-cka-exemples/deployments/deployment-webserver.yml
 ```
 
-deployment.apps/frontend-deploy deleted
+deployment.apps "deployment-webserver" deleted
 {% endtab %}
 {% endtabs %}
 
@@ -175,41 +115,33 @@ deployment.apps/frontend-deploy deleted
 {% tabs %}
 {% tab title="Create" %}
 ```bash
-kubectl apply -f kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
+kubectl apply -f nki-kubernetes-projects/k8s-cka-exemples/deployments/deployment-webserver.yml
 ```
 
-deployment.apps/frontend-deploy created
+deployment.apps/deployment-webserver created
 
 ***
 
-<pre class="language-bash"><code class="lang-bash"><strong>kubectl get po
+<pre class="language-bash"><code class="lang-bash"><strong>kubectl get po -owide
 </strong></code></pre>
 
-NAME                                                                   READY              STATUS            RESTARTS           AGE     &#x20;
-
-frontend-deploy-7895bc4bdd-9hlr2            1/1                       Running           0                             70s       &#x20;
-
-frontend-deploy-7895bc4bdd-nscpm         1/1                       Running           0                             70s
+<figure><img src="../.gitbook/assets/image (63).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Rollout" %}
 ```bash
-kubectl rollout status deployment.apps/frontend-deploy
+kubectl rollout status deployment.apps/deployment-webserver
 ```
 
-deployment "frontend-deploy" sucessfullt rolled out
+deployment "deployment-webserver" successfully rolled out
 {% endtab %}
 
 {% tab title="History" %}
 ```bash
-kubectl rollout history deployment.apps/frontend-deploy
+kubectl rollout history deployment.apps/deployment-webserver
 ```
 
-deployment.apps/frontend-deploy
-
-REVISION       CHANGE-CAUSE
-
-1                      \<none>
+<figure><img src="../.gitbook/assets/image (64).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Manifest" %}
@@ -218,14 +150,14 @@ Alteraremos o número de replicas no manifesto para 4
 ***
 
 ```bash
-vim kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
+vim nki-kubernetes-projects/k8s-cka-exemples/deployments/deployment-webserver.yml
 ```
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-deploy
+  name: deployment-webserver
   labels:
     app: frontend
 
@@ -239,6 +171,7 @@ spec:
       containers:
       - name: container-nginx
         image: nginx
+
   selector:
     matchLabels:
       env: production
@@ -247,11 +180,11 @@ spec:
 
 ***
 
-```
-kubectl apply -f k8s-cka-exemples/deployment/frontend_deploy.yml
+```bash
+kubectl apply -f nki-kubernetes-projects/k8s-cka-exemples/deployments/deployment-webserver.yml
 ```
 
-deployment.apps/frontend-deploy configured
+deployment.apps/deployment-webserver configured
 {% endtab %}
 
 {% tab title="History" %}
@@ -263,11 +196,7 @@ Note que apenas alterar o número de replicas não altera o valor de revisão, i
 kubectl rollout history deployment.apps/frontend-deploy
 ```
 
-deployment.apps/frontend-deploy
-
-REVISION       CHANGE-CAUSE
-
-1                      \<none>
+<figure><img src="../.gitbook/assets/image (66).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
@@ -281,7 +210,7 @@ Alteraremos a versão da imagem do container
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-deploy
+  name: deployment-webserver
   labels:
     app: frontend
 
@@ -295,6 +224,7 @@ spec:
       containers:
       - name: container-nginx
         image: nginx:1.18.0
+
   selector:
     matchLabels:
       env: production
@@ -304,26 +234,38 @@ spec:
 
 {% tab title="Apply" %}
 ```bash
-kubectl apply -f kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
+kubectl apply -f nki-kubernetes-projects/k8s-cka-exemples/deployments/deployment-webserver.yml
 ```
 
-ddeployment.apps/frontend-deploy configured
+deployment.apps/deployment-webserver configured
 
 ***
 
 Podemos verificar tudo que foi criado pelo nosso deployment através do comando:
 
 ```bash
-$ kubectl get all -l app=frontend
+kubectl get all -l app=frontend
 ```
+
+<figure><img src="../.gitbook/assets/image (67).png" alt=""><figcaption></figcaption></figure>
+
+***
+
+```
+kubectl describe po deployment-webserver-58d9dc6bdd-mff9j
+```
+
+<figure><img src="../.gitbook/assets/image (68).png" alt=""><figcaption></figcaption></figure>
+
+***
 {% endtab %}
 
 {% tab title="Rollout" %}
 ```bash
-kubectl rollout status deployment.apps/frontend-deploy
+kubectl rollout status deployment.apps/deployment-webserver
 ```
 
-deployment "frontend-deploy" sucessfullt rolled out
+deployment "deployment-webserver" successfully rolled out
 {% endtab %}
 
 {% tab title="History" %}
@@ -335,13 +277,7 @@ Podemos ver que uma nova versão de revisão foi criada devido a alteração fei
 kubectl rollout history deployment.apps/frontend-deploy
 ```
 
-deployment.apps/frontend-deploy
-
-REVISION       CHANGE-CAUSE
-
-1                      \<none>
-
-2                      \<none>
+<figure><img src="../.gitbook/assets/image (69).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
@@ -355,7 +291,7 @@ Voltaremos a imagem a versão anterior
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-deploy
+  name: deployment-webserver
   labels:
     app: frontend
 
@@ -369,6 +305,7 @@ spec:
       containers:
       - name: container-nginx
         image: nginx
+
   selector:
     matchLabels:
       env: production
@@ -378,10 +315,10 @@ spec:
 
 {% tab title="Apply" %}
 ```bash
-kubectl apply -f kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
+kubectl apply -f nki-kubernetes-projects/k8s-cka-exemples/deployments/deployment-webserver.yml
 ```
 
-deployment.apps/frontend-deploy configured
+deployment.apps/deployment-webserver configured
 {% endtab %}
 
 {% tab title="History" %}
@@ -390,32 +327,24 @@ Note que a versão 1 de revisão sumiu, isso acontece por que o Kubernetes enten
 ***
 
 ```bash
-kubectl rollout history deployment.apps/frontend-deploy
+kubectl rollout history deployment.apps/deployment-webserver
 ```
 
-deployment.apps/frontend-deploy
-
-REVISION       CHANGE-CAUSE
-
-2                      \<none>
-
-3                      \<none>
+<figure><img src="../.gitbook/assets/image (70).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Manifest" %}
 Alteraremos novamente a versão da imagem
 
-***
-
 ```bash
-vim kubernetes_projects/k8s_cka_exemples/deployments/frontend_deploy.yml
+vi nki-kubernetes-projects/k8s-cka-exemples/deployments/deployment-webserver.yml
 ```
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-deploy
+  name: deployment-webserver
   labels:
     app: frontend
 
@@ -429,6 +358,7 @@ spec:
       containers:
       - name: container-nginx
         image: nginx:1.14.2
+
   selector:
     matchLabels:
       env: production
@@ -438,10 +368,10 @@ spec:
 
 {% tab title="Apply" %}
 ```bash
-kubectl apply -f kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
+kubectl apply -f nki-kubernetes-projects/k8s-cka-exemples/deployments/deployment-webserver.yml
 ```
 
-deployment.apps/frontend-deploy configured
+deployment.apps/deployment-webserver configured
 {% endtab %}
 
 {% tab title="History" %}
@@ -450,50 +380,24 @@ deployment.apps/frontend-deploy configured
 ***
 
 ```bash
-kubectl rollout history deployment.apps/frontend-deploy
+kubectl rollout history deployment.apps/deployment-webserver
 ```
 
-deployment.apps/frontend-deploy
+deployment.apps/deployment-webserver
 
-REVISION       CHANGE-CAUSE
-
-2                      \<none>
-
-3                      \<none>
-
-4                      \<none>
+<figure><img src="../.gitbook/assets/image (71).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
 2. É possível também analisar uma versão de revisão especifica
 
 ```bash
-kubectl rollout history deployment.apps/frontend-deploy --revision=2
+kubectl rollout history deployment.apps/deployment-webserver --revision=2
 ```
 
-deployment.apps/frontend-deploy with revision #2
+deployment.apps/deployment-webserver with revision #2
 
-Pod Template:
-
-&#x20;   Labels:                                  env=production
-
-&#x20;              pod-template-hash=7f78c8b5b
-
-&#x20;   Containers:
-
-&#x20;     nginx-container:
-
-&#x20;       Image:                  nginx:1.18.0
-
-&#x20;       Port:                     \<none>
-
-&#x20;       Host Port:            \<none>
-
-&#x20;       Environment:       \<none>
-
-&#x20;       Mounts:                \<none>
-
-&#x20;    Volumes:                 \<none>
+<figure><img src="../.gitbook/assets/image (74).png" alt=""><figcaption></figcaption></figure>
 
 ***
 {% endtab %}
@@ -506,14 +410,14 @@ Pod Template:
 {% tabs %}
 {% tab title="Manifest" %}
 ```bash
-vim kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
+vi nki-kubernetes-projects/k8s-cka-exemples/deployments/deployment-webserver.yml
 ```
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-deploy
+  name: deployment-webserver
   labels:
     app: frontend
 
@@ -527,6 +431,7 @@ spec:
       containers:
       - name: container-nginx
         image: nginx:1.21.4
+
   selector:
     matchLabels:
       env: production
@@ -535,10 +440,13 @@ spec:
 {% endtab %}
 
 {% tab title="Apply" %}
-<pre class="language-bash"><code class="lang-bash"><strong>kubectl apply -f kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml --record
-</strong></code></pre>
+```bash
+kubectl apply -f nki-kubernetes-projects/k8s-cka-exemples/deployments/deployment-webserver.yml --record
+```
 
-deployment.apps/frontend-deploy configured
+Flag --record has been deprecated, --record will be removed in the future
+
+deployment.apps/deployment-webserver configured
 {% endtab %}
 
 {% tab title="History" %}
@@ -546,25 +454,15 @@ deployment.apps/frontend-deploy configured
 kubectl rollout history deployment.apps/frontend-deploy
 ```
 
-deployment.apps/frontend-deploy
-
-REVISION       CHANGE-CAUSE
-
-2                      \<none>
-
-3                      \<none>
-
-4                      \<none>
-
-5                      kubectl apply -f --filename=frontend\_deploy.yml --record=true
+<figure><img src="../.gitbook/assets/image (75).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Rollback" %}
 ```bash
-kubectl rollout undo deployment.apps/frontend-deploy
+kubectl rollout undo deployment.apps/deployment-webserver
 ```
 
-deployment.apps/frontend-deploy rolled back
+deployment.apps/deployment-webserver rolled back
 {% endtab %}
 
 {% tab title="History" %}
@@ -576,17 +474,7 @@ Note que a versão 4 sumiu, isso por que o Rollback foi feito na versão 5 para 
 kubectl rollout history deployment.apps/frontend-deploy
 ```
 
-deployment.apps/frontend-deploy
-
-REVISION       CHANGE-CAUSE
-
-2                      \<none>
-
-3                      \<none>
-
-5                      kubectl apply -f --filename=frontend\_deploy.yml --record=true
-
-<mark style="color:orange;">6                      \<none></mark>
+<figure><img src="../.gitbook/assets/image (76).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Rollback" %}
@@ -595,28 +483,18 @@ Podemos também fazer Rollback para versões especificas, e do mesmo modo a vers
 ***
 
 ```bash
-kubectl rollout undo deployment.apps/frontend-deploy --to-revision=2
+kubectl rollout undo deployment.apps/deployment-webserver --to-revision=2
 ```
 
-deployment.apps/frontend-deploy rolled back
+deployment.apps/deployment-webserver rolled back
 
 ***
 
 ```bash
-kubectl rollout history deployment.apps/frontend-deploy
+kubectl rollout history deployment.apps/deployment-webserver
 ```
 
-deployment.apps/deployment
-
-REVISION       CHANGE-CAUSE
-
-3                      \<none>
-
-5                      kubectl apply -f --filename=frontend\_deploy.yml --record=true
-
-6                      \<none>
-
-<mark style="color:orange;">7                      \<none></mark>
+<figure><img src="../.gitbook/assets/image (77).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -624,29 +502,9 @@ REVISION       CHANGE-CAUSE
 kubectl rollout history deployment.apps/frontend-deploy --revision=7
 ```
 
-deployment.apps/frontend-deploy with revision #7
+<figure><img src="../.gitbook/assets/image (78).png" alt=""><figcaption></figcaption></figure>
 
-Pod Template:
-
-&#x20;   Labels:                                  env=production
-
-&#x20;              pod-template-hash=7f78c8b5b
-
-&#x20;   Containers:
-
-&#x20;     nginx-container:
-
-&#x20;     [ <mark style="color:orange;">Image:                  nginx:1.18.0</mark>](deployments.md#historyr)
-
-&#x20;       Port:                     \<none>
-
-&#x20;       Host Port:            \<none>
-
-&#x20;       Environment:       \<none>
-
-&#x20;       Mounts:                \<none>
-
-&#x20;    Volumes:                 \<none>
+***
 {% endtab %}
 {% endtabs %}
 
@@ -657,22 +515,22 @@ Pod Template:
 {% tabs %}
 {% tab title="Deleted" %}
 ```bash
-kubectl delete -f kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
+kubectl delete -f nki-kubernetes-projects/k8s-cka-exemples/deployments/deployment-webserver.yml
 ```
 
-deployment.apps/frontend-deploy deleted
+deployment.apps "deployment-webserver" deleted
 {% endtab %}
 
 {% tab title="Manifest" %}
 ```bash
-vim kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
+vi nki-kubernetes-projects/k8s-cka-exemples/deployments/deployment-webserver.yml
 ```
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-deploy
+  name: deployment-webserver
   labels:
     app: frontend
 
@@ -686,33 +544,29 @@ spec:
       containers:
       - name: container-nginx
         image: nginx:1.21.4
+
   selector:
     matchLabels:
       env: production
-  replicas: 4
+  replicas: 5
 ```
 {% endtab %}
 
 {% tab title="Apply" %}
-<pre class="language-bash"><code class="lang-bash"><strong>kubectl apply -f kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
-</strong></code></pre>
+```bash
+kubectl apply -f nki-kubernetes-projects/k8s-cka-exemples/deployments/deployment-webserver.yml
+```
 
-deployment.apps/frontend-deploy configured
+deployment.apps/deployment-webserver created
 
 ***
 
-<pre class="language-bash"><code class="lang-bash"><strong>kubectl get po
+Em outro terminal deixe em execução o comando abaixo:
+
+<pre class="language-bash"><code class="lang-bash"><strong>watch kubectl get po 
 </strong></code></pre>
 
-NAME                                                                 READY             STATUS            RESTARTS        AGE     &#x20;
-
-frontend-deploy-7895bc4bdd-vsfte            1/1                     Running            0                          70s       &#x20;
-
-frontend-deploy-7895bc4bdd-1k3fl             1/1                     Running            0                          70s&#x20;
-
-frontend-deploy-7895bc4bdd-x8e2f           1/1                     Running            0                          70s&#x20;
-
-frontend-deploy-7895bc4bdd-p2fjh            1/1                     Running            0                          70s&#x20;
+<figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Manifest" %}
@@ -721,14 +575,14 @@ Vamos alterar a versão da imagem para gerar uma nova revisão
 ***
 
 ```bash
-vim kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
+vim nki-kubernetes-projects/k8s-cka-exemples/deployments/deployment-webserver.yml
 ```
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-deploy
+  name: deployment-webserver
   labels:
     app: frontend
 
@@ -742,10 +596,11 @@ spec:
       containers:
       - name: container-nginx
         image: nginx:1.16.1
+
   selector:
     matchLabels:
       env: production
-  replicas: 4
+  replicas: 5
 ```
 {% endtab %}
 
@@ -753,39 +608,29 @@ spec:
 > Deixe um terminal aberto com o comando `watch kubectl get pod` e outro com o comando de `pause` já preparados, pois como estamos utilizando um contexto de testes, existem poucas pods em execução, então a alteração das versões pode ocorrer de forma instantânea, sendo assim já dê o pause assim que executar o apply
 
 ```bash
-kubectl apply -f kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
+kubectl apply -f nki-kubernetes-projects/k8s-cka-exemples/deployments/deployment-webserver.yml
 ```
 
-deployment.apps/frontend-deploy configured
+deployment.apps/deployment-webserver configured
 
 ***
 
 ```bash
-kubectl rollout pause deployment.apps/frontend-deploy
+kubectl rollout pause deployment.apps/deployment-webserver
 ```
 
-deployment.apps/frontend-deploy paused
+deployment.apps/deployment-webserver paused
 {% endtab %}
 
 {% tab title="Output" %}
-Podemos ver que apenas 2 pods sofreram atualizações
+Podemos ver que 3 das pods foram atualizadas
 
 ***
 
 <pre class="language-bash"><code class="lang-bash"><strong>kubectl get po
 </strong></code></pre>
 
-NAME                                                                READY              STATUS            RESTARTS        AGE     &#x20;
-
-frontend-deploy-7895bc4bdd-vsfte            1/1                     Running            0                         2m20s       &#x20;
-
-frontend-deploy-7895bc4bdd-1k3fl             1/1                     Running            0                        2m20s&#x20;
-
-frontend-deploy-7895bc4bdd-x8e2f           1/1                     Running            0                         2m20s&#x20;
-
-<mark style="color:orange;">frontend-deploy-7895bc4bdd-mkrjf            1/1                     Running            0                          20s</mark>&#x20;
-
-<mark style="color:orange;">frontend-deploy-7895bc4bdd-pdi2f            1/1                     Running            0                          20s</mark>&#x20;
+<figure><img src="../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
@@ -800,10 +645,10 @@ Após fazer as validações e ter certeza de que a aplicação está pronta para
 ***
 
 ```bash
-kubectl rollout resume deployment.apps/frontend-deploy
+kubectl rollout resume deployment.apps/deployment-webserver
 ```
 
-deployment.apps/frontend-deploy resumed
+deployment.apps/deployment-webserver resumed
 {% endtab %}
 
 {% tab title="Output" %}
@@ -814,17 +659,7 @@ Agora todas as pods tiveram suas versões atualizadas
 <pre class="language-bash"><code class="lang-bash"><strong>kubectl get po
 </strong></code></pre>
 
-NAME                                                                 READY              STATUS            RESTARTS        AGE     &#x20;
-
-<mark style="color:orange;">frontend-deploy-7895bc4bdd-m3ff3           1/1                     Running            0                         10s</mark>       &#x20;
-
-<mark style="color:orange;">frontend-deploy-7895bc4bdd-xtffg              1/1                     Running            0                        10s</mark>&#x20;
-
-<mark style="color:orange;">frontend-deploy-7895bc4bdd-2kk2f            1/1                     Running            0                         10s</mark>&#x20;
-
-frontend-deploy-7895bc4bdd-mkrjf             1/1                     Running            0                         1m10s&#x20;
-
-frontend-deploy-7895bc4bdd-pdi2f             1/1                     Running            0                         1m10s
+<figure><img src="../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
@@ -839,14 +674,14 @@ Vamos escalar mais 2 pods no arquivo de manifesto ou o que chamamos de **scale u
 ***
 
 ```bash
-vim kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
+vim nki-kubernetes-projects/k8s-cka-exemples/deployments/deployment-webserver.yml
 ```
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-deploy
+  name: deployment-webserver
   labels:
     app: frontend
 
@@ -860,6 +695,7 @@ spec:
       containers:
       - name: container-nginx
         image: nginx:1.16.1
+
   selector:
     matchLabels:
       env: production
@@ -868,31 +704,18 @@ spec:
 {% endtab %}
 
 {% tab title="Apply" %}
-<pre class="language-bash"><code class="lang-bash"><strong>kubectl apply -f kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
-</strong></code></pre>
+```bash
+kubectl apply -f nki-kubernetes-projects/k8s-cka-exemples/deployments/deployment-webserver.yml
+```
 
-deployment.apps/frontend-deploy configured
+deployment.apps/deployment-webserver configured
 {% endtab %}
 
 {% tab title="Output" %}
 <pre class="language-bash"><code class="lang-bash"><strong>kubectl get po
 </strong></code></pre>
 
-NAME                                                                 READY              STATUS            RESTARTS        AGE     &#x20;
-
-frontend-deploy-7895bc4bdd-m3ff3           1/1                     Running            0                        2m25s       &#x20;
-
-frontend-deploy-7895bc4bdd-xtffg              1/1                     Running            0                       2m25s&#x20;
-
-frontend-deploy-7895bc4bdd-2kk2f            1/1                     Running            0                        2m25s&#x20;
-
-frontend-deploy-7895bc4bdd-mkrjf             1/1                     Running            0                        2m25s&#x20;
-
-frontend-deploy-7895bc4bdd-pdi2f             1/1                     Running            0                        2m25s
-
-frontend-deploy-7895bc4bdd-ffvaw            1/1                     Running            0                          20s
-
-frontend-deploy-7895bc4bdd-mmf2s          1/1                     Running            0                          20s
+<figure><img src="../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Scale down" %}
@@ -904,18 +727,16 @@ Faremos a redução de pods mas dessa vez diretamente pelo terminal de forma imp
 kubectl scale deployment.apps/frontend-deploy --replicas=2
 ```
 
-deployment.apps/frontend-deploy scaled
+deployment.apps/deployment-webserver scaled
 {% endtab %}
 
 {% tab title="Output" %}
 <pre class="language-bash"><code class="lang-bash"><strong>kubectl get po
 </strong></code></pre>
 
-NAME                                                                  READY              STATUS            RESTARTS        AGE     &#x20;
+&#x20;
 
-frontend-deploy-7895bc4bdd-m3ff3           1/1                     Running            0                        2m25s       &#x20;
-
-frontend-deploy-7895bc4bdd-xtffg              1/1                     Running            0                       2m25s&#x20;
+<figure><img src="../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
@@ -931,10 +752,11 @@ Vamos descrever as pods em execução e ver que o Strategy Type padrão estará 
 
 ***
 
-<pre class="language-bash"><code class="lang-bash"><strong>kubectl describe deployment.apps/frontend-deploy | grep StrategyType
-</strong></code></pre>
+```bash
+kubectl describe deployment.apps/deployment-webserver | grep StrategyType
+```
 
-&#x20;StrategyType:               RollingUpdate
+<figure><img src="../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Manifest" %}
@@ -943,14 +765,14 @@ Vamos novamente alterar a versão da imagem para gerar um novo valor de revisão
 ***
 
 ```bash
-vim kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
+vim nki-kubernetes-projects/k8s-cka-exemples/deployments/deployment-webserver.yml
 ```
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-deploy
+  name: deployment-webserver
   labels:
     app: frontend
 
@@ -975,10 +797,10 @@ spec:
 
 {% tab title="Apply" %}
 ```bash
-kubectl apply -f kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
+kubectl apply -f nki-kubernetes-projects/k8s-cka-exemples/deployments/deployment-webserver.yml
 ```
 
-deployment.apps/frontend-deploy configured
+deployment.apps/deployment-webserver configured
 
 ***
 
@@ -986,11 +808,7 @@ deployment.apps/frontend-deploy configured
 watch kubectl get po
 ```
 
-NAME                                                        READY              STATUS            RESTARTS        AGE     &#x20;
-
-frontend-deploy-7895bc4bdd-m3ff3           1/1                     Terminating      0                        2m25s       &#x20;
-
-frontend-deploy-7895bc4bdd-xtffg              1/1                     Terminating     0                         2m25s
+<figure><img src="../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Output" %}
@@ -999,24 +817,24 @@ Vamos descrever as pods em execução novamente e ver que o Strategy Type foi al
 ***
 
 ```bash
-kubectl describe deployment.apps/frontend-deploy | grep StrategyType
+kubectl describe deployment.apps/deployment-webserver | grep StrategyType
 ```
 
-&#x20;StrategyType:               Recreate
+<figure><img src="../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 {% endtabs %}
-
-***
 
 ### <mark style="color:red;">Deletando os recursos criados</mark>
 
 {% tabs %}
 {% tab title="Deleted" %}
 ```bash
-kubectl delete -f kubernetes_projects/k8s_cka_exemples/deployment/frontend_deploy.yml
+kubectl delete -f nki-kubernetes-projects/k8s-cka-exemples/deployments/deployment-webserver.yml
 ```
 
-deployment.apps/frontend-deploy  deleted
+deployment.apps "deployment-webserver" deleted
+
+<figure><img src="../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Output" %}

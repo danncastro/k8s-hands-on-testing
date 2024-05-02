@@ -9,6 +9,10 @@ description: >-
 
 {% embed url="https://kubernetes.io/pt-br/docs/concepts/workloads/controllers/replicaset/" %}
 
+***
+
+## <mark style="color:red;">Overview</mark>
+
 Ele garante alta disponibilidade e escalabilidade ao monitorar continuamente o estado dos pods e iniciar ou encerrar réplicas conforme necessário para manter o estado desejado.&#x20;
 
 Se um pod falhar ou for removido por qualquer motivo, o ReplicaSet iniciará automaticamente uma nova réplica para substituí-lo, garantindo que o número desejado de réplicas seja mantido em execução.
@@ -25,11 +29,13 @@ Uma das desvantagens da utilização de ReplicasSet, é que ele não faz a alter
 
 {% hint style="info" %}
 **Todos os recursos utilizados nesses exemplos, estarão disponibilizados no Github:**\
-[https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cka\_exemples/replicasets](https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cka\_exemples/replicasets)
+
+
+[https://github.com/danncastro/nki-kubernetes-projects/tree/main/k8s-cka-exemples/replicasets](https://github.com/danncastro/nki-kubernetes-projects/tree/main/k8s-cka-exemples/replicasets)
 {% endhint %}
 
 {% tabs %}
-{% tab title="Create ReplicaSet" %}
+{% tab title="ReplicaSet" %}
 1. Vamos validar os recursos disponíveis antes de deployar o projeto
 
 ```bash
@@ -47,10 +53,10 @@ No resources found in default namespace.
 ***
 
 ```bash
-kubectl apply -f kubernetes_projects/k8s_cka_exemples/replicasets/frontend_app.yml
+kubectl apply -f nki-kubernetes-projects/k8s-cka-exemples/replicasets/replicaset-webserver.yml
 ```
 
-replicaset.apps/frontend-rs created
+replicaset.apps/pods-replicaset created
 
 ***
 
@@ -60,13 +66,7 @@ replicaset.apps/frontend-rs created
 kubectl get po -owide
 ```
 
-NAME                             READY     STATUS     RESTARTS   AGE       IP                NODE
-
-frontend-rs-2pjlw         1/1              Running     0                    28s         10.44.0.1     k8s-worker-node2
-
-frontend-rs-c6xsb        1/1              Running     0                    28s         10.47.0.2     k8s-worker-node1
-
-frontend-rs-dgbtl          1/1             Running     0                     28s         10.47.0.1     k8s-worker-node1
+<figure><img src="../.gitbook/assets/image (37).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -74,19 +74,17 @@ frontend-rs-dgbtl          1/1             Running     0                     28s
 kubectl get rs -owide
 ```
 
-\---
-
-frontend-rs        3          3          3        20m        container-nginx        nginx          apps=webserver-app
+<figure><img src="../.gitbook/assets/image (38).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
-{% tab title="Deleted Pod" %}
+{% tab title="Deleted" %}
 1. Vamos deletar uma das pods para testar a escalabilidade dos recursos
 
 ```bash
-kubectl delete po frontend-rs-2pjlw
+kubectl delete po pods-replicaset-4wd4g
 ```
 
-pod "frontend-2pjlw" deleted
+pod "pods-replicaset-4wd4g" deleted
 
 ***
 
@@ -96,13 +94,7 @@ pod "frontend-2pjlw" deleted
 kubectl get po -owide
 ```
 
-NAME                               READY   STATUS    RESTARTS   AGE        IP                   NODE
-
-<mark style="color:orange;">frontend-rs-7bv6f          1/1            Running    0                  11s              10.44.0.2      k8s-worker-node2</mark>
-
-frontend-rs-c6xsb          1/1            Running    0                  4m24s      10.47.0.2      k8s-worker-node1
-
-frontend-rs-dgbtl           1/1            Running    0                  4m24s      10.47.0.1       k8s-worker-node1
+<figure><img src="../.gitbook/assets/image (39).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
@@ -114,15 +106,17 @@ frontend-rs-dgbtl           1/1            Running    0                  4m24s  
 {% tab title="Scale Up" %}
 1. Vamos aumentar o valor de replicas dentro do manifesto
 
-```yaml
-  replicas: 5
+```bash
+vi nki-kubernetes-projects/k8s-cka-exemples/replicasets/replicaset-webserver.yml
 ```
+
+<figure><img src="../.gitbook/assets/image (40).png" alt=""><figcaption></figcaption></figure>
 
 ```bash
-kubectl apply -f kubernetes_projects/k8s_cka_exemples/replicasets/frontend_app.yml
+kubectl apply -f nki-kubernetes-projects/k8s-cka-exemples/replicasets/replicaset-webserver.yml
 ```
 
-replicaset.apps/frontend-rs configured
+replicaset.apps/pods-replicaset configured
 
 ***
 
@@ -132,17 +126,7 @@ replicaset.apps/frontend-rs configured
 kubectl get po -owide
 ```
 
-NAME                               READY   STATUS    RESTARTS   AGE      IP                NODE
-
-frontend-rs-7bv6f          1/1          Running    0                  7m25s   10.44.0.2     k8s-worker-node2
-
-frontend-rs-c6xsb         1/1           Running   0                   11m        10.47.0.2      k8s-worker-node1
-
-frontend-rs-dgbtl           1/1          Running    0                   11m         10.47.0.1     k8s-worker-node1
-
-<mark style="color:orange;">frontend-rs-hdb9c         1/1          Running    0                   18s         10.44.0.1     k8s-worker-node2</mark>
-
-<mark style="color:orange;">frontend-rs-nrmqd         1/1          Running    0                   18s         10.47.0.3     k8s-worker-node1</mark>
+<figure><img src="../.gitbook/assets/image (41).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -150,25 +134,25 @@ frontend-rs-dgbtl           1/1          Running    0                   11m     
 kubectl get rs -owide
 ```
 
-\---
-
-frontend-rs        5          5          5        20m        container-nginx        nginx          apps=webserver-app
+<figure><img src="../.gitbook/assets/image (42).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Scale Down" %}
 1. Vamos novamente ajustar o manifesto, e diminuir a quantidade de replicas.
 
-```yaml
-  replicas: 2
+```bash
+vi nki-kubernetes-projects/k8s-cka-exemples/replicasets/replicaset-webserver.yml
 ```
+
+<figure><img src="../.gitbook/assets/image (43).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
 ```bash
-kubectl apply -f kubernetes_projects/k8s_cka_exemples/replicasets/frontend_app.yml
+kubectl apply -f nki-kubernetes-projects/k8s-cka-exemples/replicasets/replicaset-webserver.yml
 ```
 
-replicaset.apps/frontend-rs configured
+replicaset.apps/pods-replicaset configured
 
 ***
 
@@ -178,11 +162,7 @@ replicaset.apps/frontend-rs configured
 kubectl get po -owide
 ```
 
-NAME                               READY   STATUS    RESTARTS   AGE      IP                  NODE
-
-frontend-rs-c6xsb          1/1           Running    0                   11m          10.47.0.2     k8s-worker-node1
-
-frontend-rs-dgbtl            1/1          Running    0                    11m         10.47.0.1       k8s-worker-node1
+<figure><img src="../.gitbook/assets/image (44).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -190,17 +170,15 @@ frontend-rs-dgbtl            1/1          Running    0                    11m   
 kubectl get rs -owide
 ```
 
-\---
-
-frontend-rs        2          2          2        20m        container-nginx        nginx          apps=webserver-app
+<figure><img src="../.gitbook/assets/image (45).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Deleted" %}
 ```bash
-kubectl delete rs frontend-rs
+kubectl delete rs pods-replicaset
 ```
 
-replicaset.apps "frontend-rs" deleted
+replicaset.apps "pods-replicaset" deleted
 
 ***
 
@@ -225,10 +203,10 @@ No resources found in default namespace.
 {% tabs %}
 {% tab title="ReplicaSet" %}
 ```bash
-kubectl apply -f kubernetes_projects/k8s_cka_exemples/replicasets/frontend_app.yml
+kubectl apply -f nki-kubernetes-projects/k8s-cka-exemples/replicasets/replicaset-webserver.yml
 ```
 
-replicaset.apps/frontend-rs created
+replicaset.apps/pods-replicaset created
 
 ***
 
@@ -236,13 +214,7 @@ replicaset.apps/frontend-rs created
 kubectl get po -owide
 ```
 
-NAME                               READY   STATUS     RESTARTS   AGE      IP                 NODE
-
-frontend-rs-7htlt            1/1            Running     0                    11s         10.44.0.1      k8s-worker-node2
-
-frontend-rs-j9mcm        1/1            Running     0                    11s         10.47.0.2     k8s-worker-node1
-
-frontend-rs-pxm6k        1/1            Running     0                    11s         10.44.0.2     k8s-worker-node2
+<figure><img src="../.gitbook/assets/image (46).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -250,16 +222,15 @@ frontend-rs-pxm6k        1/1            Running     0                    11s    
 kubectl get rs -owide
 ```
 
-\---
-
-frontend-rs        3          3          3        20m        container-nginx        nginx          apps=webserver-app
+<figure><img src="../.gitbook/assets/image (47).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title=" Scale Down" %}
-<pre class="language-bash"><code class="lang-bash"><strong>kubectl scale rs frontend-rs --replicas=1
-</strong></code></pre>
+```bash
+kubectl scale rs pods-replicaset --replicas=1
+```
 
-replicaset.apps/frontend-rs scaled
+replicaset.apps/pods-replicaset scaled
 
 ***
 
@@ -267,9 +238,7 @@ replicaset.apps/frontend-rs scaled
 kubectl get po -owide
 ```
 
-NAME                               READY   STATUS     RESTARTS   AGE      IP                 NODE
-
-frontend-rs-j9mcm        1/1           Running     0                     11s         10.47.0.2     k8s-worker-node1
+<figure><img src="../.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -277,16 +246,15 @@ frontend-rs-j9mcm        1/1           Running     0                     11s    
 kubectl get rs -owide
 ```
 
-\---
-
-frontend-rs        1          1          1        20m        container-nginx        nginx          apps=webserver-app
+<figure><img src="../.gitbook/assets/image (49).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Scale Up" %}
-<pre class="language-bash"><code class="lang-bash"><strong>kubectl scale rs frontend-rs --replicas=3
-</strong></code></pre>
+```bash
+kubectl scale rs pods-replicaset --replicas=3
+```
 
-replicaset.apps/frontend scaled
+replicaset.apps/pods-replicaset scaled
 
 ***
 
@@ -294,13 +262,7 @@ replicaset.apps/frontend scaled
 kubectl get po -owide
 ```
 
-NAME                                READY   STATUS     RESTARTS   AGE      IP                 NODE
-
-frontend-rs-6fs6c           1/1          Running      0                     11s         10.44.0.1     k8s-worker-node2
-
-frontend-rs-gz9wx          1/1          Running      0                     11s         10.47.0.1      k8s-worker-node1
-
-frontend-rs-j9mcm          1/1          Running     0                     10m       10.47.0.2     k8s-worker-node1
+<figure><img src="../.gitbook/assets/image (50).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -308,17 +270,15 @@ frontend-rs-j9mcm          1/1          Running     0                     10m   
 kubectl get rs -owide
 ```
 
-\---
-
-frontend-rs        3          3          3        20m        container-nginx        nginx          apps=webserver-app
+<figure><img src="../.gitbook/assets/image (51).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Deleted" %}
 ```bash
-kubectl delete rs frontend-rs
+kubectl delete rs pods-replicaset
 ```
 
-replicaset.apps "frontend-rs" deleted
+replicaset.apps "pods-replicaset" deleted
 
 ***
 

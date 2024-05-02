@@ -11,7 +11,7 @@ description: >-
 
 YAML significa -> "**Y**AML **A**int't **M**arkup **L**anguage" (YAML Não é uma Linguagem de Marcação)
 
-<figure><img src="../.gitbook/assets/image (64).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (64) (1).png" alt=""><figcaption></figcaption></figure>
 
 * Case sensitive
 * UTF-8 ou UTF-16
@@ -21,18 +21,18 @@ YAML significa -> "**Y**AML **A**int't **M**arkup **L**anguage" (YAML Não é um
 
 * Os arquivos YAML têm a extensão **.yml** ou **.yaml**
 
-<figure><img src="../.gitbook/assets/image (65).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (65) (1).png" alt=""><figcaption></figcaption></figure>
 
 * HR - Human Readable
 * Melhor compreensão do que XML e JSON
 
-<figure><img src="../.gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (18) (1).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
 ## <mark style="color:red;">YAML Kubernetes Exemple</mark>
 
-<figure><img src="../.gitbook/assets/image (19).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (19) (1).png" alt=""><figcaption></figcaption></figure>
 
 ***
 

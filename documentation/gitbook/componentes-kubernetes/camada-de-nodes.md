@@ -49,7 +49,7 @@ kube-proxy é a implementação de um _proxy_ de rede executado em cada [nó](ht
 **Observação:** O Kubernetes não executa containers, quem faz esse trabalho é o "`Container runtime`"
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (63).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (63) (1).png" alt=""><figcaption></figcaption></figure>
 
 > _O Kubernetes suporta diversos agentes de execução de contêineres:_ [_Docker_](https://docs.docker.com/engine/)_,_ [_containerd_](https://containerd.io/docs/)_,_ [_CRI-O_](https://cri-o.io/#what-is-cri-o)_, e qualquer implementação do_ [_Kubernetes CRI (Container Runtime Interface)_](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md)_._
 

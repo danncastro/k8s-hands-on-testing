@@ -2,13 +2,13 @@
 
 {% embed url="https://kubernetes.io/docs/concepts/cluster-administration/networking/" %}
 
-<figure><img src="../.gitbook/assets/image (74).png" alt=""><figcaption><p>Inter Node Pod Network Communication</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (74) (1).png" alt=""><figcaption><p>Inter Node Pod Network Communication</p></figcaption></figure>
 
 ***
 
 ## <mark style="color:red;">Container to Container Communication</mark>
 
-<figure><img src="../.gitbook/assets/image (75).png" alt=""><figcaption><p>Container to container communication</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (75) (1).png" alt=""><figcaption><p>Container to container communication</p></figcaption></figure>
 
 * Um ou mais contêineres dentro de um pod compartilham o mesmo host network
 * Neste caso os pods terão seu próprio endereço IP, fazendo com que todos os contêineres dentro da POD tenham o mesmo endereço IP mas funcionando em portas diferentes.
@@ -18,7 +18,7 @@
 
 ## <mark style="color:red;">Pod to Pod Communication</mark>
 
-<figure><img src="../.gitbook/assets/image (76).png" alt=""><figcaption><p>Pod to Pod Communication</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (76) (1).png" alt=""><figcaption><p>Pod to Pod Communication</p></figcaption></figure>
 
 ### <mark style="color:red;">Intra Node Pod Network Communication</mark>
 
@@ -26,7 +26,7 @@
 * Neste caso todos os endereços IPS das pods serão diferentes e atribuídos a partir da rede local, pois compartilham o mesmo Host e a comunicação entre os pods ocorrem dentro do mesmo Worker Node
 * O Kubernetes cria e virtualiza um Bridge Network para comunicação entre os pods, que permite que os contêineres se conversem entre si, **mesmo que em pods diferentes.**
 
-<figure><img src="../.gitbook/assets/image (78).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (78) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 **Todos os recursos utilizados nesses exemplos, estarão disponibilizados no Github:** [https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cka\_exemples/networking/](https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cka\_exemples/networking/)
@@ -156,7 +156,7 @@ No resources found in default namespace.
 
 ### <mark style="color:red;">Inter Node Pod Network Communication</mark>
 
-<figure><img src="../.gitbook/assets/image (77).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (77) (1).png" alt=""><figcaption></figcaption></figure>
 
 * Comunicação de pods rodando em Multi Nodes, estabelecendo comunicação entre os Workers Nodes
 * A comunicação entre as pods neste caso acontece a partir de um plugin de rede do Kubernetes, que irá criar as tabelas de rotas necessárias, para que um contêineres possa se comunicar com outros contêineres dentro de pods diferentes em workers nodes diferentes independente do local ao qual esteja instanciado o cluster, podendo ser local ou em nuvem.

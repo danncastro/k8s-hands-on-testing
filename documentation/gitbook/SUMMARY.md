@@ -38,6 +38,7 @@
 ## Storage
 
 * [Volumes](storage/volumes.md)
+* [Statefullset](storage/statefullset.md)
 
 ## Configuration
 

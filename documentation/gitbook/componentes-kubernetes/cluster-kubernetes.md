@@ -16,11 +16,11 @@ Um cluster Kubernetes consiste em um conjunto de servidores de processamento, ch
 
 * No mínimo, um cluster K8s contém um plano de controle `Control-plane` e pelo menos um servidor de processamento `Worker node` ("Máquina ou nó `(node)"`).
 
-<figure><img src="../.gitbook/assets/image (51).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (51) (1).png" alt=""><figcaption></figcaption></figure>
 
 * O servidor de processamento (`Worker`) hospeda os Pods que são componentes de uma aplicação.
 
-<figure><img src="../.gitbook/assets/image (59).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (59) (1).png" alt=""><figcaption></figcaption></figure>
 
 > _O ambiente de gerenciamento cuida dos nós de processamento e os Pods no cluster._&#x20;
 

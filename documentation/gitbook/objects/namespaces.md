@@ -12,7 +12,7 @@ description: >-
 
 ## <mark style="color:red;">Overview</mark>
 
-<figure><img src="../.gitbook/assets/image (71).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (71) (1).png" alt=""><figcaption></figcaption></figure>
 
 Nomes de recursos precisam ser únicos dentro de um namespace, porém podem se repetir em diferentes namespaces.
 

@@ -15,19 +15,19 @@ description: >-
 
 Os services, são um tipo de recursos do Kubernetes que expõe os aplicativos para fora do Cluster, as aplicações se tornam acessíveis de fora do cluster utilizando certos tipos de serviços do Kubernetes.
 
-<figure><img src="../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (12) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 Proveem um DNS exposto aos pods que executam no cluster. Ou seja esse serviço de DNS é responsável por resolver todos os nomes para que se cheguem até as Pods
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (14).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (14) (1).png" alt=""><figcaption></figcaption></figure>
 
 > _O DNS do Cluster é um servidor DNS Real. Faz parte de toda infraestrutura de rede virtualizada de um cluster Kubernetes._
 
 Os serviços podem ser consumidos de duas formas, pelo próprio cluster, que é quando as aplicações internas acessam esses serviços ou External, acessando pela internet de fora do cluster, chegando até as aplicações através dos serviços, como mostrado abaixo:
 
-<figure><img src="../.gitbook/assets/image (15).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (15) (1).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -127,30 +127,30 @@ SELECT * FROM mensagens
 
 Serviço padrão do Kubernetes, utilizado para comunicação interna do cluster. Faz a comunicação entre diferentes pods dentro de um mesmo cluster. Torna os serviços acessíveis apenas dentro do cluster.
 
-<figure><img src="../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (10) (1).png" alt=""><figcaption></figcaption></figure>
 
 * Não é possível chamar os serviço de fora do cluster sem a utilização de um Proxy.
 * Mantem os serviços apenas internos ao cluster
 
 #### <mark style="color:blue;">Ports envolvidas na comunicação com Serviços</mark>
 
-<figure><img src="../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (8) (1).png" alt=""><figcaption></figcaption></figure>
 
 Utilizado para acessar os recursos do Kubernetes, através dessas portas que os serviços são disponibilizados.
 
 #### <mark style="color:blue;">TargetPort</mark>
 
-<figure><img src="../.gitbook/assets/image (38).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (38) (1).png" alt=""><figcaption></figcaption></figure>
 
 Informa em qual porta foi disponibilizado a aplicação dentro do container em um Pod.
 
 * Caso o valor de targetPort seja omitido, ele automaticamente assumirá o mesmo valor do atributo port.
 
-<figure><img src="../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (9) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### <mark style="color:blue;">Características</mark>
 
-<figure><img src="../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (11) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 Pods não possuem IPs estáticos
@@ -397,13 +397,13 @@ kubernetes                   ClusterIP            10.96.0.1                 \<no
 
 Permitem a comunicação externa ao cluster, disponibilizando uma porta ao qual é possível enviar requisições ao node, direcionada a alguma aplicação rodando nas Pods
 
-<figure><img src="../.gitbook/assets/image (79).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (79) (1).png" alt=""><figcaption></figcaption></figure>
 
 Quando configuramos um serviço para `NodePort`, o kubernetes aloca uma porta de um range (por padrão 30000-32767). &#x20;
 
 * Cada nó faz um proxy para aquela porta no serviço.
 
-<figure><img src="../.gitbook/assets/image (80).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (80) (1).png" alt=""><figcaption></figcaption></figure>
 
 Quando falamos de `NodePort` temos 3 parâmetros importantes:
 
@@ -417,7 +417,7 @@ Quando falamos de `NodePort` temos 3 parâmetros importantes:
 
 * <mark style="color:blue;">nodePort</mark> - Porta na qual o serviço será acessível através dos IP's dos nodes de forma externa ao Cluster.
 
-<figure><img src="../.gitbook/assets/image (81).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (81) (1).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -555,7 +555,7 @@ curl http://192.168.0.51:30008
 
 ***
 
-<figure><img src="../.gitbook/assets/image (26).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (26) (1).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Deleted" %}
@@ -593,7 +593,7 @@ O LoadBalancer é muito similar ao NodePort, que permite a comunicação entre u
 
 > Caso seja necessario a utilização do serviço do tipo LoadBalancer, será utilizado o Recurso Cloud Controller Manager (C-C-M)
 
-<figure><img src="../.gitbook/assets/image (82).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (82) (1).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -709,7 +709,7 @@ curl http://192.168.3.50:30008
 
 ***
 
-<figure><img src="../.gitbook/assets/image (28).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (28) (1).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Deleted" %}
@@ -755,13 +755,13 @@ externalName: mongo-service.database.svc.cluster.local
 
 <table><thead><tr><th width="207" align="center">Nome do serviço</th><th align="center">Namespace </th><th width="181" align="center">Tipo de Resources</th><th align="center">Cluster default </th></tr></thead><tbody><tr><td align="center"><code>mongo-service</code></td><td align="center"><code>database</code></td><td align="center"><code>svc</code></td><td align="center"><code>cluster.local</code></td></tr></tbody></table>
 
-<figure><img src="../.gitbook/assets/image (83).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (83) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (84).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (84) (1).png" alt=""><figcaption></figcaption></figure>
 
 * Caso precise modificar esse banco de dados, só é preciso alterar o serviço do externalName, sem que precise alterar diretamente a estrutura da aplicação.
 
-<figure><img src="../.gitbook/assets/image (85).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (85) (1).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -775,6 +775,6 @@ kubectl apply -f kubernetes_projects/k8s_cka_exemples/services/service_front_ext
 {% endtab %}
 {% endtabs %}
 
-<figure><img src="../.gitbook/assets/image (86).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (86) (1).png" alt=""><figcaption></figcaption></figure>
 
 ***

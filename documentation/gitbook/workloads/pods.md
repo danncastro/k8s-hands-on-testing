@@ -8,6 +8,12 @@ description: >-
 
 {% embed url="https://kubernetes.io/docs/concepts/workloads/pods/" %}
 
+{% hint style="info" %}
+#### Todos os recursos utilizados nesses exemplos, estarão disponibilizados no Github:
+
+[https://github.com/danncastro/nki-kubernetes-projects/tree/main/k8s-cka-exemples/pods](https://github.com/danncastro/nki-kubernetes-projects/tree/main/k8s-cka-exemples/pods)
+{% endhint %}
+
 ***
 
 ## <mark style="color:red;">O que é um pod?</mark> <a href="#what-is-a-pod" id="what-is-a-pod"></a>
@@ -18,18 +24,18 @@ description: >-
 
 Pods são as menores unidades de computação implantáveis ​​que você pode criar e gerenciar no Kubernetes.
 
-<figure><img src="../.gitbook/assets/image (46).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (46) (1).png" alt=""><figcaption></figcaption></figure>
 
 Um **Pod Kubernetes** é um grupo de um ou mais [containers](https://kubernetes.io/docs/concepts/containers/), **(como Docker)** que inclui armazenamento compartilhado (`volumes`), endereços IP e informações sobre como executa-lo, sendo a menor unidade de uma aplicação Kubernetes.&#x20;
 
 > Os pods são compostos por um container nos casos de uso mais comuns ou por vários containers fortemente acoplados em cenários mais avançados.
 
-<figure><img src="../.gitbook/assets/image (62).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (62) (1).png" alt=""><figcaption></figcaption></figure>
 
 * Os containers são agrupados nesses pods para que os recursos sejam compartilhados de modo mais inteligente, recebem endereços IP's únicos e compartilham o mesmo Namespaces, incluindo endereços IP.&#x20;
 * Pods também contem redes compartilhadas e recursos de armazenamento entre os containers mas não podem compartilhar a mesma porta de acesso dentro de um mesmo pod.
 
-<figure><img src="../.gitbook/assets/image (47).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (47) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 Containers em um mesmo pod se comunicam através de localhost.
@@ -39,16 +45,10 @@ Containers em um mesmo pod se comunicam através de localhost.
 
 ***
 
-{% hint style="info" %}
-#### Todos os recursos utilizados nesses exemplos, estarão disponibilizados no Github:
-
-[https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cka\_exemples/pods](https://github.com/danncastro/kubernetes\_projects/tree/main/k8s\_cka\_exemples/pods)
-{% endhint %}
-
 ### <mark style="color:red;">Criando Pods -  Imperative Form</mark>
 
 {% tabs %}
-{% tab title="Create Pod" %}
+{% tab title="Pods" %}
 ```bash
 kubectl get po -owide
 ```
@@ -69,17 +69,15 @@ pod/pod-apache created
 kubectl get po -owide
 ```
 
-NAME                   READY    STATUS       RESTARTS     AGE        IP                 NODE
-
-pod-apache          1/1            Running       0                      49s        10.46.0.1      k8s-worker-node2
+<figure><img src="../.gitbook/assets/image (101).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
-{% tab title="Deleted Pod" %}
+{% tab title="Deleted" %}
 ```bash
 kubectl delete po pod-apache
 ```
 
-pod/pod-apache deleted
+pod "pod-apache" deleted
 
 ***
 
@@ -90,7 +88,7 @@ kubectl get po -owide
 No resources found in default namespace.
 {% endtab %}
 
-{% tab title="Create Pods" %}
+{% tab title="Multi Pods" %}
 ```bash
 kubectl run pod-apache2 --image httpd
 ```
@@ -111,21 +109,17 @@ pod/pod-apache3 created
 kubectl get po -owide
 ```
 
-NAME                      READY    STATUS       RESTARTS     AGE       &#x20;
-
-pod-apache2          1/1            Running       0                      49s       &#x20;
-
-pod-apache3          1/1            Running       0                      49s       &#x20;
+<figure><img src="../.gitbook/assets/image (102).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
-{% tab title="Delete all Pods" %}
+{% tab title="Delete All" %}
 ```bash
 kubectl delete --all pods
 ```
 
-pod/pod-apache2 deleted
+pod "pod-apache2" deleted
 
-pod/pod-apache3 deleted
+pod "pod-apache3" deleted
 
 ***
 
@@ -142,12 +136,12 @@ No resources found in default namespace.
 ### <mark style="color:red;">Criando Pods - Manifest Files</mark>
 
 {% tabs %}
-{% tab title="Create Pod" %}
+{% tab title="Pod" %}
 ```bash
-kubectl apply -f nki-kubernetes-projects/k8s_cka_exemples/pods/first_pod_webserver.yml
+kubectl apply -f nki-kubernetes-projects/k8s-cka-exemples/pods/pod_webserver.yml
 ```
 
-pod/first-pod-webserver created
+pod/pod-webserver created
 
 ***
 
@@ -155,17 +149,15 @@ pod/first-pod-webserver created
 kubectl get po -owide
 ```
 
-NAME                             READY     STATUS       RESTARTS      AGE     IP                  NODE
-
-first-pod-webserver     1/1             Running       0                        12s       10.32.0.2      k8s-worker-node1
+<figure><img src="../.gitbook/assets/image (16).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
-{% tab title="Deleted Pod" %}
+{% tab title="Deleted" %}
 ```bash
-kubectl delete po -f kubernetes_projects/k8s_cka_exemples/pods/first_pod_webserver.yml
+kubectl delete -f nki-kubernetes-projects/k8s-cka-exemples/pods/pod_webserver.yml
 ```
 
-pod "first-pod-webserver" deleted
+pod "pod-webserver" deleted
 
 ***
 
@@ -231,12 +223,12 @@ Podemos ter pods que possuem mais que um único container, fazemos isto quando, 
 Através desse volume, o container `debian-container` irá popular o arquivo `/pod-data/index.html` que foi montado em ambos os containers, tornando o arquivo acessível pelo primeiro container no caminho `/usr/share/nginx/html`.
 
 {% tabs %}
-{% tab title="Multi-container" %}
+{% tab title="Pods" %}
 ```bash
-kubectl apply -f kubernetes_projects/k8s_cka_exemples/pods/pods_multi_container.yml
+kubectl apply -f nki-kubernetes-projects/k8s-cka-exemples/pods/pods_multi_container.yml
 ```
 
-pod/multi-container created
+pod/pod-multi-container created
 
 ***
 
@@ -246,9 +238,11 @@ Veja que agora temos dois containers criados em um pod de nome `multi-containers
 kubectl get po -owide
 ```
 
-NAME                              READY    STATUS       RESTARTS      AGE     IP                  NODE
+<figure><img src="../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
 
-pod-multi-container     1/1             Running      0                        80s      10.38.0.3     k8s-worker-node1
+<figure><img src="../.gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/image (19).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Stats" %}
@@ -257,39 +251,10 @@ Como nosso `debian-container` tinha apenas o propósito de popular o arquivo `in
 ***
 
 ```bash
-kubectl get pod multi-container --output=yaml
+kubectl get po pod-multi-container -oyaml
 ```
 
-```yml
-apiVersion: v1
-kind: Pod
-metadata:
-  ...
-spec:
-  ...
-  containerStatuses:
-  - containerID: docker://6bb386f758d0dd102da7177bca17ed8e1b22a5735ab5f3427d913254e3096c4d
-    image: debian:latest
-    ...
-    name: debian-container
-    ...
-    state:
-      terminated:
-        containerID: docker://6bb386f758d0dd102da7177bca17ed8e1b22a5735ab5f3427d913254e3096c4d
-        exitCode: 0
-        finishedAt: "2021-09-12T20:23:44Z"
-        reason: Completed
-        startedAt: "2021-09-12T20:23:44Z"
-  - containerID: docker://f9f4bfc457ee4d734e434b8cd656cb30b53f62d073fd2a8443a1fbd730a785e8
-    image: nginx:latest
-    ...
-    name: nginx-container
-    ...
-    state:
-      running:
-        startedAt: "2021-09-12T20:23:42Z"
-  ...
-```
+<figure><img src="../.gitbook/assets/image (22).png" alt=""><figcaption></figcaption></figure>
 
 > A opção `--output=yaml` é uma ótima maneira de gerar um arquivo YAML de algum recurso já existente no kubernetes
 {% endtab %}
@@ -309,7 +274,11 @@ kubectl exec -it pod-multi-container -c nginx-container -- /bin/bash
 
 2. Este container auxiliar muitas das vezes é chamado de _`sidecar`_, normalmente é um extrator ou fornecedor de dados, ou até mesmo um proxy.
 
-root@multi-container:/# curl localhost
+```bash
+curl localhost
+```
+
+<figure><img src="../.gitbook/assets/image (24).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -322,6 +291,8 @@ Podemos agora remover nossos containers
 ```bash
 kubectl delete -f k8s-cka-exemples/pods/pods_multi_container.yml
 ```
+
+pod "pod-multi-container" deleted
 {% endtab %}
 {% endtabs %}
 
@@ -487,12 +458,12 @@ Um pod não pode existir `Ready`  até que todos os contêineres de inicializaç
 Este exemplo demonstra como usar um contêiner de inicialização para inicializar um pod antes da execução de um contêiner de aplicativo.
 
 {% tabs %}
-{% tab title="Pod init" %}
+{% tab title="Pods" %}
 ```bash
-kubectl apply -f kubernetes_projects/k8s_cka_exemples/pods/init_pod.yml
+kubectl apply -f nki-kubernetes-projects/k8s-cka-exemples/pods/pods_init.yml
 ```
 
-pod/init-pod created
+pod/pods-init created
 
 ***
 
@@ -502,13 +473,7 @@ Podemos visualizar que a pod subirá em ordem do init
 kubectl get po --watch
 ```
 
-NAME                READY                      STATUS                       RESTARTS                          AGE
-
-init-pod             0/1                             Init:1/2                         0                                          6s
-
-init-pod             0/1                             PodInitializing             0                                          36s
-
-init-pod             1/1                              Running                       0                                         38s
+<figure><img src="../.gitbook/assets/image (28).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Mensagem" %}
@@ -520,7 +485,7 @@ Vamos acessar a Pod e visualizar a mensagem que nos é apresentado no output do 
 kubectl exec -it init-pod -- /bin/sh
 ```
 
-Defaulted container "main-app" out of: main-app, init-1 (init), init-2 (init)
+<figure><img src="../.gitbook/assets/image (29).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -532,17 +497,17 @@ Podemos sair do TTY do container e visualizar que nosso container ainda estará 
 kubectl get po
 ```
 
-NAME                READY                      STATUS                       RESTARTS                          AGE
-
-init-pod             1/1                              Running                       0                                         2m58s
+<figure><img src="../.gitbook/assets/image (32).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Deleted" %}
 ```bash
-kubectl delete -f k8s-cka-exemples/pods/init_pod.yml
+kubectl delete -f nki-kubernetes-projects/k8s-cka-exemples/pods/pods_init.yml
 ```
 
-pod "pod-init" deleted
+pod "pods-init" deleted
+
+<figure><img src="../.gitbook/assets/image (34).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
