@@ -8,10 +8,10 @@ spec:
   - name: redis-container
     image: redis
     volumeMounts:
-    - name: "hostpath-volume"
-      mountPath: "/datas"
+    - name: "hostpath-volume-persistent"
+      mountPath: "/datas-persistent"
 
   volumes:
-  - name: "hostpath-volume"
+  - name: "hostpath-volume-persistent"
     hostPath:
       path: "/var/lib/2-persist"
