@@ -12,11 +12,11 @@ spec:
     - -c
     - touch /tmp/healthy; sleep 30; rm -f /tmp/healthy; sleep 600
 
-livenessProbe:
-  exec:
-    command:
-    - cat
-    - /tmp/healthy
-  initialDelaySeconds: 3
-  periodSeconds: 5
-  failureThreshould: 3
+    livenessProbe:
+      exec:
+        command:
+        - cat
+        - /tmp/healthy
+      initialDelaySeconds: 3
+      periodSeconds: 5
+      failureThreshould: 3
