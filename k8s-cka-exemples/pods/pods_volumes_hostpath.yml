@@ -14,4 +14,4 @@ spec:
   volumes:
   - name: "hostpath-volume-persistent"
     hostPath:
-      path: "/var/lib/2-persist"
+      path: "/var/lib//datas-persistent"
