@@ -38,6 +38,7 @@
 ## Storage
 
 * [Volumes](storage/volumes.md)
+* [Stand by](storage/stand-by.md)
 * [Statefullset](storage/statefullset.md)
 
 ## Configuration

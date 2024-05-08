@@ -15,19 +15,19 @@ description: >-
 
 Os services, são um tipo de recursos do Kubernetes que expõe os aplicativos para fora do Cluster, as aplicações se tornam acessíveis de fora do cluster utilizando certos tipos de serviços do Kubernetes.
 
-<figure><img src="../.gitbook/assets/image (12) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (12) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 Proveem um DNS exposto aos pods que executam no cluster. Ou seja esse serviço de DNS é responsável por resolver todos os nomes para que se cheguem até as Pods
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (14) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (14) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 > _O DNS do Cluster é um servidor DNS Real. Faz parte de toda infraestrutura de rede virtualizada de um cluster Kubernetes._
 
 Os serviços podem ser consumidos de duas formas, pelo próprio cluster, que é quando as aplicações internas acessam esses serviços ou External, acessando pela internet de fora do cluster, chegando até as aplicações através dos serviços, como mostrado abaixo:
 
-<figure><img src="../.gitbook/assets/image (15) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (15) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -127,14 +127,14 @@ SELECT * FROM mensagens
 
 Serviço padrão do Kubernetes, utilizado para comunicação interna do cluster. Faz a comunicação entre diferentes pods dentro de um mesmo cluster. Torna os serviços acessíveis apenas dentro do cluster.
 
-<figure><img src="../.gitbook/assets/image (10) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (10) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 * Não é possível chamar os serviço de fora do cluster sem a utilização de um Proxy.
 * Mantem os serviços apenas internos ao cluster
 
 #### <mark style="color:blue;">Ports envolvidas na comunicação com Serviços</mark>
 
-<figure><img src="../.gitbook/assets/image (8) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (8) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Utilizado para acessar os recursos do Kubernetes, através dessas portas que os serviços são disponibilizados.
 
@@ -146,11 +146,11 @@ Informa em qual porta foi disponibilizado a aplicação dentro do container em u
 
 * Caso o valor de targetPort seja omitido, ele automaticamente assumirá o mesmo valor do atributo port.
 
-<figure><img src="../.gitbook/assets/image (9) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (9) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### <mark style="color:blue;">Características</mark>
 
-<figure><img src="../.gitbook/assets/image (11) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (11) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 Pods não possuem IPs estáticos

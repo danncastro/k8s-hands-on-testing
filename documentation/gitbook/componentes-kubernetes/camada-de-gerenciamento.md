@@ -66,7 +66,7 @@ No Kubernetes, um controlador é um loop que observa o estado compartilhado do c
 
 > _Executa todas as operações de gerenciamento para manter a disponibilidade do cluster._
 
-<figure><img src="../.gitbook/assets/image (16) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (16) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ***
 

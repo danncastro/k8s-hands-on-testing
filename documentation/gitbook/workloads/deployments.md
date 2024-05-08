@@ -566,7 +566,7 @@ Em outro terminal deixe em execução o comando abaixo:
 <pre class="language-bash"><code class="lang-bash"><strong>watch kubectl get po 
 </strong></code></pre>
 
-<figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Manifest" %}
@@ -630,7 +630,7 @@ Podemos ver que 3 das pods foram atualizadas
 <pre class="language-bash"><code class="lang-bash"><strong>kubectl get po
 </strong></code></pre>
 
-<figure><img src="../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
@@ -659,7 +659,7 @@ Agora todas as pods tiveram suas versões atualizadas
 <pre class="language-bash"><code class="lang-bash"><strong>kubectl get po
 </strong></code></pre>
 
-<figure><img src="../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
@@ -715,7 +715,7 @@ deployment.apps/deployment-webserver configured
 <pre class="language-bash"><code class="lang-bash"><strong>kubectl get po
 </strong></code></pre>
 
-<figure><img src="../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Scale down" %}
@@ -736,7 +736,7 @@ deployment.apps/deployment-webserver scaled
 
 &#x20;
 
-<figure><img src="../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (8) (1).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
@@ -756,7 +756,7 @@ Vamos descrever as pods em execução e ver que o Strategy Type padrão estará 
 kubectl describe deployment.apps/deployment-webserver | grep StrategyType
 ```
 
-<figure><img src="../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (9) (1).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Manifest" %}
@@ -808,7 +808,7 @@ deployment.apps/deployment-webserver configured
 watch kubectl get po
 ```
 
-<figure><img src="../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (10) (1).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Output" %}
@@ -820,7 +820,7 @@ Vamos descrever as pods em execução novamente e ver que o Strategy Type foi al
 kubectl describe deployment.apps/deployment-webserver | grep StrategyType
 ```
 
-<figure><img src="../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (11) (1).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
@@ -834,7 +834,7 @@ kubectl delete -f nki-kubernetes-projects/k8s-cka-exemples/deployments/deploymen
 
 deployment.apps "deployment-webserver" deleted
 
-<figure><img src="../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (13) (1).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Output" %}

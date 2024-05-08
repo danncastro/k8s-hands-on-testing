@@ -8,6 +8,12 @@ description: >-
 
 {% embed url="https://kubernetes.io/docs/concepts/storage/volumes/" %}
 
+{% hint style="info" %}
+#### Todos os recursos utilizados nesses exemplos, estarão disponibilizados no Github:
+
+[https://github.com/danncastro/nki-kubernetes-projects/tree/main/k8s-cka-exemples/pods](https://github.com/danncastro/nki-kubernetes-projects/tree/main/k8s-cka-exemples/pods)
+{% endhint %}
+
 ***
 
 ## <mark style="color:red;">Overview</mark>
@@ -61,7 +67,7 @@ Volumes do tipo emptyDir são volumes Ephemeral, mas ainda assim esse tipo de vo
 ### <mark style="color:red;">Criando Volumes Efêmeros - emptyDir</mark>
 
 {% tabs %}
-{% tab title="Create Pod" %}
+{% tab title="Create" %}
 ```bash
 kubectl apply -f nki-kubernetes-projects/k8s_cka_exemples/pods/pods_volume_ephemeral.yml
 ```
@@ -80,7 +86,7 @@ watch kubectl get po -owide
 {% endtab %}
 
 {% tab title="Exec" %}
-1. Agora em outro terminal vamos enquanto executa o watch, vamos conectar ao container criado
+1. Agora em outro terminal enquanto executa o watch, vamos conectar ao container criado
 
 ```bash
 kubectl exec -it volume-ephemeral-pod bash
@@ -165,7 +171,7 @@ pod/volume-ephemeral-pod created
 
 ***
 
-3 - Vamos acessar novamente o container e ver se o conteudo&#x20;
+3 - Vamos acessar novamente o container e ver se o conteudo ainda está lá.
 
 ```bash
 kubectl exec -it volume-ephemeral-pod bash
@@ -190,309 +196,157 @@ pod "volume-ephemeral-pod" deleted
 {% endtab %}
 {% endtabs %}
 
+***
 
+## <mark style="color:red;">hostPath</mark>
+
+É um tipo de volume que fornece persistência de dados, o que significa que os dados armazenados em um volume desse tipo permanecem disponíveis mesmo após o reinício de contêineres ou a remoção/recriação de pods, isso é possivel devido ao hostPath criar um volume no próprio disco do nó de trabalho (Worker Node) do cluster. Isso significa que os dados salvos em um hostPath volume, permanece lá até que o cluster ou o Worker Node seja removido, ou então até que os arquivos sejam removidos manualmente.
+
+> _Por conta dos dados serem armazenados localmente no Worker Node, não são replicados automaticamente em outros nós. Isso significa que, se o pod for movido para outro nó, ele não terá acesso aos dados armazenados no hostPath do nó original, a menos que o volume seja montado em todos os nós ou os dados sejam movidos manualmente._
 
 ***
 
-### <mark style="color:red;">PersistentVolume (PV)</mark>&#x20;
+### <mark style="color:red;">Criando Volumes Persistente- hostPaths</mark>
 
-O gerenciamento de armazenamento é uma questão bem diferente do gerenciamento de instâncias computacionais.&#x20;
 
-O subsistema `PersistentVolume` provê uma API para usuários e administradores que mostra de forma detalhada de como o armazenamento é provido e como ele é consumido. Para isso, o Kubernetes possui duas novas APIs:
 
-&#x20;PVs são plugins de `volume`, porém eles têm um ciclo de vida independente de qualquer pod que utilize um PV. Essa API tem por objetivo mostrar os detalhes da implementação do armazenamento, seja ele **NFS, ISCSI, ou um armazenamento específico de um provedor de cloud pública**.
+{% tabs %}
+{% tab title="Create" %}
+```bash
+kubectl apply -f nki-kubernetes-projects/k8s-cka-exemples/pods/pods_volumes_hostpath.yml
+```
+
+pod/volume-hostpath-pod created
 
 ***
 
-### <mark style="color:red;">PersistentVolumeClaim (PVC)</mark>&#x20;
+```bash
+watch kubectl get po -owide
+```
 
-PVC é uma requisição para armazenamento por um usuário.  Claims podem solicitar ao PV tamanho e modos de acesso específicos.  Uma reivindicação de volume persistente (PVC) é a solicitação de armazenamento, que é atendida vinculando a PVC a um volume persistente (PV). Exemplo:
+<figure><img src="../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
+
+***
+{% endtab %}
+
+{% tab title="Exec" %}
+1. Vamos executar o comando abaixo para conectar dentro do container
+
+```bash
+kubectl exec -it volume-hostpath-pod bash
+```
+
+<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
-### StorageClasses(SC)&#x20;
+2. Vamos acessar o diretorio do volume montado, e criaremos um arquivo de exemplo lá.
 
-Fornecem dinamismo para criação de `PersistentVolume` conforme demanda. Também são capazes de criar discos de armazenamento
+```bash
+cd /data-persistent/ && \
+echo "Hello Volume hostPath!" > volumehptest.txt && cat volumehptest.txt 
+```
+
+<figure><img src="../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
+
+***
+{% endtab %}
+
+{% tab title="Arquivo" %}
+1. Vamos acessar o Worker Node ao qual a Pod foi designado, como mostrado anteriormente está no node `k8s-worker-node2`
+
+```bash
+ssh vagrant@ip_do_k8s-worker-node2
+```
+
+```bash
+sudo -i
+```
+
+```bash
+cat /var/lib/data-persistent/volumehptest.txt
+```
+
+<figure><img src="../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
+
+***
+{% endtab %}
+
+{% tab title="Destroyer" %}
+1. Vamos deletar a Pod criada.
+
+```bash
+kubectl delete po volume-hostpath-pod
+```
+
+pod "volume-hostpath-pod" deleted
 
 ***
 
-## <mark style="color:red;">Persistent Storage</mark>
+2. Podemos visualizar que mesmo após a deleção da Pod, o arquivo que foi mapeado para dentro do Worker Node 2, permanece lá.
 
-Quando falamos de armazenamento persistente em Kubernetes, precisamos entender dois recursos, o `PersistentVolumes` ou `PV` e o `PersistentVolumeClaim` ou `PVC`
+<figure><img src="../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
 
-* <mark style="color:yellow;">Persistent Volume ou PV</mark> - `PVs` é um recurso de armazenamento virtual disponível no cluster, que aponta para um armazenamento físico na infraestrutura.
+***
+{% endtab %}
+
+{% tab title="Recreate" %}
+1. Vamos recriar a Pod anteriormente destruida.&#x20;
+
+```bash
+kubectl apply -f nki-kubernetes-projects/k8s-cka-exemples/pods/pods_volumes_hostpath.yml
+```
+
+pod/volume-hostpath-pod created
 
 ***
 
-* <mark style="color:yellow;">Persistent Volume Claim ou PVC</mark> - `PVCs` são solicitações de volume feitas pelo kubernetes que será atrelado a um APP.
+2. Vamos novamente validar em qual Node a Pod foi criada
 
-{% hint style="info" %}
-Podemos resumir como `PV` sendo a unidade lógica atribuída a uma unidade de armazenamento físico que será disponibilizado para o kubernetes, e o `PVC` como a solicitação do kubernetes para que um volume com especificação `x` seja utilizado.
-{% endhint %}
+```bash
+kubectl get po -owide
+```
 
-{% hint style="warning" %}
-Um ponto importante a se notar é que o `PVC` sempre irá buscar o menor armazenamento possível que entregue todos os recursos que forem solicitados.
-{% endhint %}
+<figure><img src="../.gitbook/assets/image (14).png" alt=""><figcaption></figcaption></figure>
 
-Caso um `PVC` solicite 500Mb e o menor volume com todas as características requisitadas tenha 1Gb, o `PVC` irá adquirir o `PV` de 1Gb e o utilizará para a aplicação.
+* Essa etapa de validação do Node, é importante pois caso a Pod tenha sido designada a um Nó diferente o arquivo não aparecerá onde está mapeado.
 
 ***
 
-#### <mark style="color:yellow;">Modos de Acesso</mark>
+3. Agora vamos novamente acessar a Pod
 
-Os volumes no kubernetes podem ter diversos modos de acesso:
+```bash
+kubectl exec -it volume-hostpath-pod bash
+```
 
-* `ReadWriteOnce` ou `RWO` - O volume pode ser montado como leitura e escrita por apenas um único nó
+<figure><img src="../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
-* `ReadOnlyMany` ou `ROX` - O volume pode ser montado como apenas leitura por diversos nós
+3. Podemos notar que o arquivo ainda estará lá no volume que foi montado de forma persistente.
+
+<figure><img src="../.gitbook/assets/image (15).png" alt=""><figcaption></figcaption></figure>
+
+***
+{% endtab %}
+
+{% tab title="Deleted" %}
+```bash
+kubectl delete po volume-hostpath-pod
+```
+
+pod "volume-hostpath-pod" deleted
 
 ***
 
-* `ReadWriteMany` ou `RWX` - O volume pode ser montado como leitura e escrita por diversos nós
+```bash
+kubectl get po
+```
+
+No resources found in default namespace.
 
 ***
-
-* `ReadWriteOncePod` ou `RWOP` - O volume pode ser montado como leitura e escrita por apenas um pod. (Apenas no Kubernetes 1.22+)
-
-Precisamos descrever o modo de acesso quando criamos nossos volumes.
+{% endtab %}
+{% endtabs %}
 
 ***
-
-### <mark style="color:red;">Criando PVs</mark>
-
-Como todo recurso no kubernetes, criamos `PVs` através de arquivos yaml. Porém precisaremos criar os volumes antes de criar os `PVs`, vamos conectar em nosso minikube e criar os volumes
-
-```bash
-$ minikube ssh
-$ sudo mkdir /mnt/dados{1..3}
-$ sudo sh -c "echo 'Kubernetes Storage Dados 1' > /mnt/dados1/index.html"
-$ sudo sh -c "echo 'Kubernetes Storage Dados 2' > /mnt/dados2/index.html"
-$ sudo sh -c "echo 'Kubernetes Storage Dados 3' > /mnt/dados3/index.html"
-$ ls -lR /mnt
-$ exit
-```
-
-Agora que temos nossos diretórios de dados, vamos criar nossos PersistentVolumes
-
-```bash
-$ vim pv.yml
-```
-
-```yml
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: pv10m
-  labels:
-    type: local
-spec:
-  storageClassName: manual
-  capacity:
-    storage: 10Mi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: "/mnt/dados1"
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: pv200m
-  labels:
-    type: local
-spec:
-  storageClassName: manual
-  capacity:
-    storage: 200Mi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: "/mnt/dados2"
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: pv1g
-  labels:
-    type: local
-spec:
-  storageClassName: manual
-  capacity:
-    storage: 1Gi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: "/mnt/dados3"
-```
-
-> Podemos descrever diversos recursos abrindo um novo yaml através do `---` em um mesmo arquivo
-
-Vamos criar e listar nossos `PVs`
-
-```bash
-$ kubectl apply -f pv.yml
-$ kubectl get persistentvolumes
-$ kubectl get pv
-```
-
-```bash
-NAME     CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM   STORAGECLASS   REASON   AGE
-pv10m    10Mi       RWO            Retain           Available           manual                  42s
-pv1g     1Gi        RWO            Retain           Available           manual                  42s
-pv200m   200Mi      RWO            Retain           Available           manual                  42s
-```
-
-***
-
-### <mark style="color:red;">Criando PVCs</mark>
-
-Vamos criar nossos PVCs através de um arquivo yaml
-
-```bash
-$ vim pvc.yml
-```
-
-```yml
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: pvc100m
-spec:
-  storageClassName: manual
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 100Mi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: pvc700m
-spec:
-  storageClassName: manual
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 700Mi
-```
-
-Vamos criar e listar nossos `PVs`
-
-```bash
-$ kubectl apply -f pvc.yml
-$ kubectl get persistentvolumeclaims
-$ kubectl get pvc
-$ kubectl get pv 
-```
-
-```bash
-NAME      STATUS   VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   AGE
-pvc100m   Bound    pv200m   200Mi      RWO            manual         30s
-pvc700m   Bound    pv1g     1Gi        RWO            manual         30s
-```
-
-```bash
-NAME     CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM             STORAGECLASS   REASON   AGE
-pv10m    10Mi       RWO            Retain           Available                     manual                  10m
-pv1g     1Gi        RWO            Retain           Bound       default/pvc700m   manual                  10m
-pv200m   200Mi      RWO            Retain           Bound       default/pvc100m   manual                  10m
-```
-
-Podemos ver que o os `PVs` que solicitamos foram atrelados ao `PV` que satisfaz todas suas necessidades listadas, ligando o `PVC` que solicitou 100Mi ao `pv200m` e o `PVC` que solicitou 700m ao `pv1g`.
-
-***
-
-### <mark style="color:red;">Atrelando Pod a Volumes.</mark>
-
-Para ligar um Pod a um volume, precisamos declara-lo no yaml de criação do pod.
-
-```bash
-$ vim webserver.yml
-```
-
-```yml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: webserver
-spec:
-  volumes:
-    - name: webdata
-      persistentVolumeClaim:
-        claimName: pvc100m
-  containers:
-    - name: webserver
-      image: nginx
-      ports:
-        - containerPort: 80
-          name: "http-server"
-      volumeMounts:
-        - mountPath: "/usr/share/nginx/html"
-          name: webdata
-```
-
-> Note que a configuração do Pod aponta para um `PVC` porém não especificamos o `PV`. Isso se dá porque pelo ponto de vista do Pod, um `Claim` é um volume.
-
-Vamos executar nosso pod e verificar o volume
-
-```bash
-kubectl apply -f webserver.yml
-kubectl get pods
-kubectl exec -it webserver -- /bin/bash
-curl localhost
-exit
-```
-
-Vamos alterar nosso pod para utilizar o outro `PVC`.
-
-```bash
-kubectl detele pod/webserver
-vim webserver.yml
-```
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: webserver
-spec:
-  volumes:
-    - name: webdata
-      persistentVolumeClaim:
-        claimName: pvc700m
-  containers:
-    - name: webserver
-      image: nginx
-      ports:
-        - containerPort: 80
-          name: "http-server"
-      volumeMounts:
-        - mountPath: "/usr/share/nginx/html"
-          name: webdata
-```
-
-Vamos executar nosso pod e verificar o volume
-
-```bash
-kubectl apply -f webserver.yml
-kubectl get pods
-kubectl exec -it webserver -- /bin/bash
-curl localhost
-exit
-```
-
-Mais informações sobre Volumes podem ser vistas na [Documentação Oficial](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
-
-***
-
-### <mark style="color:red;">Destruindo o Ambiente</mark>
-
-Agora que passamos por todos os conceitos base do kubernetes, podemos destruir nosso ambiente do minikube
-
-```bash
-minikube delete
-```
