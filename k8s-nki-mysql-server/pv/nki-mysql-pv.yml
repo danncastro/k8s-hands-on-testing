@@ -13,4 +13,4 @@ spec:
   - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   hostPath:
-    path: /var/lib/mysql/data_persistent
+    path: /data/mysql/
