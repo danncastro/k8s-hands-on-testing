@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: nki-mysql-service
-  namespace: nki-monitoring
+  namespace: nki-database
   labels:
     k8s-app: nki-mysql
 
