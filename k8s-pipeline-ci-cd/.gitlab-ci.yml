@@ -15,5 +15,5 @@ build_images:
   - docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
 
   script:
-  - docker build -t danncastro/app-cicd-dio:1.0 app/.
-  - docker push danncastro/app-cicd-dio:1.0
+  - docker build -t danncastro/app-ci-cd:1.0 app/.
+  - docker push danncastro/app-ci-cd:1.0
