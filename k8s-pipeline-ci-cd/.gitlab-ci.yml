@@ -1,5 +1,6 @@
 stages:
   - build
+  - deploy_gcp
 
 build_images:
   stage: build
@@ -17,3 +18,12 @@ build_images:
   script:
   - docker build -t danncastro/app-ci-cd:1.0 app/.
   - docker push danncastro/app-ci-cd:1.0
+
+deploy_gcp:
+  stage: deploy_gcp
+
+  before_script:
+  - chmod 500 $SSH_KEY
+
+  script:
+  - ssh -o StrictHostKeyChecking=no -o $SSH_KEY gcp@SSH_SERVER "sudo rm -Rf ./k8s-pipeline-ci-cd/ && git clone https://gitlab.com/devops-engineer6265823/k8s-pipeline-ci-cd.git && cd k8s-pipeline-ci-cd && sudo chmod +x ./script.sh && ./script.sh"
