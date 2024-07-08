@@ -11,7 +11,7 @@ jobs:
     - name: Checkout do código fonte
       uses: actions/checkout@v4.1.7
       with:
-        path: './k8s-filmes-review'
+        path: '../k8s-filmes-review'
 
     # - name: Login no Docker Hub
     #   uses: docker/login-action@v3.2.0
