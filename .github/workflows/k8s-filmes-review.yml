@@ -22,9 +22,9 @@ jobs:
     - name: Construção e envio da imagem para o Dockerhub
       uses: docker/build-push-action@v6.3.0
       with:
-        context: ./k8s-filmes-review/src/
+        context: k8s-hands-on-testing/k8s-filmes-review/src/
         push: true
-        file: k8s-filmes-review/src/Review-Filmes.Web/Dockerfile
+        file: k8s-hands-on-testing/k8s-filmes-review/src/Review-Filmes.Web/Dockerfile
         tags: | 
           danncastro/review-filmes:v${{ github.run_number }}
           danncastro/review-filmes:latest
