@@ -13,21 +13,21 @@ jobs:
       with:
         path: './k8s-filmes-review'
 
-    # - name: Login no Docker Hub
-    #   uses: docker/login-action@v3.2.0
-    #   with:
-    #     username: ${{ secrets.DOCKERHUB_USERNAME }}
-    #     password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Login no Docker Hub
+      uses: docker/login-action@v3.2.0
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    # - name: Construção e envio da imagem para o Dockerhub
-    #   uses: docker/build-push-action@v6.3.0
-    #   with:
-    #     context: ./k8s-filmes-review/src
-    #     push: true
-    #     file: k8s-filmes-review/src/Review-Filmes.Web/Dockerfile
-    #     tags: | 
-    #       danncastro/review-filmes:v${{ github.run_number }}
-    #       danncastro/review-filmes:latest
+    - name: Construção e envio da imagem para o Dockerhub
+      uses: docker/build-push-action@v6.3.0
+      with:
+        context: ./k8s-filmes-review/src/
+        push: true
+        file: k8s-filmes-review/src/Review-Filmes.Web/Dockerfile
+        tags: | 
+          danncastro/review-filmes:v${{ github.run_number }}
+          danncastro/review-filmes:latest
 
   CD:
     runs-on: ubuntu-latest
@@ -35,3 +35,5 @@ jobs:
     steps:
     - name: Checkout do código fonte
       uses: actions/checkout@v4.1.7
+      with:
+        path: './k8s-filmes-review'
