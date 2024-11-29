@@ -1,0 +1,36 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: network-multitool
+spec:
+  egress:
+  - ports:
+    - port: 80
+      protocol: TCP
+    - port: 443
+      protocol: TCP
+  podSelector:
+    matchLabels:
+      app: network-multitool
+  policyTypes:
+  - Egress
+  - Ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: network-multitool-ingress
+spec:
+  ingress:
+  - from:
+    ports:
+    - port: 80
+      protocol: TCP
+    - port: 443
+      protocol: TCP
+  podSelector:
+    matchLabels:
+      app: network-multitool
+  policyTypes:
+  - Ingress
+  - Egress
