@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dp-webserver
+  labels:
+    app-type: webserver
+    tier: frontend
+
+spec:
+  template:
+    metadata:
+      name: p-webserver
+      labels:
+        app-k8s: nginx
+        env: production
+
+    spec:
+      containers:
+      - name: c-nginx
+        image: nginx
+
+  selector:
+    matchLabels:
+      env: production
+      app-k8s: nginx
+  replicas: 2

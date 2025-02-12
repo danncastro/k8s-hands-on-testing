@@ -1,13 +1,12 @@
 apiVersion: v1
 kind: Pod
-
 metadata:
-  name: pod-webserver
+  name: p-webserver
   labels:
-    app: nginx-app
+    app-k8s: nginx
     tier: frontend
 
 spec:
   containers:
-  - name: container-nginx
+    name: c-nginx
     image: nginx

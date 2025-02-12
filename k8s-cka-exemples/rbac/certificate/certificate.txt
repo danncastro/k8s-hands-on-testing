@@ -1,0 +1,26 @@
+# Cria a chave do usuário
+openssl genrsa -out users.key 4096
+
+# Cria O CSR do usuário
+
+# Cria o CRT do usuário
+sudo openssl x509 -req -in users.csr -CA /etc/kubernetes/pki/ca.crt -CAkey /etc/kubernetes/pki/ca.key -CAcreateserial -out users.crt -days 365
+chown usuario:usuario users.crt
+
+# Criar as credenciais do usuário no Kubernetes
+kubectl config set-credentials users --client-certificate=users.crt --client-key=users.key
+
+# Criar o contexto para o usuário no cluster do Kubernetes
+kubectl config set-context users-context --cluster=nome_cluster --user=users
+
+# Altera o contexto atual
+kubectl config use-context users-context
+
+### PARA GERAR CONFIGURAÇÂO UNICA PARA DETERMINADOS USUÀRIOS
+kubectl config set-cluster kubernetes --certificate-authority=/etc/kubernetes/pki/ca.crt --server=https://172.16.10.10:6443 --kubeconfig=user-config.yaml
+
+kubectl config set-credentials username --client-certificate=user-cert.pem --client-key=user-key.pem --kubeconfig=user-config.yaml
+
+kubectl config set-context user-context --cluster=kubernetes --user=username --namespace=default --kubeconfig=user-config.yaml
+
+kubectl config use-context user-context --kubeconfig=user-config.yaml

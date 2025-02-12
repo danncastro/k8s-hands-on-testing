@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rs-webserver
+  labels:
+    app-type: webserver
+    tier: frontend
+
+spec:
+  template:
+    metadata:
+      name: p-webserver
+      labels:
+        app-k8s: nginx
+
+    spec:
+      containers:
+      - name: c-nginx
+        image: nginx
+
+  selector:
+    matchLabels:
+      app-k8s: nginx
+  replicas: 2
